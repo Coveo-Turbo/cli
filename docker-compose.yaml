@@ -1,0 +1,19 @@
+version: '3.5'
+
+services:
+    engine:
+        image: node:12
+        container_name: gateway_engine
+        networks:
+            gateway:
+                aliases:
+                    - api
+        ports:
+            - ${SERVER_PORT}:${SERVER_PORT}
+        entrypoint: npm start
+        env_file: .env
+        volumes:
+            - ./:/www
+        working_dir: /www
+networks: 
+    gateway:

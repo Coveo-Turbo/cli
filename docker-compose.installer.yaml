@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  node:
+    image: node:12-alpine
+    volumes:
+      - nodemodules_coveopsscripts:/www/node_modules
+      - .:/www
+    working_dir: /www
+  install:
+    extends:
+      service: node
+    command: npm i
+volumes:
+  nodemodules_coveopsscripts:
+    external: true

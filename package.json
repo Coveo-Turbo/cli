@@ -1,0 +1,41 @@
+{
+  "name": "coveops-scripts",
+  "version": "1.0.0",
+  "description": "A CLI to facilitate common Coveo PS Tasks",
+  "main": "coveops.js",
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "tramway build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@ssh.dev.azure.com:v3/CoveoPS-Labs/Shared-Components/coveops-scripts"
+  },
+  "bin": {
+    "coveops": "./bin/coveops.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
+    "@babel/plugin-transform-flow-strip-types": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "tramway": "^0.5.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "method-override": "^3.0.0",
+    "tramway-command": "^1.2.0",
+    "tramway-command-di-factory": "^1.0.1",
+    "tramway-core": "^2.2.2",
+    "tramway-core-dependency-injector": "^1.3.1",
+    "tramway-core-logger": "^0.1.0",
+    "tramway-core-router": "^3.7.0",
+    "tramway-logger-winston": "^0.1.0"
+  }
+}
