@@ -24,11 +24,15 @@ export default class CoveoSearchPageCompiler {
         return fs.readFileSync(filePath).toString()
     }
 
-    getAssets(directory, exceptions = []) {
+    getAssets(directory, inclusions = [], exceptions = []) {
         let fileNames = fs.readdirSync(directory);
 
         if (exceptions.length) {
             fileNames = fileNames.filter(fileName => !exceptions.includes(fileName));
+        }
+
+        if (inclusions.length) {
+            fileNames = fileNames.filter(fileName => inclusions.includes(fileName));
         }
 
         return fileNames.map(fileName => {

@@ -1,7 +1,8 @@
-import {Command, commands} from 'tramway-command';
+import {Command, commands, terminal} from 'tramway-command';
 import Logger from 'tramway-core-logger';
 
 const {InputOption} = commands;
+const {ProgressBar} = terminal;
 
 export default class UpdateCoveoSearchPageCommand extends Command {
     constructor(bundler, logger) {
@@ -11,9 +12,11 @@ export default class UpdateCoveoSearchPageCommand extends Command {
     }
 
     configure() {
-        this.args.add(new InputOption('pageName', InputOption.string).isRequired());
+        this.args.add(new InputOption('pageNames', InputOption.array, []).isRequired());
         this.options.add((new InputOption('cssExclusions', InputOption.array, [])));
         this.options.add((new InputOption('jsExclusions', InputOption.array, [])));
+        this.options.add((new InputOption('cssInclusions', InputOption.array, [])));
+        this.options.add((new InputOption('jsInclusions', InputOption.array, [])));
         this.options.add(new InputOption('cssPath', InputOption.string).isRequired());
         this.options.add(new InputOption('jsPath', InputOption.string).isRequired());
         this.options.add(new InputOption('htmlFilePath', InputOption.string).isRequired());
@@ -24,9 +27,11 @@ export default class UpdateCoveoSearchPageCommand extends Command {
     }
 
     action() {
-        const pageName = this.getArgument('pageName');
+        const pageNames = this.getArgument('pageNames');
         const cssExclusions = this.getOption('cssExclusions');
         const jsExclusions = this.getOption('jsExclusions');
+        const cssInclusions = this.getOption('cssInclusions');
+        const jsInclusions = this.getOption('jsInclusions');
         const cssPath = this.getOption('cssPath');
         const jsPath = this.getOption('jsPath');
         const htmlFilePath = this.getOption('htmlFilePath');
@@ -35,29 +40,41 @@ export default class UpdateCoveoSearchPageCommand extends Command {
         const endDelimeter = this.getOption('endDelimeter');
         const verbosity = this.getOption('verbosity');
 
-        if (Logger.SILLY === verbosity) {
-            this.logger.log(verbosity, JSON.stringify({
-                pageName,
+        const progressBar = new ProgressBar('Bundling pages', pageNames.length);
+
+        pageNames.forEach(pageName => {
+            progressBar.start(`Bundling ${pageNames}`);
+
+            if (Logger.SILLY === verbosity) {
+                this.logger.log(verbosity, JSON.stringify({
+                    pageName,
+                    cssExclusions,
+                    jsExclusions,
+                    cssInclusions,
+                    jsInclusions,
+                    cssPath,
+                    jsPath,
+                    htmlFilePath,
+                    pagesFilePath,
+                    startDelimeter,
+                    endDelimeter,
+                }));
+            }
+            
+            this.bundler.bundle(pageName, {
                 cssExclusions,
                 jsExclusions,
+                cssInclusions,
+                jsInclusions,
                 cssPath,
                 jsPath,
                 htmlFilePath,
                 pagesFilePath,
                 startDelimeter,
                 endDelimeter,
-            }));
-        }
-        
-        this.bundler.bundle(pageName, {
-            cssExclusions,
-            jsExclusions,
-            cssPath,
-            jsPath,
-            htmlFilePath,
-            pagesFilePath,
-            startDelimeter,
-            endDelimeter,
+            });
+
+            progressBar.finish(`Bundling ${pageNames}`);
         })
     }
 }

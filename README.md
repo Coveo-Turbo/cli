@@ -4,7 +4,7 @@ A CLI application that can house modular and reusable scripts for various Coveo 
 
 ## Installation
 
-`npm install --save-dev <NEEDS AN NPM ORG FOR PS>`
+`npm install --save-dev @coveops/cli`
 
 ## Documentation
 
@@ -33,10 +33,12 @@ The Coveo Search Page currently does not support static assets, nor versioning s
 
 | Argument | Command Type | Type | Default | Required | Comments |
 | --- | --- | --- | --- | --- | --- |
-| pageName | argument | string | none | yes | The name of the page as found in the Search Pages section in the Coveo Platform |
+| pageNames | argument | string[] | [] | yes | The names of the pages as found in the Search Pages section in the Coveo Platform |
 | cssPath | option | string | none | yes | The path to the built css that is output from your build tools |
+| cssInclusions | option | string[] | ```[]``` | no | A space separated string of file names in the cssPath to include |
 | cssExclusions | option | string[] | ```[]``` | no | A space separated string of file names in the cssPath to ignore |
 | jsPath | option | string | none | yes | The path to the built js that is output from your build tools |
+| jsInclusions | option | string[] | ```[]``` | no | A space separated string of file names in the jsPath to include |
 | jsExclusions | option | string[] | ```[]``` | no | A space separated string of file names in the jsPath to ignore |
 | htmlFilePath | option | string | none | yes | The path to the html file that contains the markup for the page associated with the pageName |
 | pagesFilePath | option | string | none | yes | The path to the JSON configuration file for the pages backed up with the `coveo-platform-client` |
@@ -46,7 +48,7 @@ The Coveo Search Page currently does not support static assets, nor versioning s
 Example usage:
 
 ```bash
-./node_modules/.bin/coveops searchpage:update Coveo_PageName \
+./node_modules/.bin/coveops searchpage:update Coveo_PageName1 Coveo_PageName2 \
                 --cssExclusions coveo-page.css \
                 --jsExclusions coveo-page.js coveo-page.bundle.js page.min.js \
                 --cssPath ./dist/assets/css \

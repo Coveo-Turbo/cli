@@ -8,6 +8,8 @@ export default class CoveoSearchPageBundler {
         const {
             cssExclusions = [],
             jsExclusions = [],
+            cssInclusions = [],
+            jsInclusions = [],
             cssPath,
             jsPath,
             htmlFilePath,
@@ -16,8 +18,8 @@ export default class CoveoSearchPageBundler {
             endDelimeter,
         } = options;
 
-        const cssBlocks = this.compiler.getAssets(cssPath, cssExclusions).map(asset => this.compiler.buildCSS(asset));
-        const jsBlocks = this.compiler.getAssets(jsPath, jsExclusions).map(asset => this.compiler.buildJS(asset));
+        const cssBlocks = this.compiler.getAssets(cssPath, cssInclusions, cssExclusions).map(asset => this.compiler.buildCSS(asset));
+        const jsBlocks = this.compiler.getAssets(jsPath, jsInclusions, jsExclusions).map(asset => this.compiler.buildJS(asset));
 
         const widget = this.compiler.getWidget(htmlFilePath, {startDelimeter, endDelimeter});
 
