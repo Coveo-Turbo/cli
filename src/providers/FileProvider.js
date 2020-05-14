@@ -31,7 +31,6 @@ export default class FileProvider {
     
             fs.copyFileSync(source, destination, COPYFILE_EXCL);
         } catch (e) {
-            console.log(e)
             if (e.message.includes('no such file or directory')) {
                 const {dir} = path.parse(destination);
                 mkdirp.sync(dir);
