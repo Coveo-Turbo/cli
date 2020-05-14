@@ -3,11 +3,7 @@ version: '3.5'
 services:
     engine:
         image: node:12
-        container_name: gateway_engine
-        networks:
-            gateway:
-                aliases:
-                    - api
+        container_name: coveo_scripts
         ports:
             - ${SERVER_PORT}:${SERVER_PORT}
         entrypoint: npm start
@@ -15,5 +11,3 @@ services:
         volumes:
             - ./:/www
         working_dir: /www
-networks: 
-    gateway:

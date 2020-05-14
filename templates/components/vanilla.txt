@@ -1,0 +1,6 @@
+const Coveo = require('coveo-search-ui');
+
+module.exports = function __COMPONENT_NAME__(searchInterface) {
+    searchInterface = searchInterface || document.querySelector('.CoveoSearchInterface');
+    
+}

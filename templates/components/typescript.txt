@@ -1,0 +1,15 @@
+import { Component, Initialization, IComponentBindings, ComponentOptions } from 'coveo-search-ui';
+
+export interface I__COMPONENT_NAME__Options {}
+
+export class __COMPONENT_NAME__ extends Component {
+    static ID = '__COMPONENT_NAME__';
+    static options: I__COMPONENT_NAME__Options = {};
+
+    constructor(public element: HTMLElement, public options: I__COMPONENT_NAME__Options, public bindings: IComponentBindings) {
+        super(element, __COMPONENT_NAME__.ID, bindings);
+        this.options = ComponentOptions.initComponentOptions(element, __COMPONENT_NAME__, options);
+    }
+}
+
+Initialization.registerAutoCreateComponent(__COMPONENT_NAME__);

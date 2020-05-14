@@ -27,6 +27,33 @@ Alternatively on Windows: `node_modules\coveops-scripts\dist\coveoops.js COMMAND
 
 It is recommended to use the commands in a docker container to avoid environment issues.
 
+### Create a Component
+
+Will create a blank component to be used to canvas for your needs. Is currently available as vanilla and typescript types.
+
+    - A Typescript type component will create a class and associate the build tools to use the typescript compiler
+
+    - A Vanilla type component will create a simple module bridge to permit any Javascript code to be bundled. It will associate the build tools to use the Javascript bundler.
+
+| Argument | Command Type | Type | Default | Required | Comments |
+| --- | --- | --- | --- | --- | --- |
+| name | argument | string | none | yes | The name of your component |
+| type | option | string | `typescript` | no | The type of component to generate. [`typescript`, `vanilla`] |
+| path | option | string | `src` | no | The path where the source code will be generated |
+| verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
+
+Example usage:
+
+```bash
+./node_modules/.bin/coveops component:create TestComponent
+```
+
+To use vanilla Javascript
+
+```bash
+./node_modules/.bin/coveops component:create TestComponent --type vanilla
+```
+
 ### Bundle a Coveo Search Page
 
 The Coveo Search Page currently does not support static assets, nor versioning so a bridge is needed between development with Webpack and uploading the search page to the platform with `coveo-platform-client` version 2.11.0 or higher.

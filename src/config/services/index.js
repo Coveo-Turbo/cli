@@ -4,6 +4,9 @@ import core from './core';
 import controllers from './controllers';
 import services from './services';
 import commands from './commands';
+import providers from './providers';
+import factories from './factories';
+import resolvers from './resolvers';
 
 export default {
     ...router,
@@ -12,4 +15,7 @@ export default {
     ...controllers,
     ...services,
     ...commands,
+    ...providers,
+    ...factories,
+    ...resolvers,
 }
