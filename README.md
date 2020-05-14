@@ -27,13 +27,39 @@ Alternatively on Windows: `node_modules\coveops-scripts\dist\coveoops.js COMMAND
 
 It is recommended to use the commands in a docker container to avoid environment issues.
 
+### Build
+
+Will use a standard Webpack configuration to build and bundle the project for distribution.
+
+You can also add the command to your `package.json` scripts to continue using familiar hooks like `npm run build`.
+
+| Argument | Command Type | Type | Default | Required | Comments |
+| --- | --- | --- | --- | --- | --- |
+| name | argument | string | none | yes | The name of your component that will be used as the library name and added to the browser's global namespace. Note, `Coveo` will be prepended at build-time |
+| type | option | string | `typescript` | no | The type of component to generate. [`typescript`, `vanilla`] |
+| path | option | string | `src` | no | The path where the source code will be generated |
+| destination | option | string | `dist` | no | The path where the distributable code will be generated |
+| verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
+
+Example:
+
+```bash
+./node_modules/.bin/coveops build TestComponent
+```
+
+To use vanilla Javascript
+
+```bash
+./node_modules/.bin/coveops build TestComponent --type vanilla
+```
+
 ### Create a Component
 
 Will create a blank component to be used to canvas for your needs. Is currently available as vanilla and typescript types.
 
-    - A Typescript type component will create a class and associate the build tools to use the typescript compiler
+- A Typescript type component will create a class and associate the build tools to use the typescript compiler
 
-    - A Vanilla type component will create a simple module bridge to permit any Javascript code to be bundled. It will associate the build tools to use the Javascript bundler.
+- A Vanilla type component will create a simple module bridge to permit any Javascript code to be bundled. It will associate the build tools to use the Javascript bundler.
 
 | Argument | Command Type | Type | Default | Required | Comments |
 | --- | --- | --- | --- | --- | --- |

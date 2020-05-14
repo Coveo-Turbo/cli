@@ -8,7 +8,8 @@ import methodOverrides from './methodOverrides';
 import routes from './routes';
 import commands from './commands';
 import searchPageCompiler from './searchPageCompiler';
-import component from './component'
+import component from './component';
+import webpack from './webpack';
 
 export default {
     ...winston,
@@ -22,4 +23,5 @@ export default {
     commands,
     searchPageCompiler,
     component,
+    webpack,
 }

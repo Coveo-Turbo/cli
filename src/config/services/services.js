@@ -6,6 +6,7 @@ import {
     TemplateLoader,
     PascalCaseNamingStrategy,
     CamelCaseNamingStrategy,
+    BuildService,
 } from '../../services';
 
 export default {
@@ -58,5 +59,12 @@ export default {
     "service.naming.camelcase": {
         "class": CamelCaseNamingStrategy,
         "constructor": [],
+    },
+    "service.build": {
+        "class": BuildService,
+        "constructor": [
+            {"type": "service", "key": "factory.webpackconfig"},
+            {"type": "parameter", "key": "component"},
+        ],
     },
 }

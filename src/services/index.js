@@ -4,6 +4,7 @@ import CoveoSearchPageBundler from './CoveoSearchPageBundler';
 import ComponentService from './ComponentService';
 import Resolver from './Resolver';
 import TemplateLoader from './TemplateLoader';
+import BuildService from './BuildService';
 
 export * from './strategies';
 export {
@@ -13,4 +14,5 @@ export {
     ComponentService,
     Resolver,
     TemplateLoader,
+    BuildService,
 }

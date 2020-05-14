@@ -5,6 +5,7 @@ const settings = {
     types: [TYPE_TYPESCRIPT, TYPE_VANILLA],
     defaultType: TYPE_TYPESCRIPT,
     path: 'src',
+    destination: 'dist',
 };
 
 export default settings;
