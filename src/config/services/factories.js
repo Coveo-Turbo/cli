@@ -1,6 +1,7 @@
 import {
     ComponentFactory,
     IndexFactory,
+    WebpackConfigurationFactory,
 } from '../../factories';
 
 export default {
@@ -16,6 +17,14 @@ export default {
         "class": IndexFactory,
         "constructor": [
             {"type": "service", "key": "service.indexloader"},
+        ],
+    },
+    "factory.webpackconfig": {
+        "class": WebpackConfigurationFactory,
+        "constructor": [
+            {"type": "service", "key": "resolver.name"},
+            {"type": "service", "key": "resolver.extension"},
+            {"type": "parameter", "key": "webpack"},
         ],
     },
 }

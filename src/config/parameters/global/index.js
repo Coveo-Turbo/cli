@@ -8,7 +8,11 @@ import methodOverrides from './methodOverrides';
 import routes from './routes';
 import commands from './commands';
 import searchPageCompiler from './searchPageCompiler';
-import component from './component'
+import component from './component';
+import webpack from './webpack';
+import baseFiles from './basefiles';
+import libraries from './libraries';
+import coveo from './coveo';
 
 export default {
     ...winston,
@@ -22,4 +26,8 @@ export default {
     commands,
     searchPageCompiler,
     component,
+    webpack,
+    ...baseFiles,
+    ...libraries,
+    coveo,
 }

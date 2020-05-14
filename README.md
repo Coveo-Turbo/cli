@@ -9,6 +9,11 @@ A CLI application that can house modular and reusable scripts for various Coveo 
 ## Documentation
 
 * Usage
+* Build
+* Serve
+* Create a Project
+* Create a Component
+* Create a Sandbox
 * Bundle Search Page
 
 ### Usage
@@ -27,31 +32,157 @@ Alternatively on Windows: `node_modules\coveops-scripts\dist\coveoops.js COMMAND
 
 It is recommended to use the commands in a docker container to avoid environment issues.
 
-### Create a Component
+### Build
 
-Will create a blank component to be used to canvas for your needs. Is currently available as vanilla and typescript types.
+Will use a standard Webpack configuration to build and bundle the project for distribution.
 
-    - A Typescript type component will create a class and associate the build tools to use the typescript compiler
+You can also add the command to your `package.json` scripts to continue using familiar hooks like `npm run build`.
 
-    - A Vanilla type component will create a simple module bridge to permit any Javascript code to be bundled. It will associate the build tools to use the Javascript bundler.
+| Argument | Command Type | Type | Default | Required | Comments |
+| --- | --- | --- | --- | --- | --- |
+| name | argument | string | none | yes | The name of your component that will be used as the library name and added to the browser's global namespace. Note, `Coveo` will be prepended at build-time |
+| template | option | string | `typescript` | no | The template of component to generate. [`typescript`, `vanilla`] |
+| path | option | string | `src` | no | The path where the source code will be generated |
+| destination | option | string | `dist` | no | The path where the distributable code will be generated |
+| verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
+
+Example:
+
+```bash
+./node_modules/.bin/coveops build TestComponent
+```
+
+To use vanilla Javascript
+
+```bash
+./node_modules/.bin/coveops build TestComponent --template vanilla
+```
+
+### Serve
+
+Will start a Node server designed to:
+
+- Treat the compiled dist the way a CDN would
+- Expose installed components under the @coveops namespace as hosted components
+- Serve a static HTML page of choice
+
+| Argument | Command Type | Type | Default | Required | Comments |
+| --- | --- | --- | --- | --- | --- |
+| port | option | number | 8080 | no | The port number |
+| path | option | string | `sandbox` | no | The path to the dedicated sandbox folder for testing |
+| org-id | option | string | none | yes | The id of the organization |
+| token | option | string | none | yes | The token used to authenticate to the organization |
+| rest-uri | option | string | `https://platform.cloud.coveo.com/rest/search` | no | The uri used by JSUI to access the REST API |
+| search-hub | option | string | none | no | The search hub |
+| search-url | option | string | none | no | The url of a search page for a standalone searchbox |
+| verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
+
+Example usage:
+
+```bash
+./node_modules/.bin/coveops serve --org-id <ID HERE> --token "<TOKEN HERE>"
+```
+
+To use a different port
+
+```bash
+./node_modules/.bin/coveops serve --port 3000 --org-id <ID HERE> --token "<TOKEN HERE>"
+```
+
+Some of the arguments have a corresponding environment variable that can also be used by the server.
+
+| Argument | Environment Variable |
+| --- | --- |
+| port | PORT |
+| path | COVEO_SANDBOX_PATH |
+| org-id | COVEO_ORG_ID |
+| token | COVEO_TOKEN |
+| rest-uri | COVEO_REST_URI |
+| search-hub | COVEO_SEARCH_HUB |
+| search-url | COVEO_SEARCH_URL |
+
+### Create a Project
+
+Will add the necessary files to kick-start a project to create a shareable component and optionally the component itself.
 
 | Argument | Command Type | Type | Default | Required | Comments |
 | --- | --- | --- | --- | --- | --- |
 | name | argument | string | none | yes | The name of your component |
-| type | option | string | `typescript` | no | The type of component to generate. [`typescript`, `vanilla`] |
+| template | option | string | `typescript` | no | The template of component to generate. [`typescript`, `vanilla`] |
+| create-component | option | boolean | `false` | no | Whether to create the component using the same name as the project |
+| component-path | option | string | `src` | no | The path where the source code of the component will be generated |
+| verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
+
+Example usage:
+
+```bash
+./node_modules/.bin/coveops create:project TestComponent
+```
+
+To use vanilla Javascript
+
+> Remark that building a component requires the same template option to be passed to the build command
+
+```bash
+./node_modules/.bin/coveops create:project TestComponent --template vanilla
+```
+
+To create a component at the same time as a new project
+
+```bash
+./node_modules/.bin/coveops create:project TestComponent --create-component
+```
+
+### Create a Component
+
+Will create a blank component to be used to canvas for your needs. Is currently available as vanilla and typescript types.
+
+- A Typescript template component will create a class and associate the build tools to use the typescript compiler
+
+- A Vanilla template component will create a simple module bridge to permit any Javascript code to be bundled. It will associate the build tools to use the Javascript bundler.
+
+| Argument | Command Type | Type | Default | Required | Comments |
+| --- | --- | --- | --- | --- | --- |
+| name | argument | string | none | yes | The name of your component |
+| template | option | string | `typescript` | no | The template of component to generate. [`typescript`, `vanilla`] |
 | path | option | string | `src` | no | The path where the source code will be generated |
 | verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
 
 Example usage:
 
 ```bash
-./node_modules/.bin/coveops component:create TestComponent
+./node_modules/.bin/coveops create:component TestComponent
 ```
 
 To use vanilla Javascript
 
+> Remark that building a component requires the same template option to be passed to the build command
+
 ```bash
-./node_modules/.bin/coveops component:create TestComponent --type vanilla
+./node_modules/.bin/coveops create:component TestComponent --template vanilla
+```
+
+### Create a Sandbox
+
+Will create a folder with a generated search page to be used for basic debugging.
+
+| Argument | Command Type | Type | Default | Required | Comments |
+| --- | --- | --- | --- | --- | --- |
+| path | option | string | `sandbox` | no | The path where the sandbox code will be generated |
+| verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
+
+Example usage:
+
+```bash
+./node_modules/.bin/coveops create:sandbox
+```
+
+To use a different path
+
+> Remark that changing the path of the sandbox requires using the same path when serving it
+
+```bash
+./node_modules/.bin/coveops create:sandbox --path test
 ```
 
 ### Bundle a Coveo Search Page
