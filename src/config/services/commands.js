@@ -3,6 +3,8 @@ import {
     CreateComponentCommand,
     BuildCommand,
     CreateProjectCommand,
+    ServerCommand,
+    CreateSandboxCommand,
 } from '../../commands';
 
 export default {
@@ -36,6 +38,23 @@ export default {
             {"type": "service", "key": "service.component"},
             {"type": "service", "key": "logger"},
             {"type": "parameter", "key": "component"},
+        ],
+    },
+    "command.server": {
+        "class": ServerCommand,
+        "constructor": [
+            {"type": "service", "key": "app"},
+            {"type": "service", "key": "logger"},
+            {"type": "service", "key": "resolver.sandbox"},
+            {"type": "parameter", "key": "coveo"},
+        ],
+    },
+    "command.sandbox": {
+        "class": CreateSandboxCommand,
+        "constructor": [
+            {"type": "service", "key": "service.sandbox"},
+            {"type": "service", "key": "logger"},
+            {"type": "parameter", "key": "coveo"},
         ],
     },
 }

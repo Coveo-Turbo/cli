@@ -5,4 +5,7 @@ export default {
     "build": "command.build",
     "create:project": "command.createproject",
     "project:create": "command.createproject",
+    "serve": "command.server",
+    "create:sandbox": "command.sandbox",
+    "sandbox:create": "command.sandbox",
 }

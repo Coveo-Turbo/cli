@@ -7,6 +7,7 @@ import TemplateLoader from './TemplateLoader';
 import BuildService from './BuildService';
 import ProjectService from './ProjectService';
 import InstallService from './InstallService';
+import SandboxService from './SandboxService';
 
 export * from './strategies';
 export {
@@ -19,4 +20,5 @@ export {
     BuildService,
     ProjectService,
     InstallService,
+    SandboxService,
 }

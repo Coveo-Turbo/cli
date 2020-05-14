@@ -1,5 +1,6 @@
 import fs from 'fs';
 import mkdirp from 'mkdirp';
+import path from 'path';
 const { COPYFILE_EXCL } = fs.constants;
 
 export default class FileProvider {
@@ -22,11 +23,22 @@ export default class FileProvider {
     }
 
     copy(source, destination, overwrite = false) {
-        if (overwrite) {
-            fs.copyFileSync(source, destination);
-            return;
-        }
+        try {
+            if (overwrite) {
+                fs.copyFileSync(source, destination);
+                return;
+            }
+    
+            fs.copyFileSync(source, destination, COPYFILE_EXCL);
+        } catch (e) {
+            console.log(e)
+            if (e.message.includes('no such file or directory')) {
+                const {dir} = path.parse(destination);
+                mkdirp.sync(dir);
+                return this.copy(source, destination, overwrite);
+            }
 
-        fs.copyFileSync(source, destination, COPYFILE_EXCL);
+            throw e;
+        }
     }
 }

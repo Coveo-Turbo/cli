@@ -12,6 +12,7 @@ import component from './component';
 import webpack from './webpack';
 import baseFiles from './basefiles';
 import libraries from './libraries';
+import coveo from './coveo';
 
 export default {
     ...winston,
@@ -28,4 +29,5 @@ export default {
     webpack,
     ...baseFiles,
     ...libraries,
+    coveo,
 }

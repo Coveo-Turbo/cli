@@ -91,4 +91,8 @@ export default {
             },
         ]
     },
+    "resolver.sandbox": {
+        "class": Resolver,
+        "constructor": [],
+    },
 }

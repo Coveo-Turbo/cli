@@ -9,6 +9,7 @@ import {
     BuildService,
     ProjectService,
     InstallService,
+    SandboxService,
 } from '../../services';
 
 export default {
@@ -81,5 +82,11 @@ export default {
     "service.install": {
         "class": InstallService,
         "constructor": [],
+    },
+    "service.sandbox": {
+        "class": SandboxService,
+        "constructor": [
+            {"type": "service", "key": "provider.file"},
+        ],
     },
 }
