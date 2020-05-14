@@ -51,4 +51,44 @@ export default {
             },
         ]
     },
+    "resolver.basefiles": {
+        "class": Resolver,
+        "constructor": [],
+        "functions": [
+            {
+                "function": "add",
+                "args": [
+                    'vanilla', 
+                    {"type": "parameter", "key": "basefiles.vanilla"}
+                ]
+            },
+            {
+                "function": "add",
+                "args": [
+                    'typescript', 
+                    {"type": "parameter", "key": "basefiles.typescript"}
+                ]
+            },
+        ]
+    },
+    "resolver.libraries": {
+        "class": Resolver,
+        "constructor": [],
+        "functions": [
+            {
+                "function": "add",
+                "args": [
+                    'vanilla', 
+                    {"type": "parameter", "key": "libraries.vanilla"}
+                ]
+            },
+            {
+                "function": "add",
+                "args": [
+                    'typescript', 
+                    {"type": "parameter", "key": "libraries.typescript"}
+                ]
+            },
+        ]
+    },
 }

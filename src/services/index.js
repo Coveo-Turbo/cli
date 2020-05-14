@@ -5,6 +5,8 @@ import ComponentService from './ComponentService';
 import Resolver from './Resolver';
 import TemplateLoader from './TemplateLoader';
 import BuildService from './BuildService';
+import ProjectService from './ProjectService';
+import InstallService from './InstallService';
 
 export * from './strategies';
 export {
@@ -15,4 +17,6 @@ export {
     Resolver,
     TemplateLoader,
     BuildService,
+    ProjectService,
+    InstallService,
 }

@@ -36,7 +36,7 @@ You can also add the command to your `package.json` scripts to continue using fa
 | Argument | Command Type | Type | Default | Required | Comments |
 | --- | --- | --- | --- | --- | --- |
 | name | argument | string | none | yes | The name of your component that will be used as the library name and added to the browser's global namespace. Note, `Coveo` will be prepended at build-time |
-| type | option | string | `typescript` | no | The type of component to generate. [`typescript`, `vanilla`] |
+| template | option | string | `typescript` | no | The template of component to generate. [`typescript`, `vanilla`] |
 | path | option | string | `src` | no | The path where the source code will be generated |
 | destination | option | string | `dist` | no | The path where the distributable code will be generated |
 | verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
@@ -50,34 +50,64 @@ Example:
 To use vanilla Javascript
 
 ```bash
-./node_modules/.bin/coveops build TestComponent --type vanilla
+./node_modules/.bin/coveops build TestComponent --template vanilla
+```
+
+### Create a Project
+
+Will add the necessary files to kick-start a project to create a shareable component and optionally the component itself.
+
+| Argument | Command Type | Type | Default | Required | Comments |
+| --- | --- | --- | --- | --- | --- |
+| name | argument | string | none | yes | The name of your component |
+| template | option | string | `typescript` | no | The template of component to generate. [`typescript`, `vanilla`] |
+| create-component | option | boolean | `false` | no | Whether to create the component using the same name as the project |
+| component-path | option | string | `src` | no | The path where the source code of the component will be generated |
+| verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
+
+Example usage:
+
+```bash
+./node_modules/.bin/coveops create:project TestComponent
+```
+
+To use vanilla Javascript
+
+```bash
+./node_modules/.bin/coveops create:project TestComponent --template vanilla
+```
+
+To create a component at the same time as a new project
+
+```bash
+./node_modules/.bin/coveops create:project TestComponent --create-component
 ```
 
 ### Create a Component
 
 Will create a blank component to be used to canvas for your needs. Is currently available as vanilla and typescript types.
 
-- A Typescript type component will create a class and associate the build tools to use the typescript compiler
+- A Typescript template component will create a class and associate the build tools to use the typescript compiler
 
-- A Vanilla type component will create a simple module bridge to permit any Javascript code to be bundled. It will associate the build tools to use the Javascript bundler.
+- A Vanilla template component will create a simple module bridge to permit any Javascript code to be bundled. It will associate the build tools to use the Javascript bundler.
 
 | Argument | Command Type | Type | Default | Required | Comments |
 | --- | --- | --- | --- | --- | --- |
 | name | argument | string | none | yes | The name of your component |
-| type | option | string | `typescript` | no | The type of component to generate. [`typescript`, `vanilla`] |
+| template | option | string | `typescript` | no | The template of component to generate. [`typescript`, `vanilla`] |
 | path | option | string | `src` | no | The path where the source code will be generated |
 | verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
 
 Example usage:
 
 ```bash
-./node_modules/.bin/coveops component:create TestComponent
+./node_modules/.bin/coveops create:component TestComponent
 ```
 
 To use vanilla Javascript
 
 ```bash
-./node_modules/.bin/coveops component:create TestComponent --type vanilla
+./node_modules/.bin/coveops create:component TestComponent --template vanilla
 ```
 
 ### Bundle a Coveo Search Page

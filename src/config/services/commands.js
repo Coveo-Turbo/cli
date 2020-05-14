@@ -2,6 +2,7 @@ import {
     UpdateCoveoSearchPageCommand,
     CreateComponentCommand,
     BuildCommand,
+    CreateProjectCommand,
 } from '../../commands';
 
 export default {
@@ -15,7 +16,7 @@ export default {
     "command.createcomponent": {
         "class": CreateComponentCommand,
         "constructor": [
-            {"type": "service", "key": "service.components"},
+            {"type": "service", "key": "service.component"},
             {"type": "service", "key": "logger"},
             {"type": "parameter", "key": "component"},
         ],
@@ -24,6 +25,15 @@ export default {
         "class": BuildCommand,
         "constructor": [
             {"type": "service", "key": "service.build"},
+            {"type": "service", "key": "logger"},
+            {"type": "parameter", "key": "component"},
+        ],
+    },
+    "command.createproject": {
+        "class": CreateProjectCommand,
+        "constructor": [
+            {"type": "service", "key": "service.project"},
+            {"type": "service", "key": "service.component"},
             {"type": "service", "key": "logger"},
             {"type": "parameter", "key": "component"},
         ],

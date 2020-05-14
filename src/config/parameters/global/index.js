@@ -10,6 +10,8 @@ import commands from './commands';
 import searchPageCompiler from './searchPageCompiler';
 import component from './component';
 import webpack from './webpack';
+import baseFiles from './basefiles';
+import libraries from './libraries';
 
 export default {
     ...winston,
@@ -24,4 +26,6 @@ export default {
     searchPageCompiler,
     component,
     webpack,
+    ...baseFiles,
+    ...libraries,
 }

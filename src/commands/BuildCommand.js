@@ -16,14 +16,14 @@ export default class BuildCommand extends Command {
         const {defaultType, path, destination} = this.params;
 
         this.args.add(new InputOption('name', InputOption.string).isRequired());
-        this.options.add((new InputOption('type', InputOption.string, defaultType)));
+        this.options.add((new InputOption('template', InputOption.string, defaultType)));
         this.options.add((new InputOption('path', InputOption.string, path)));
         this.options.add((new InputOption('destination', InputOption.string, destination)));
         this.options.add(new InputOption('verbosity', InputOption.string));
     }
 
     async action() {
-        const type = this.getOption('type');
+        const template = this.getOption('template');
 
         const name = this.getArgument('name');
         const path = this.getOption('path');
@@ -37,7 +37,7 @@ export default class BuildCommand extends Command {
                 logger = this.logger;
             }
 
-            await this.service.build(name, path, type, {logger, destination});
+            await this.service.build(name, path, template, {logger, destination});
         } catch(e) {
             if (Logger.DEBUG === verbosity) {
                 this.logger.log(verbosity, e.stack);

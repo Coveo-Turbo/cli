@@ -1,5 +1,6 @@
 import fs from 'fs';
 import mkdirp from 'mkdirp';
+const { COPYFILE_EXCL } = fs.constants;
 
 export default class FileProvider {
     read(dir) {
@@ -7,7 +8,7 @@ export default class FileProvider {
         return buffer.toString();
     }
 
-    write(dir, fileName, content, ext = 'js') {
+    write(dir, fileName, content, ext) {
         try {
             fs.writeFileSync(`${dir ? `${dir}/`: ''}${fileName}${ext ? `.${ext}` : ''}`, content);
         } catch (e) {
@@ -18,5 +19,14 @@ export default class FileProvider {
 
             throw e;
         }
+    }
+
+    copy(source, destination, overwrite = false) {
+        if (overwrite) {
+            fs.copyFileSync(source, destination);
+            return;
+        }
+
+        fs.copyFileSync(source, destination, COPYFILE_EXCL);
     }
 }

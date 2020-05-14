@@ -7,6 +7,8 @@ import {
     PascalCaseNamingStrategy,
     CamelCaseNamingStrategy,
     BuildService,
+    ProjectService,
+    InstallService,
 } from '../../services';
 
 export default {
@@ -27,7 +29,7 @@ export default {
             {"type": "service", "key": "service.coveoclientpageupdater"},
         ],
     },
-    "service.components": {
+    "service.component": {
         "class": ComponentService,
         "constructor": [
             {"type": "service", "key": "factory.component"},
@@ -66,5 +68,18 @@ export default {
             {"type": "service", "key": "factory.webpackconfig"},
             {"type": "parameter", "key": "component"},
         ],
+    },
+    "service.project": {
+        "class": ProjectService,
+        "constructor": [
+            {"type": "service", "key": "resolver.basefiles"},
+            {"type": "service", "key": "provider.file"},
+            {"type": "service", "key": "resolver.libraries"},
+            {"type": "service", "key": "service.install"},
+        ],
+    },
+    "service.install": {
+        "class": InstallService,
+        "constructor": [],
     },
 }
