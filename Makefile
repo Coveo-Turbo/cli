@@ -50,11 +50,11 @@ test-vanilla: pack
 	./node_modules/.bin/coveops create:component TestComponent2 --template vanilla && \
 	cd ../
 
-releasePatch: releaseBranch npmPatch mergeRelease tag reconcileDevelop
+releasePatch: releaseBranch npmPatch mergeRelease tag deploy reconcileDevelop
 
-releaseMinor: releaseBranch npmMinor mergeRelease tag reconcileDevelop
+releaseMinor: releaseBranch npmMinor mergeRelease tag deploy reconcileDevelop
 
-releaseMajor: releaseBranch npmMajor mergeRelease tag reconcileDevelop
+releaseMajor: releaseBranch npmMajor mergeRelease tag deploy reconcileDevelop
 
 npmPatch:
 	npm version patch
