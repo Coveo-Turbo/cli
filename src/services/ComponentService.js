@@ -21,10 +21,10 @@ export default class ComponentService {
         const index = this.indexFactory.create(component, type);
 
         this.save(path, component);
-        this.save(path, index);
+        this.save(path, index, true);
     }
 
-    save(path, component) {
-        this.fileProvider.write(path, component.getName(), component.getCode(), component.getExtension());
+    save(path, component, shouldAppend) {
+        this.fileProvider.write(path, component.getName(), component.getCode(), component.getExtension(), {shouldAppend});
     }
 }

@@ -9,9 +9,16 @@ export default class FileProvider {
         return buffer.toString();
     }
 
-    write(dir, fileName, content, ext) {
+    write(dir, fileName, content, ext, params = {}) {
+        const {shouldAppend} = params;
+        let options = {};
+
+        if (shouldAppend) {
+            options.flag = 'a';
+        }
+
         try {
-            fs.writeFileSync(`${dir ? `${dir}/`: ''}${fileName}${ext ? `.${ext}` : ''}`, content);
+            fs.writeFileSync(`${dir ? `${dir}/`: ''}${fileName}${ext ? `.${ext}` : ''}`, content, options);
         } catch (e) {
             if (e.message.includes('no such file or directory')) {
                 mkdirp.sync(dir);
