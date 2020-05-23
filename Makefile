@@ -25,13 +25,16 @@ follow-logs:
 pack:
 	npm pack
 
+deploy:
+	npm publish --access public
+
 test: pack
 	rm -rf ./test && \
 	mkdir ./test && \
-	mv ./coveops-cli-0.3.0.tgz ./test/coveops-cli-0.3.0.tgz && \
+	mv ./coveops-cli-$(shell git tag --sort=-committerdate | head -n 1).tgz ./test/coveops-cli-$(shell git tag --sort=-committerdate | head -n 1).tgz && \
 	cd ./test && \
 	npm init -y && \
-	npm i -D coveops-cli-0.3.0.tgz && \
+	npm i -D coveops-cli-$(shell git tag --sort=-committerdate | head -n 1).tgz && \
 	./node_modules/.bin/coveops create:project TestComponent --create-component && \
 	./node_modules/.bin/coveops create:component TestComponent2 && \
 	cd ../
@@ -39,57 +42,56 @@ test: pack
 test-vanilla: pack
 	rm -rf ./test && \
 	mkdir ./test && \
-	mv ./coveops-cli-0.3.0.tgz ./test/coveops-cli-0.3.0.tgz && \
+	mv ./coveops-cli-$(shell git tag --sort=-committerdate | head -n 1).tgz ./test/coveops-cli-$(shell git tag --sort=-committerdate | head -n 1).tgz && \
 	cd ./test && \
 	npm init -y && \
-	npm i -D coveops-cli-0.3.0.tgz && \
+	npm i -D coveops-cli-$(shell git tag --sort=-committerdate | head -n 1).tgz && \
 	./node_modules/.bin/coveops create:project TestComponent --create-component --template vanilla && \
 	./node_modules/.bin/coveops create:component TestComponent2 --template vanilla && \
 	cd ../
 
-release: validateTag releaseBranch updateVssExtensionVersion mergeRelease tag reconcileDevelop
+release-patch: releaseBranch npmPatch mergeRelease tag reconcileDevelop
+
+releaseMinor: releaseBranch npmMinor mergeRelease tag reconcileDevelop
+
+releaseMajor: releaseBranch npmMajor mergeRelease tag reconcileDevelop
+
+npmPatch:
+	npm version patch
+
+npmMinor:
+	npm version minor
+
+npmMajor:
+	npm version major
+
+release: releaseBranch mergeRelease tag reconcileDevelop
+
 latestTag:
 	git fetch --prune --prune-tags && \
 	git tag --sort=-committerdate | head -n 1
-validateTag: latestTag
-ifeq ($(TAG),$(shell git tag --sort=-committerdate | head -n 1))
-	$(error "TAG is a version that already exists");
-endif
+
 releaseBranch:
-ifeq ($(TAG),)
-	$(error "TAG must be specified");
-endif
 	git checkout develop && \
 	git pull && \
-	git checkout -tb release/$(TAG) && \
+	git checkout -tb release/latest && \
 	git push origin HEAD
-updateVssExtensionVersion:
-ifeq ($(TAG),)
-	$(error "TAG must be specified");
-endif
-	sed -i "" 's/$(shell git tag --sort=-committerdate | head -n 1)/$(TAG)/g' vss-extension.json && \
-	git add vss-extension.json && \
-	git commit -m "Updated vss-extension.json version to $(TAG)" && \
-	git push origin HEAD
+
 mergeRelease:
-ifeq ($(TAG),)
-	$(error "TAG must be specified");
-endif
 	git fetch origin && \
 	git checkout master && \
-	git merge release/$(TAG) && \
-	git branch -D release/$(TAG) && \
-	git push origin --delete release/$(TAG) && \
+	git merge release/latest && \
+	git branch -D release/latest && \
+	git push origin --delete release/latest && \
 	git push origin master;
+
 reconcileDevelop:
 	git fetch origin && \
 	git checkout develop && \
 	git merge master && \
 	git push origin develop;
+
 tag:
-ifeq ($(TAG),)
-	$(error "TAG must be specified");
-endif
-	git tag $(TAG) && git push origin --tags;
+	git tag $(shell git tag --sort=-committerdate | head -n 1 | sed 's/v//g') && git push origin --tags;
 
 .PHONY: default setup rebuild run dev enter clean pack

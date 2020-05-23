@@ -1,3 +1,10 @@
 src
 test
 /sandbox
+Makefile
+.env
+.env.dist
+.babelrc
+docker-compose.yaml
+docker-compose.installer.yaml
+logs
