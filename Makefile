@@ -50,7 +50,7 @@ test-vanilla: pack
 	./node_modules/.bin/coveops create:component TestComponent2 --template vanilla && \
 	cd ../
 
-release-patch: releaseBranch npmPatch mergeRelease tag reconcileDevelop
+releasePatch: releaseBranch npmPatch mergeRelease tag reconcileDevelop
 
 releaseMinor: releaseBranch npmMinor mergeRelease tag reconcileDevelop
 
@@ -94,4 +94,4 @@ reconcileDevelop:
 tag:
 	git tag $(shell git tag --sort=-committerdate | head -n 1 | sed 's/v//g') && git push origin --tags;
 
-.PHONY: default setup rebuild run dev enter clean pack
+.PHONY: default setup rebuild run dev enter clean pack releasePatch releaseMinor releaseMajor
