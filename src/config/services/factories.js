@@ -10,7 +10,7 @@ export default {
         "constructor": [
             {"type": "service", "key": "service.templateloader"},
             {"type": "service", "key": "resolver.name"},
-            {"type": "service", "key": "resolver.extension"},
+            {"type": "service", "key": "resolver.extension:scripts"},
         ],
     },
     "factory.index": {
@@ -23,7 +23,8 @@ export default {
         "class": WebpackConfigurationFactory,
         "constructor": [
             {"type": "service", "key": "resolver.name"},
-            {"type": "service", "key": "resolver.extension"},
+            {"type": "service", "key": "resolver.extension:scripts"},
+            {"type": "service", "key": "resolver.extension:styles"},
             {"type": "parameter", "key": "webpack"},
         ],
     },

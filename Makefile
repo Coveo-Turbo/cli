@@ -65,8 +65,6 @@ npmMinor:
 npmMajor:
 	npm version major
 
-release: releaseBranch mergeRelease tag reconcileDevelop
-
 latestTag:
 	git fetch --prune --prune-tags && \
 	git tag --sort=-committerdate | head -n 1
