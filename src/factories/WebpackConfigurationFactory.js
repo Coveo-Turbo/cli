@@ -1,19 +1,30 @@
 import Path from 'path';
 
 export default class WebpackConfigurationFactory {
-    constructor(nameResolver, extensionResolver, config = {}) {
+    constructor(nameResolver, scriptExtensionResolver, stylesExtensionResolver, config = {}) {
         this.nameResolver = nameResolver;
-        this.extensionResolver = extensionResolver;
+        this.scriptExtensionResolver = scriptExtensionResolver;
+        this.stylesExtensionResolver = stylesExtensionResolver;
         this.config = config;
     }
 
-    create(name, path, type, {logger, destination = 'dist'}) {
-        const extension = this.extensionResolver.get(type);
+    create(name, path, type, {logger, destination = 'dist', stylesPath, stylesType}) {
+        const extension = this.scriptExtensionResolver.get(type);
+        const stylesExtension = this.stylesExtensionResolver.get(stylesType);
         const namingStrategy = this.nameResolver.get(type);
         const library = `Coveo${namingStrategy.formatName(name)}`;
 
+        let indexEntry = [
+            Path.resolve(`${path}/index.${extension}`),
+        ];
+
+        if (stylesPath) {
+            indexEntry.push(Path.resolve(`${stylesPath}/index.${stylesExtension}`));
+        }
+
         const entry = {
-            'index': [Path.resolve(`${path}/index.${extension}`)],
+            'index': indexEntry,
+            'index.min': indexEntry,
         }
 
         const output = {

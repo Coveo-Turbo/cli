@@ -17,7 +17,7 @@ export default {
             },
         ]
     },
-    "resolver.extension": {
+    "resolver.extension:scripts": {
         "class": Resolver,
         "constructor": [],
         "functions": [
@@ -28,6 +28,20 @@ export default {
             {
                 "function": "add",
                 "args": ['typescript', 'ts']
+            },
+        ]
+    },
+    "resolver.extension:styles": {
+        "class": Resolver,
+        "constructor": [],
+        "functions": [
+            {
+                "function": "add",
+                "args": ['vanilla', 'css']
+            },
+            {
+                "function": "add",
+                "args": ['sass', 'scss']
             },
         ]
     },

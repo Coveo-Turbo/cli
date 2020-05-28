@@ -17,7 +17,7 @@ module.exports = {
     filename: `[name].js`
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.svg', '.scss'],
+    extensions: ['.tsx', '.ts', '.js', '.svg', '.scss', '.css'],
     alias: {
       svg: path.resolve('./src/images/svg'),
       sass: path.resolve('./src/stylesheets'),

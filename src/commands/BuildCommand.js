@@ -13,13 +13,15 @@ export default class BuildCommand extends Command {
     }
 
     configure() {
-        const {defaultType, path, destination} = this.params;
+        const {defaultType, path, destination, defaultStylesType} = this.params;
 
         this.args.add(new InputOption('name', InputOption.string).isRequired());
         this.options.add((new InputOption('template', InputOption.string, defaultType)));
         this.options.add((new InputOption('path', InputOption.string, path)));
         this.options.add((new InputOption('destination', InputOption.string, destination)));
         this.options.add(new InputOption('verbosity', InputOption.string));
+        this.options.add(new InputOption('styles-path', InputOption.string));
+        this.options.add(new InputOption('styles-type', InputOption.string, defaultStylesType));
     }
 
     async action() {
@@ -29,6 +31,8 @@ export default class BuildCommand extends Command {
         const path = this.getOption('path');
         const destination = this.getOption('destination');
         const verbosity = this.getOption('verbosity');
+        const stylesPath = this.getOption('styles-path');
+        const stylesType = this.getOption('styles-type');
 
         try {
             let logger;
@@ -37,7 +41,7 @@ export default class BuildCommand extends Command {
                 logger = this.logger;
             }
 
-            await this.service.build(name, path, template, {logger, destination});
+            await this.service.build(name, path, template, {logger, destination, stylesPath, stylesType});
         } catch(e) {
             if (Logger.DEBUG === verbosity) {
                 this.logger.log(verbosity, e.stack);
