@@ -45,6 +45,8 @@ You can also add the command to your `package.json` scripts to continue using fa
 | path | option | string | `src` | no | The path where the source code will be generated |
 | destination | option | string | `dist` | no | The path where the distributable code will be generated |
 | verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
+| styles-path | option | string | none | no | The path where the stylesheets are located |
+| styles-type | option | string | sass | no | The stylesheet language that is used in the project [`sass`, `vanilla`] |
 
 Example:
 
@@ -56,6 +58,12 @@ To use vanilla Javascript
 
 ```bash
 ./node_modules/.bin/coveops build TestComponent --template vanilla
+```
+
+To include a stylesheet with an index.scss located at `src/stylesheets`
+
+```bash
+./node_modules/.bin/coveops build TestComponent --styles-path src/stylesheets
 ```
 
 ### Serve

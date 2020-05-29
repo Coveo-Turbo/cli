@@ -39,6 +39,7 @@ export default class ProjectService {
         packageJson = JSON.parse(packageJson);
 
         packageJson.main = "dist/index.js";
+        packageJson.license = "Apache-2.0";
 
         if ('typescript' === type) {
             packageJson.types = "dist/index.d.ts";

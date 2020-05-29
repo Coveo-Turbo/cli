@@ -4,3 +4,4 @@ Makefile
 docker-compose.builder.yml
 .env
 .env.dist
+sandbox

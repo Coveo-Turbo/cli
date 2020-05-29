@@ -3,6 +3,7 @@ const common = [
     '.npmignore',
     'docker-compose.builder.yml',
     'Makefile',
+    'LICENSE',
 ];
 
 const vanilla = [

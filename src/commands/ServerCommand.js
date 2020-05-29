@@ -2,7 +2,7 @@ import {Command, commands, terminal} from 'tramway-command';
 import Logger from 'tramway-core-logger';
 
 const {InputOption} = commands;
-const {ErrorMessage} = terminal;
+const {ErrorMessage, SuccessMessage} = terminal;
 
 export default class ServerCommand extends Command {
     constructor(app, logger, sandboxResolver, defaults = {}) {
@@ -53,6 +53,7 @@ export default class ServerCommand extends Command {
         this.sandboxResolver.add('search-url', searchUrl);
         
         try {
+            new SuccessMessage(`Running at http://localhost:${port}/`);
             this.app.initialize().start();
         } catch(e) {
             if (Logger.DEBUG === verbosity) {

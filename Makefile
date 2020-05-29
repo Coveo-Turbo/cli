@@ -31,10 +31,10 @@ deploy:
 test: pack
 	rm -rf ./test && \
 	mkdir ./test && \
-	mv ./coveops-cli-$(shell git tag --sort=-committerdate | head -n 1).tgz ./test/coveops-cli-$(shell git tag --sort=-committerdate | head -n 1).tgz && \
+	mv ./coveops-cli-$(shell git tag --sort=-committerdate | head -n 1 | sed 's/v//g').tgz ./test/coveops-cli-$(shell git tag --sort=-committerdate | head -n 1 | sed 's/v//g').tgz && \
 	cd ./test && \
 	npm init -y && \
-	npm i -D coveops-cli-$(shell git tag --sort=-committerdate | head -n 1).tgz && \
+	npm i -D coveops-cli-$(shell git tag --sort=-committerdate | head -n 1 | sed 's/v//g').tgz && \
 	./node_modules/.bin/coveops create:project TestComponent --create-component && \
 	./node_modules/.bin/coveops create:component TestComponent2 && \
 	cd ../
@@ -42,10 +42,10 @@ test: pack
 test-vanilla: pack
 	rm -rf ./test && \
 	mkdir ./test && \
-	mv ./coveops-cli-$(shell git tag --sort=-committerdate | head -n 1).tgz ./test/coveops-cli-$(shell git tag --sort=-committerdate | head -n 1).tgz && \
+	mv ./coveops-cli-$(shell git tag --sort=-committerdate | head -n 1 | sed 's/v//g').tgz ./test/coveops-cli-$(shell git tag --sort=-committerdate | head -n 1 | sed 's/v//g').tgz && \
 	cd ./test && \
 	npm init -y && \
-	npm i -D coveops-cli-$(shell git tag --sort=-committerdate | head -n 1).tgz && \
+	npm i -D coveops-cli-$(shell git tag --sort=-committerdate | head -n 1 | sed 's/v//g').tgz && \
 	./node_modules/.bin/coveops create:project TestComponent --create-component --template vanilla && \
 	./node_modules/.bin/coveops create:component TestComponent2 --template vanilla && \
 	cd ../
