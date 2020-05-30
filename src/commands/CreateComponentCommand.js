@@ -13,12 +13,13 @@ export default class CreateComponentCommand extends Command {
     }
 
     configure() {
-        const {defaultType, path} = this.params;
+        const {defaultType, path, defaultInitStrategy} = this.params;
 
         this.args.add(new InputOption('name', InputOption.string).isRequired());
         this.options.add((new InputOption('template', InputOption.string, defaultType)));
         this.options.add((new InputOption('path', InputOption.string, path)));
         this.options.add(new InputOption('verbosity', InputOption.string));
+        this.options.add(new InputOption('init-strategy', InputOption.string, defaultInitStrategy));
     }
 
     action() {
@@ -27,9 +28,10 @@ export default class CreateComponentCommand extends Command {
 
         const path = this.getOption('path');
         const verbosity = this.getOption('verbosity');
+        const initStrategy = this.getOption('init-strategy')
 
         try {
-            this.service.create(name, template, {path});
+            this.service.create(name, template, {path, initStrategy});
         } catch(e) {
             if (Logger.DEBUG === verbosity) {
                 this.logger.log(verbosity, e.stack);

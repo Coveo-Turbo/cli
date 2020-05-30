@@ -11,6 +11,7 @@ export default {
             {"type": "service", "key": "service.templateloader"},
             {"type": "service", "key": "resolver.name"},
             {"type": "service", "key": "resolver.extension:scripts"},
+            {"type": "service", "key": "resolver.initstrategy"},
         ],
     },
     "factory.index": {

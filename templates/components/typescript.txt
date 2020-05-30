@@ -1,7 +1,9 @@
-import { Component, Initialization, IComponentBindings, ComponentOptions } from 'coveo-search-ui';
+import { Component, IComponentBindings, ComponentOptions } from 'coveo-search-ui';
+import { __COMPONENT_INIT_STRATEGY__ } from '@coveops/turbo-core';
 
 export interface I__COMPONENT_NAME__Options {}
 
+@__COMPONENT_INIT_STRATEGY__
 export class __COMPONENT_NAME__ extends Component {
     static ID = '__COMPONENT_NAME__';
     static options: I__COMPONENT_NAME__Options = {};
@@ -11,5 +13,3 @@ export class __COMPONENT_NAME__ extends Component {
         this.options = ComponentOptions.initComponentOptions(element, __COMPONENT_NAME__, options);
     }
 }
-
-Initialization.registerAutoCreateComponent(__COMPONENT_NAME__);

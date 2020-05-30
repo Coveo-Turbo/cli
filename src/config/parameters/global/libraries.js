@@ -7,7 +7,7 @@ const vanilla = [
 ];
 
 const typescript = [
-    
+    '@coveops/turbo-core',
 ];
 
 export default {

@@ -109,4 +109,22 @@ export default {
         "class": Resolver,
         "constructor": [],
     },
+    "resolver.initstrategy": {
+        "class": Resolver,
+        "constructor": [],
+        "functions": [
+            {
+                "function": "add",
+                "args": ['component', 'component']
+            },
+            {
+                "function": "add",
+                "args": ['lazy', 'lazyComponent']
+            },
+            {
+                "function": "add",
+                "args": ['lazy-dependent', 'lazyDependentComponent']
+            },
+        ]
+    }
 }

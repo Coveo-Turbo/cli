@@ -1,4 +1,4 @@
-import { InvalidComponentTypeError } from "../errors";
+import { InvalidComponentTypeError, InvalidInitializationStrategyError } from "../errors";
 
 export default class ComponentService {
     constructor(componentFactory, indexFactory, fileProvider, options = {}) {
@@ -9,15 +9,21 @@ export default class ComponentService {
     }
 
     create(name, type, options = {}) {
-        const { types = [] } = this.options;
+        const { types = [], defaultInitStrategy, initStrategies = []} = this.options;
 
         if (!(types.includes(type))) {
             throw new InvalidComponentTypeError(type, types)
         }
 
+        let { initStrategy = defaultInitStrategy } = options;
+
+        if (!(initStrategies.includes(initStrategy))) {
+            throw new InvalidInitializationStrategyError(initStrategy, initStrategies);
+        }
+
         const {path} = options;
 
-        const component = this.componentFactory.create(name, type);
+        const component = this.componentFactory.create(name, type, initStrategy);
         const index = this.indexFactory.create(component, type);
 
         this.save(path, component);

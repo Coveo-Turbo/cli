@@ -31,24 +31,31 @@ deploy:
 test: pack
 	rm -rf ./test && \
 	mkdir ./test && \
-	mv ./coveops-cli-$(shell git tag --sort=-committerdate | head -n 1 | sed 's/v//g').tgz ./test/coveops-cli-$(shell git tag --sort=-committerdate | head -n 1 | sed 's/v//g').tgz && \
+	mv ./coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz ./test/coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
 	cd ./test && \
 	npm init -y && \
-	npm i -D coveops-cli-$(shell git tag --sort=-committerdate | head -n 1 | sed 's/v//g').tgz && \
+	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
 	./node_modules/.bin/coveops create:project TestComponent --create-component && \
-	./node_modules/.bin/coveops create:component TestComponent2 && \
+	./node_modules/.bin/coveops create:component TestComponent2 --init-strategy component && \
+	./node_modules/.bin/coveops create:sandbox && \
 	cd ../
 
 test-vanilla: pack
 	rm -rf ./test && \
 	mkdir ./test && \
-	mv ./coveops-cli-$(shell git tag --sort=-committerdate | head -n 1 | sed 's/v//g').tgz ./test/coveops-cli-$(shell git tag --sort=-committerdate | head -n 1 | sed 's/v//g').tgz && \
+	mv ./coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz ./test/coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
 	cd ./test && \
 	npm init -y && \
-	npm i -D coveops-cli-$(shell git tag --sort=-committerdate | head -n 1 | sed 's/v//g').tgz && \
+	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
 	./node_modules/.bin/coveops create:project TestComponent --create-component --template vanilla && \
 	./node_modules/.bin/coveops create:component TestComponent2 --template vanilla && \
+	./node_modules/.bin/coveops create:sandbox TestComponent2 --template vanilla && \
+	./node_modules/.bin/coveops create:sandbox && \
 	cd ../
+
+run-sandbox:
+	cd test && \
+	./node_modules/.bin/coveops serve
 
 releasePatch: releaseBranch npmPatch mergeRelease tag deploy reconcileDevelop
 
@@ -67,7 +74,7 @@ npmMajor:
 
 latestTag:
 	git fetch --prune --prune-tags && \
-	git tag --sort=-committerdate | head -n 1
+	git tag --sort=-v:refname | head -n 1
 
 releaseBranch:
 	git checkout develop && \
@@ -90,6 +97,6 @@ reconcileDevelop:
 	git push origin develop;
 
 tag:
-	git tag $(shell git tag --sort=-committerdate | head -n 1 | sed 's/v//g') && git push origin --tags;
+	git tag $(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g') && git push origin --tags;
 
 .PHONY: default setup rebuild run dev enter clean pack releasePatch releaseMinor releaseMajor

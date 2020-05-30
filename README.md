@@ -154,6 +154,7 @@ Will create a blank component to be used to canvas for your needs. Is currently 
 | name | argument | string | none | yes | The name of your component |
 | template | option | string | `typescript` | no | The template of component to generate. [`typescript`, `vanilla`] |
 | path | option | string | `src` | no | The path where the source code will be generated |
+| init-strategy | option | string | `lazy` | no | The initialization strategy to use when initializing the component. [`lazy`, `component`, `lazy-dependent`] |
 | verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
 
 Example usage:
@@ -168,6 +169,18 @@ To use vanilla Javascript
 
 ```bash
 ./node_modules/.bin/coveops create:component TestComponent --template vanilla
+```
+
+#### Component Initialization
+
+Coveo's component registration allows for two main strategies to load a component once the scripts and markup are present on the page: [Eager and Lazy](https://docs.coveo.com/en/295/javascript-search-framework/lazy-versus-eager-component-loading).
+
+The `@coveops/turbo-core` library contains useful decorators that make it simple to choose the initialization structure without requiring boilerplate code. All of the strategies fallback to `component` if the `LazyInitialization` class isn't present by importing `Coveo.Lazy.js`.
+
+> Note: The feature is currently available for Typescript Components only.
+
+```bash
+./node_modules/.bin/coveops create:component TestComponent --init-strategy component
 ```
 
 ### Create a Sandbox
