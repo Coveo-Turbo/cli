@@ -13,6 +13,7 @@ A CLI application that can house modular and reusable scripts for various Coveo 
 * Serve
 * Create a Project
 * Create a Component
+* Create a Stylesheet
 * Create a Sandbox
 * Bundle Search Page
 
@@ -45,8 +46,10 @@ You can also add the command to your `package.json` scripts to continue using fa
 | path | option | string | `src` | no | The path where the source code will be generated |
 | destination | option | string | `dist` | no | The path where the distributable code will be generated |
 | verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
-| styles-path | option | string | none | no | The path where the stylesheets are located |
-| styles-type | option | string | sass | no | The stylesheet language that is used in the project [`sass`, `vanilla`] |
+| styles-path | option | string | `src/stylesheets` | no | The path where the stylesheets are located |
+| styles-type | option | string | `sass` | no | The stylesheet language that is used in the project [`sass`, `vanilla`] |
+| styles-destination | option | string | `dist/css` | no | The path where the distributable code will be generated |
+| dry | option | boolean | none | no | Will perform a dry run build and output generated webpack configuration to the console |
 
 Example:
 
@@ -60,7 +63,7 @@ To use vanilla Javascript
 ./node_modules/.bin/coveops build TestComponent --template vanilla
 ```
 
-To include a stylesheet with an index.scss located at `src/stylesheets`
+To specify an alternative directory containing a index.scss located at `src/stylesheets`
 
 ```bash
 ./node_modules/.bin/coveops build TestComponent --styles-path src/stylesheets
@@ -119,6 +122,9 @@ Will add the necessary files to kick-start a project to create a shareable compo
 | template | option | string | `typescript` | no | The template of component to generate. [`typescript`, `vanilla`] |
 | create-component | option | boolean | `false` | no | Whether to create the component using the same name as the project |
 | component-path | option | string | `src` | no | The path where the source code of the component will be generated |
+| with-styles | option | boolean | `false` | no | Whether to create the stylesheet alongside the component. Requires `create-component` flag |
+| styles-path | option | string | `src/stylesheets` | no | The path where the source code of the stylesheet will be generated |
+| styles-template | option | string | `sass` | no | The template of component to generate. [`sass`, `vanilla`] |
 | verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
 
 Example usage:
@@ -141,6 +147,12 @@ To create a component at the same time as a new project
 ./node_modules/.bin/coveops create:project TestComponent --create-component
 ```
 
+To create a component with styles at the same time as a new project
+
+```bash
+./node_modules/.bin/coveops create:project TestComponent --create-component --with-styles
+```
+
 ### Create a Component
 
 Will create a blank component to be used to canvas for your needs. Is currently available as vanilla and typescript types.
@@ -155,6 +167,9 @@ Will create a blank component to be used to canvas for your needs. Is currently 
 | template | option | string | `typescript` | no | The template of component to generate. [`typescript`, `vanilla`] |
 | path | option | string | `src` | no | The path where the source code will be generated |
 | init-strategy | option | string | `lazy` | no | The initialization strategy to use when initializing the component. [`lazy`, `component`, `lazy-dependent`] |
+| with-styles | option | boolean | `false` | no | Whether to create the stylesheet alongside the component |
+| styles-path | option | string | `src/stylesheets` | no | The path where the source code of the stylesheet will be generated |
+| styles-template | option | string | `sass` | no | The template of component to generate. [`sass`, `vanilla`] |
 | verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
 
 Example usage:
@@ -169,6 +184,41 @@ To use vanilla Javascript
 
 ```bash
 ./node_modules/.bin/coveops create:component TestComponent --template vanilla
+```
+
+To create a component with styles at the same time as a new project
+
+```bash
+./node_modules/.bin/coveops create:component TestComponent --with-styles
+```
+
+### Create a Stylesheet
+
+Will create a blank stylesheet to be used to canvas for your needs. Is currently available as sass and vanilla types.
+
+- A Sass template stylesheet will create a file per class and bundle it in a shared index
+
+- [Experimental] A Vanilla template will create a file per class and bundle it in a shared index
+
+| Argument | Command Type | Type | Default | Required | Comments |
+| --- | --- | --- | --- | --- | --- |
+| name | argument | string | none | yes | The name of your component |
+| template | option | string | `sass` | no | The template of component to generate. [`sass`, `vanilla`] |
+| path | option | string | `src/stylesheets` | no | The path where the source code will be generated |
+| verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
+
+Example usage:
+
+```bash
+./node_modules/.bin/coveops create:stylesheet TestComponent
+```
+
+To use vanilla css
+
+> Remark that this feature isn't fully supported and may break. It is recommended to use the Sass template for the time being
+
+```bash
+./node_modules/.bin/coveops create:stylesheet TestComponent --template vanilla
 ```
 
 #### Component Initialization

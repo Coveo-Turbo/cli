@@ -4,6 +4,10 @@ import path from 'path';
 const { COPYFILE_EXCL } = fs.constants;
 
 export default class FileProvider {
+    exists(dir, fileName) {
+        return fs.existsSync(path.resolve(dir, fileName));
+    }
+
     read(dir) {
         const buffer = fs.readFileSync(dir);
         return buffer.toString();

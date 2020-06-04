@@ -3,7 +3,7 @@ import {
 } from '../../services';
 
 export default {
-    "resolver.template": {
+    "resolver.template:scripts": {
         "class": Resolver,
         "constructor": [],
         "functions": [
@@ -14,6 +14,20 @@ export default {
             {
                 "function": "add",
                 "args": ['typescript', 'typescript.txt']
+            },
+        ]
+    },
+    "resolver.template:styles": {
+        "class": Resolver,
+        "constructor": [],
+        "functions": [
+            {
+                "function": "add",
+                "args": ['vanilla', 'vanilla.txt']
+            },
+            {
+                "function": "add",
+                "args": ['sass', 'sass.txt']
             },
         ]
     },
@@ -45,7 +59,7 @@ export default {
             },
         ]
     },
-    "resolver.name": {
+    "resolver.name:scripts": {
         "class": Resolver,
         "constructor": [],
         "functions": [
@@ -60,6 +74,26 @@ export default {
                 "function": "add",
                 "args": [
                     'typescript', 
+                    {"type": "service", "key": "service.naming.pascalcase"}
+                ]
+            },
+        ]
+    },
+    "resolver.name:styles": {
+        "class": Resolver,
+        "constructor": [],
+        "functions": [
+            {
+                "function": "add",
+                "args": [
+                    'vanilla', 
+                    {"type": "service", "key": "service.naming.pascalcase"}
+                ]
+            },
+            {
+                "function": "add",
+                "args": [
+                    'sass', 
                     {"type": "service", "key": "service.naming.pascalcase"}
                 ]
             },

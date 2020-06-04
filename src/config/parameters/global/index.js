@@ -13,6 +13,7 @@ import webpack from './webpack';
 import baseFiles from './basefiles';
 import libraries from './libraries';
 import coveo from './coveo';
+import stylesheet from './stylesheet';
 
 export default {
     ...winston,
@@ -30,4 +31,5 @@ export default {
     ...baseFiles,
     ...libraries,
     coveo,
+    stylesheet,
 }

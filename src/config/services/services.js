@@ -10,6 +10,7 @@ import {
     ProjectService,
     InstallService,
     SandboxService,
+    StylesheetService,
 } from '../../services';
 
 export default {
@@ -34,25 +35,41 @@ export default {
         "class": ComponentService,
         "constructor": [
             {"type": "service", "key": "factory.component"},
-            {"type": "service", "key": "factory.index"},
+            {"type": "service", "key": "factory.index:scripts"},
             {"type": "service", "key": "provider.file"},
             {"type": "parameter", "key": "component"},
         ],
     },
-    "service.templateloader": {
+    "service.templateloader:scripts": {
         "class": TemplateLoader,
         "constructor": [
             {"type": "service", "key": "provider.file"},
-            {"type": "service", "key": "resolver.template"},
-            '../../templates/components',
+            {"type": "service", "key": "resolver.template:scripts"},
+            '../../templates/components/scripts',
         ],
     },
-    "service.indexloader": {
+    "service.indexloader:scripts": {
         "class": TemplateLoader,
         "constructor": [
             {"type": "service", "key": "provider.file"},
-            {"type": "service", "key": "resolver.template"},
-            '../../templates/index',
+            {"type": "service", "key": "resolver.template:scripts"},
+            '../../templates/index/scripts',
+        ],
+    },
+    "service.templateloader:styles": {
+        "class": TemplateLoader,
+        "constructor": [
+            {"type": "service", "key": "provider.file"},
+            {"type": "service", "key": "resolver.template:styles"},
+            '../../templates/components/styles',
+        ],
+    },
+    "service.indexloader:styles": {
+        "class": TemplateLoader,
+        "constructor": [
+            {"type": "service", "key": "provider.file"},
+            {"type": "service", "key": "resolver.template:styles"},
+            '../../templates/index/styles',
         ],
     },
     "service.naming.pascalcase": {
@@ -87,6 +104,15 @@ export default {
         "class": SandboxService,
         "constructor": [
             {"type": "service", "key": "provider.file"},
+        ],
+    },
+    "service.stylesheet": {
+        "class": StylesheetService,
+        "constructor": [
+            {"type": "service", "key": "factory.stylesheet"},
+            {"type": "service", "key": "factory.index:styles"},
+            {"type": "service", "key": "provider.file"},
+            {"type": "parameter", "key": "stylesheet"},
         ],
     },
 }

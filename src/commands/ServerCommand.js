@@ -53,7 +53,7 @@ export default class ServerCommand extends Command {
         this.sandboxResolver.add('search-url', searchUrl);
         
         try {
-            new SuccessMessage(`Running at http://localhost:${port}/`);
+            new SuccessMessage(`Running at http://localhost:${this.app.port}/`);
             this.app.initialize().start();
         } catch(e) {
             if (Logger.DEBUG === verbosity) {

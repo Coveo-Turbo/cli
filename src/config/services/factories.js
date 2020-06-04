@@ -2,31 +2,48 @@ import {
     ComponentFactory,
     IndexFactory,
     WebpackConfigurationFactory,
+    StylesheetFactory,
 } from '../../factories';
 
 export default {
     "factory.component": {
         "class": ComponentFactory,
         "constructor": [
-            {"type": "service", "key": "service.templateloader"},
-            {"type": "service", "key": "resolver.name"},
+            {"type": "service", "key": "service.templateloader:scripts"},
+            {"type": "service", "key": "resolver.name:scripts"},
             {"type": "service", "key": "resolver.extension:scripts"},
             {"type": "service", "key": "resolver.initstrategy"},
         ],
     },
-    "factory.index": {
+    "factory.index:scripts": {
         "class": IndexFactory,
         "constructor": [
-            {"type": "service", "key": "service.indexloader"},
+            {"type": "service", "key": "service.indexloader:scripts"},
+        ],
+    },
+    "factory.index:styles": {
+        "class": IndexFactory,
+        "constructor": [
+            {"type": "service", "key": "service.indexloader:styles"},
         ],
     },
     "factory.webpackconfig": {
         "class": WebpackConfigurationFactory,
         "constructor": [
-            {"type": "service", "key": "resolver.name"},
+            {"type": "service", "key": "resolver.name:scripts"},
             {"type": "service", "key": "resolver.extension:scripts"},
             {"type": "service", "key": "resolver.extension:styles"},
+            {"type": "service", "key": "provider.file"},
+            {"type": "service", "key": "logger"},
             {"type": "parameter", "key": "webpack"},
+        ],
+    },
+    "factory.stylesheet": {
+        "class": StylesheetFactory,
+        "constructor": [
+            {"type": "service", "key": "service.templateloader:styles"},
+            {"type": "service", "key": "resolver.name:styles"},
+            {"type": "service", "key": "resolver.extension:styles"},
         ],
     },
 }

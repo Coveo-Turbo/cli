@@ -5,6 +5,7 @@ import {
     CreateProjectCommand,
     ServerCommand,
     CreateSandboxCommand,
+    CreateStylesheetCommand,
 } from '../../commands';
 
 export default {
@@ -19,8 +20,10 @@ export default {
         "class": CreateComponentCommand,
         "constructor": [
             {"type": "service", "key": "service.component"},
+            {"type": "service", "key": "service.stylesheet"},
             {"type": "service", "key": "logger"},
             {"type": "parameter", "key": "component"},
+            {"type": "parameter", "key": "stylesheet"},
         ],
     },
     "command.build": {
@@ -29,6 +32,7 @@ export default {
             {"type": "service", "key": "service.build"},
             {"type": "service", "key": "logger"},
             {"type": "parameter", "key": "component"},
+            {"type": "parameter", "key": "stylesheet"},
         ],
     },
     "command.createproject": {
@@ -36,8 +40,10 @@ export default {
         "constructor": [
             {"type": "service", "key": "service.project"},
             {"type": "service", "key": "service.component"},
+            {"type": "service", "key": "service.stylesheet"},
             {"type": "service", "key": "logger"},
             {"type": "parameter", "key": "component"},
+            {"type": "parameter", "key": "stylesheet"},
         ],
     },
     "command.server": {
@@ -55,6 +61,14 @@ export default {
             {"type": "service", "key": "service.sandbox"},
             {"type": "service", "key": "logger"},
             {"type": "parameter", "key": "coveo"},
+        ],
+    },
+    "command.createstylesheet": {
+        "class": CreateStylesheetCommand,
+        "constructor": [
+            {"type": "service", "key": "service.stylesheet"},
+            {"type": "service", "key": "logger"},
+            {"type": "parameter", "key": "stylesheet"},
         ],
     },
 }

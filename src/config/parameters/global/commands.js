@@ -8,4 +8,6 @@ export default {
     "serve": "command.server",
     "create:sandbox": "command.sandbox",
     "sandbox:create": "command.sandbox",
+    "create:stylesheet": "command.createstylesheet",
+    "stylesheet:create": "command.createstylesheet",
 }
