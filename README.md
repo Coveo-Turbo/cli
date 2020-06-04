@@ -21,15 +21,20 @@ A CLI application that can house modular and reusable scripts for various Coveo 
 
 Replace the COMMAND with the appropriate one from the table below with its corresponding arguments and options.
 
-Installed globally:
+**Installed globally:**
 
 `coveops COMMAND`
 
-Installed as a dev dependency (recommended to track versioning):
+**Installed as a dev dependency (recommended to track versioning):**
 
 `./node_modules/.bin/coveoops COMMAND`
 
-Alternatively on Windows: `node_modules\coveops-scripts\dist\coveoops.js COMMAND`
+Alternatively on Windows: `.\node_modules\.bin\coveops CountedTabs COMMAND`
+
+**Installed via npx:**
+
+`npx @coveops/cli COMMAND`
+
 
 It is recommended to use the commands in a docker container to avoid environment issues.
 
