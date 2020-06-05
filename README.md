@@ -46,7 +46,7 @@ Turbocharge your development by leveraging community-made components and contrib
 1. Create a project and sandbox:
 
 ```bash
-npx @coveops/cli create:project MyProject --create-component --with-styles --with-sandbox && \
+npx @coveops/cli create:project MyProject --create-component --with-styles --with-sandbox
 ```
 
 2. Modify the source MyProject.ts and MyProject.scss files to build your component, add your Coveo credentials in the `.env` file
