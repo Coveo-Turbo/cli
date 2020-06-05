@@ -41,12 +41,12 @@ Turbocharge your development by leveraging community-made components and contrib
 
 **Creating a new Project**
 
-1. Install the library and create a project and sandbox:
+> It is recommended to use a bash terminal that supports Make. If this does not apply to your environment, please replace the following steps with suitable commands using the documentation.
+
+1. Create a project and sandbox:
 
 ```bash
-npm init -y && \ 
-npm i -D @coveops/cli && \
-./node_modules/.bin/coveops create:project MyProject --create-component --with-styles && \
+npx @coveops/cli create:project MyProject --create-component --with-styles && \
 ./node_modules/.bin/coveops create:sandbox
 ```
 
@@ -161,6 +161,8 @@ Some of the arguments have a corresponding environment variable that can also be
 
 Will add the necessary files to kick-start a project to create a shareable component and optionally the component itself.
 
+> When ran using npx, the `create:project` utility will initialize a `package.json` and install itself as a dev dependency for you.
+
 | Argument | Command Type | Type | Default | Required | Comments |
 | --- | --- | --- | --- | --- | --- |
 | name | argument | string | none | yes | The name of your component |
@@ -173,6 +175,14 @@ Will add the necessary files to kick-start a project to create a shareable compo
 | verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
 
 Example usage:
+
+To quick-start a new project:
+
+```bash
+npx @coveops/cli create:project TestComponent --create-component --with-styles
+```
+
+To use in a project where `@coveops/cli` is installed
 
 ```bash
 ./node_modules/.bin/coveops create:project TestComponent

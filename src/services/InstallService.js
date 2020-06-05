@@ -5,6 +5,14 @@ export default class InstallService {
         return await this.run('npm', 'i', ...packages);
     }
 
+    async installDev(...packages) {
+        return await this.run('npm', 'install', '--save-dev', ...packages);
+    }
+
+    async init() {
+        return await this.run('npm', 'init', '-y');
+    }
+
     async run(command, ...args) {
         return await new Promise((resolve, reject) => {
             let errBuffer = [];

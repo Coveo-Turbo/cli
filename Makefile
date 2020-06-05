@@ -45,6 +45,18 @@ test: pack
 	./node_modules/.bin/coveops create:sandbox && \
 	cd ../
 
+test-npx: pack
+	rm -rf ./test && \
+	mkdir ./test && \
+	mv ./coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz ./test/coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	cd ./test && \
+	npx coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz create:project TestComponent --create-component --with-styles && \
+	cat ../.env > .env && \
+	npx coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz create:component TestComponent2 --init-strategy component --with-styles && \
+	npx coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz create:sandbox && \
+	make build && \
+	cd ../
+
 build-test:
 	cd ./test && \
 	./node_modules/.bin/coveops build TestComponent
