@@ -41,9 +41,11 @@ export default {
             {"type": "service", "key": "service.project"},
             {"type": "service", "key": "service.component"},
             {"type": "service", "key": "service.stylesheet"},
+            {"type": "service", "key": "service.sandbox"},
             {"type": "service", "key": "logger"},
             {"type": "parameter", "key": "component"},
             {"type": "parameter", "key": "stylesheet"},
+            {"type": "parameter", "key": "coveo"},
         ],
     },
     "command.server": {

@@ -46,8 +46,7 @@ Turbocharge your development by leveraging community-made components and contrib
 1. Create a project and sandbox:
 
 ```bash
-npx @coveops/cli create:project MyProject --create-component --with-styles && \
-./node_modules/.bin/coveops create:sandbox
+npx @coveops/cli create:project MyProject --create-component --with-styles --with-sandbox && \
 ```
 
 2. Modify the source MyProject.ts and MyProject.scss files to build your component, add your Coveo credentials in the `.env` file
@@ -172,6 +171,8 @@ Will add the necessary files to kick-start a project to create a shareable compo
 | with-styles | option | boolean | `false` | no | Whether to create the stylesheet alongside the component. Requires `create-component` flag |
 | styles-path | option | string | `src/stylesheets` | no | The path where the source code of the stylesheet will be generated |
 | styles-template | option | string | `sass` | no | The template of component to generate. [`sass`, `vanilla`] |
+| with-sandbox | option | boolean | `false` | no | Whether to create a sandbox |
+| sandbox-path | option | string | `sandbox` | no | The path where the sandbox will be generated |
 | verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
 
 Example usage:
@@ -179,7 +180,7 @@ Example usage:
 To quick-start a new project:
 
 ```bash
-npx @coveops/cli create:project TestComponent --create-component --with-styles
+npx @coveops/cli create:project TestComponent --create-component --with-styles --with-sandbox
 ```
 
 To use in a project where `@coveops/cli` is installed
@@ -206,6 +207,12 @@ To create a component with styles at the same time as a new project
 
 ```bash
 ./node_modules/.bin/coveops create:project TestComponent --create-component --with-styles
+```
+
+To create a sandbox at the same time
+
+```bash
+./node_modules/.bin/coveops create:project TestComponent --with-sandbox
 ```
 
 ### Create a Component

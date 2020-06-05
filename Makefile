@@ -57,6 +57,16 @@ test-npx: pack
 	make build && \
 	cd ../
 
+test-npx-project: pack
+	rm -rf ./test && \
+	mkdir ./test && \
+	mv ./coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz ./test/coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	cd ./test && \
+	npx coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz create:project TestComponent --create-component --with-styles --with-sandbox && \
+	cat ../.env > .env && \
+	make build && \
+	cd ../
+
 build-test:
 	cd ./test && \
 	./node_modules/.bin/coveops build TestComponent
