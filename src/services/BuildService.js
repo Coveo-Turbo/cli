@@ -50,7 +50,7 @@ export default class BuildService {
 
     async prepareCompiler(config) {
         return await new Promise((resolve, reject) => {
-            return webpack(config, (err, stats) => {
+            let compiler = webpack(config, (err, stats) => {
                 if (err && err.details) {
                     return reject(err.details);
                 }
@@ -65,7 +65,7 @@ export default class BuildService {
                     return reject(info.warnings);
                 }
 
-                return resolve(info);
+                return resolve(compiler);
             });
         })
     }

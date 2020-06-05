@@ -39,7 +39,7 @@ Alternatively on Windows: `.\node_modules\.bin\coveops CountedTabs COMMAND`
 
 Turbocharge your development by leveraging community-made components and contributing to the community. To get started:
 
-** Creating a new Project **
+**Creating a new Project**
 
 1. Install the library and create a project and sandbox:
 
@@ -58,7 +58,7 @@ npm i -D @coveops/cli && \
 make build serve
 ```
 
-** Modifying an existing Project **
+**Modifying an existing Project**
 
 1. For the first time after cloning, initialize your environment and add your Coveo credentials to the resulting `.env` file
 
