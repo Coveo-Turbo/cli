@@ -35,8 +35,48 @@ Alternatively on Windows: `.\node_modules\.bin\coveops CountedTabs COMMAND`
 
 `npx @coveops/cli COMMAND`
 
+### Coveo Turbo Recipe
 
-It is recommended to use the commands in a docker container to avoid environment issues.
+Turbocharge your development by leveraging community-made components and contributing to the community. To get started:
+
+** Creating a new Project **
+
+1. Install the library and create a project and sandbox:
+
+```bash
+npm init -y && \ 
+npm i -D @coveops/cli && \
+./node_modules/.bin/coveops create:project MyProject --create-component --with-styles && \
+./node_modules/.bin/coveops create:sandbox
+```
+
+2. Modify the source MyProject.ts and MyProject.scss files to build your component, add your Coveo credentials in the `.env` file
+
+3. Build and serve your project:
+
+```bash
+make build serve
+```
+
+** Modifying an existing Project **
+
+1. For the first time after cloning, initialize your environment and add your Coveo credentials to the resulting `.env` file
+
+```bash
+make init
+```
+
+2. Set up and build the project:
+
+```bash
+make
+```
+
+3. Build and serve your project:
+
+```bash
+make build serve
+```
 
 ### Build
 

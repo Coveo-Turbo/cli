@@ -1,15 +1,29 @@
+#!make
+include .env
+export
+
 default:	| setup build
-setup: volume
-	docker-compose -f docker-compose.builder.yml run --rm install
+
+init:
+	cp .env .env.dist
+
+setup:
+	npm install
+
 build:
-	docker-compose -f docker-compose.builder.yml run --rm build
-volume:
-	docker volume create nodemodules_component
+	npm run build
+
+serve:
+	./node_modules/.bin/coveops serve \
+		--org-id $(ORG_ID) \
+		--token $(TOKEN) \
+		--port $(SERVER_PORT)
+
 pack: 
-	docker-compose -f docker-compose.builder.yml run --rm pack
-enter: 
-	docker-compose -f docker-compose.builder.yml run --rm enter
-deploy:
+	npm pack
+
+publish:
 	npm publish --access public
+
 	
-.PHONY: default setup build volume deploy
+.PHONY: default init setup build serve pack publish

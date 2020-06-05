@@ -1,9 +1,11 @@
 const common = [
     '.gitignore',
     '.npmignore',
-    'docker-compose.builder.yml',
+    // 'docker-compose.builder.yml',
     'Makefile',
     'LICENSE',
+    '.env.dist',
+    '.env',
 ];
 
 const vanilla = [

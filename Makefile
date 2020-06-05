@@ -1,3 +1,7 @@
+#!make
+include .env
+export
+
 default:	| clean setup rebuild
 init:
 	cp .env.dist .env
@@ -36,6 +40,7 @@ test: pack
 	npm init -y && \
 	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
 	./node_modules/.bin/coveops create:project TestComponent --create-component --with-styles && \
+	cat ../.env > .env && \
 	./node_modules/.bin/coveops create:component TestComponent2 --init-strategy component --with-styles && \
 	./node_modules/.bin/coveops create:sandbox && \
 	cd ../
@@ -52,6 +57,7 @@ test-vanilla: pack
 	npm init -y && \
 	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
 	./node_modules/.bin/coveops create:project TestComponent --create-component --template vanilla && \
+	cat ../.env > .env && \
 	./node_modules/.bin/coveops create:component TestComponent2 --template vanilla && \
 	./node_modules/.bin/coveops create:sandbox TestComponent2 --template vanilla && \
 	./node_modules/.bin/coveops create:sandbox && \
@@ -60,9 +66,9 @@ test-vanilla: pack
 run-sandbox:
 	cd test && \
 	./node_modules/.bin/coveops serve \
-		--org-id coveostandalonecomponentspocrc0ycq5c \
-		--token xxf78a1597-35a1-4837-8c71-e4af4492b0b7 \
-		--port 9999
+		--org-id $(ORG_ID) \
+		--token $(TOKEN) \
+		--port $(SERVER_PORT)
 
 releasePatch: releaseBranch npmPatch mergeRelease tag deploy reconcileDevelop
 
