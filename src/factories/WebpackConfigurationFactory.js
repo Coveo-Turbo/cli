@@ -28,7 +28,7 @@ export default class WebpackConfigurationFactory {
         }
 
         if (verbosity) {
-            this.logger.debug(entry);
+            this.logger.debug({...entry});
         }
 
         const output = {

@@ -35,10 +35,14 @@ test: pack
 	cd ./test && \
 	npm init -y && \
 	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
-	./node_modules/.bin/coveops create:project TestComponent --create-component && \
-	./node_modules/.bin/coveops create:component TestComponent2 --init-strategy component && \
+	./node_modules/.bin/coveops create:project TestComponent --create-component --with-styles && \
+	./node_modules/.bin/coveops create:component TestComponent2 --init-strategy component --with-styles && \
 	./node_modules/.bin/coveops create:sandbox && \
 	cd ../
+
+build-test:
+	cd ./test && \
+	./node_modules/.bin/coveops build TestComponent
 
 test-vanilla: pack
 	rm -rf ./test && \
@@ -55,7 +59,10 @@ test-vanilla: pack
 
 run-sandbox:
 	cd test && \
-	./node_modules/.bin/coveops serve
+	./node_modules/.bin/coveops serve \
+		--org-id coveostandalonecomponentspocrc0ycq5c \
+		--token xxf78a1597-35a1-4837-8c71-e4af4492b0b7 \
+		--port 9999
 
 releasePatch: releaseBranch npmPatch mergeRelease tag deploy reconcileDevelop
 

@@ -84,6 +84,7 @@ export default {
         "class": BuildService,
         "constructor": [
             {"type": "service", "key": "factory.webpackconfig"},
+            {"type": "service", "key": "logger"},
             {"type": "parameter", "key": "component"},
         ],
     },

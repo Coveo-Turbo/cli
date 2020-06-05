@@ -43,7 +43,13 @@ export default {
             {
                 "function": "addTransport", 
                 "args": [
-                    {"type": "service", "key": "transport.console"}
+                    {"type": "service", "key": "transport.console:all"}
+                ]
+            },
+            {
+                "function": "addTransport", 
+                "args": [
+                    {"type": "service", "key": "transport.console:debug"}
                 ]
             },
         ]
@@ -86,10 +92,16 @@ export default {
             {"type": "parameter", "key": "file_all"}
         ],
     },
-    "transport.console": {
+    "transport.console:all": {
         "class": Console,
         "constructor": [
             {"type": "parameter", "key": "console_all"}
+        ]
+    },
+    "transport.console:debug": {
+        "class": Console,
+        "constructor": [
+            {"type": "parameter", "key": "console_debug"}
         ]
     },
 };
