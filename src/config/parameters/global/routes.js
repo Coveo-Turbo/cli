@@ -8,7 +8,8 @@ const routeValues = [
     {
         "controller": "controller.main",
         "action": "index",
-        "methods": ["get"]
+        "methods": ["get"],
+        "arguments": ["name?"]
     },
 ];
 
