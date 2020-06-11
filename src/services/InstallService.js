@@ -17,7 +17,7 @@ export default class InstallService {
         return await new Promise((resolve, reject) => {
             let errBuffer = [];
 
-            const shell = spawn(command, args);
+            const shell = spawn(command, args, { shell: 'win32' === process.platform });
             shell.stdout.on('data', data => resolve(data));
             shell.stderr.on('data', data => errBuffer.push(data));
             shell.on('close', code => {
