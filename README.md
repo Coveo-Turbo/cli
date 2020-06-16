@@ -156,6 +156,7 @@ Some of the arguments have a corresponding environment variable that can also be
 | rest-uri | COVEO_REST_URI |
 | search-hub | COVEO_SEARCH_HUB |
 | search-url | COVEO_SEARCH_URL |
+| name | COVEO_SANDBOX_NAME |
 
 ### Create a Project
 
@@ -302,6 +303,7 @@ Will create a folder with a generated search page to be used for basic debugging
 
 | Argument | Command Type | Type | Default | Required | Comments |
 | --- | --- | --- | --- | --- | --- |
+| name | argument | string | `index` | no | The name of the sandbox page that will be generated. The page will be available as the path of the local url |
 | path | option | string | `sandbox` | no | The path where the sandbox code will be generated |
 | verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
 
@@ -310,6 +312,16 @@ Example usage:
 ```bash
 ./node_modules/.bin/coveops create:sandbox
 ```
+
+> Once served will be available at localhost:<PORT>/index.html
+
+To add another page
+
+```bash
+./node_modules/.bin/coveops create:sandbox knowledge
+```
+
+> Once served will be available at localhost:<PORT>/knowledge.html
 
 To use a different path
 

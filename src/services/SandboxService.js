@@ -5,11 +5,11 @@ export default class SandboxService {
         this.fileProvider = fileProvider;
     }
 
-    create(path) {
-        this.copy(path);
+    create(path, name) {
+        this.copy(path, name);
     }
 
-    copy(path) {
-        this.fileProvider.copy(Path.resolve(__dirname, `../../templates/sandbox/index.html`), `./${path}/index.html`);
+    copy(path, name) {
+        this.fileProvider.copy(Path.resolve(__dirname, `../../templates/sandbox/index.html`), `./${path}/${name}.html`);
     }
 }

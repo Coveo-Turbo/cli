@@ -13,18 +13,20 @@ export default class CreateSandboxCommand extends Command {
     }
 
     configure() {
-        const {path} = this.params;
+        const {path, name} = this.params;
 
+        this.args.add(new InputOption('name', InputOption.string, name));
         this.options.add((new InputOption('path', InputOption.string, path)));
         this.options.add(new InputOption('verbosity', InputOption.string));
     }
 
     action() {
+        const name = this.getArgument('name');
         const path = this.getOption('path');
         const verbosity = this.getOption('verbosity');
 
         try {
-            this.service.create(path);
+            this.service.create(path, name);
         } catch(e) {
             if (Logger.DEBUG === verbosity) {
                 this.logger.log(verbosity, e.stack);
@@ -34,6 +36,6 @@ export default class CreateSandboxCommand extends Command {
             return;
         }
         
-        new SuccessMessage('Sandbox created!')
+        new SuccessMessage(`Sandbox created at ${path}/${name}.html`)
     }
 }
