@@ -75,7 +75,7 @@ export default class CreateProjectCommand extends Command {
                 return;
             }
 
-            new SuccessMessage('Component created!')
+            new SuccessMessage(`Component created: ${path}/${name} - ${template}`)
 
             if (shouldCreateStylesheet) {
                 const path = this.getOption('styles-path');
@@ -92,7 +92,7 @@ export default class CreateProjectCommand extends Command {
                     return;
                 }
 
-                new SuccessMessage('Stylesheet created!')
+                new SuccessMessage(`Stylesheet created:  ${path}/${name} - ${template}`)
             }
         }
 
@@ -110,7 +110,7 @@ export default class CreateProjectCommand extends Command {
                 return;
             }
             
-            new SuccessMessage('Sandbox created!')
+            new SuccessMessage(`Sandbox created: ${path}/index.html`)
         }
     }
 }

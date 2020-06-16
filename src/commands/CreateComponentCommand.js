@@ -64,6 +64,6 @@ export default class CreateComponentCommand extends Command {
             }
         }
         
-        new SuccessMessage('Component created!')
+        new SuccessMessage(`Component created: ${path}/${name} - ${template}`)
     }
 }

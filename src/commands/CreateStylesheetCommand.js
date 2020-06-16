@@ -39,6 +39,6 @@ export default class CreateStylesheetCommand extends Command {
             return;
         }
         
-        new SuccessMessage('Stylesheet created!')
+        new SuccessMessage(`Stylesheet created: ${path}/${name} - ${template}`)
     }
 }
