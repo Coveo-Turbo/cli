@@ -94,6 +94,7 @@ You can also add the command to your `package.json` scripts to continue using fa
 | styles-type | option | string | `sass` | no | The stylesheet language that is used in the project [`sass`, `vanilla`] |
 | styles-destination | option | string | `dist/css` | no | The path where the distributable code will be generated |
 | dry | option | boolean | none | no | Will perform a dry run build and output generated webpack configuration to the console |
+| disable-swapvar | option | boolean | none | no | Will remove thr Webpack Loader that injects the `SwapVar` utility to the root `index` file before building. By default, the build command will inject `SwapVar` to add components to the root `Coveo` object at runtime |
 
 Example:
 

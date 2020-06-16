@@ -26,6 +26,7 @@ export default class BuildCommand extends Command {
         this.options.add(new InputOption('styles-type', InputOption.string, defaultStylesType));
         this.options.add(new InputOption('styles-destination', InputOption.string, stylesDestination));
         this.options.add(new InputOption('dry', InputOption.boolean));
+        this.options.add(new InputOption('disable-swapvar', InputOption.boolean));
     }
 
     async action() {
@@ -39,13 +40,14 @@ export default class BuildCommand extends Command {
         const stylesType = this.getOption('styles-type');
         const stylesDestination = this.getOption('styles-destination');
         const dry = this.getOption('dry');
+        const disableSwapVar = this.getOption('disable-swapvar');
 
         if (dry) {
             verbosity = verbosity || Logger.DEBUG;
         }
 
         try {
-            await this.service.build(name, path, template, {destination, stylesPath, stylesType, stylesDestination, dry, verbosity});
+            await this.service.build(name, path, template, {destination, stylesPath, stylesType, stylesDestination, dry, verbosity, disableSwapVar});
         } catch(e) {
             if (Logger.DEBUG === verbosity) {
                 this.logger.log(verbosity, e.stack);

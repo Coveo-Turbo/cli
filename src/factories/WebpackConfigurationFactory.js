@@ -11,7 +11,7 @@ export default class WebpackConfigurationFactory {
         this.config = config;
     }
 
-    create(name, path, type, {destination = 'dist', stylesPath, stylesType, verbosity}) {
+    create(name, path, type, {destination = 'dist', stylesPath, stylesType, verbosity, disableSwapVar}) {
         const extension = this.scriptExtensionResolver.get(type);
         const stylesExtension = this.stylesExtensionResolver.get(stylesType);
         const namingStrategy = this.nameResolver.get(type);
@@ -37,11 +37,15 @@ export default class WebpackConfigurationFactory {
             path: Path.resolve(destination),
         };
 
-        const config = {
+        let config = {
             ...this.config, 
             entry, 
             output
         };
+
+        if (disableSwapVar) {
+            config = this.removeSwapvarLoader(config);
+        }
 
         if (verbosity) {
             this.logger.debug({...config});
@@ -72,5 +76,18 @@ export default class WebpackConfigurationFactory {
         return [
             Path.resolve(`${path}/${file}`),
         ];
+    }
+
+    removeSwapvarLoader(config) {
+        const INJECT_SWAPVAR = 'inject-swapvar';
+
+        const index = config.module.rules.findIndex(item => item.use && item.use.includes(INJECT_SWAPVAR));
+        if (index >= 0) {
+            config.module.rules[index].use = config.module.rules[index].use.filter(loader => INJECT_SWAPVAR !== loader);
+        }
+
+        delete config.resolveLoader.alias[INJECT_SWAPVAR];
+
+        return config;
     }
 }

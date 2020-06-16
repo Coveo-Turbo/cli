@@ -23,6 +23,11 @@ module.exports = {
       sass: path.resolve('./src/stylesheets'),
     }
   },
+  resolveLoader: {
+    alias: {
+      'inject-swapvar': require.resolve('./injectSwapVar'),
+    }
+  },
   externals: {
     'coveo-search-ui': {
       commonjs: 'coveo-search-ui',
@@ -39,7 +44,8 @@ module.exports = {
   },
   plugins: plugins,
   module: {
-    rules: [{
+    rules: [
+      {
         test: /\.(png|jpg|gif)$/,
         use: [{
           loader: 'file-loader',
@@ -65,7 +71,10 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
-        loader: 'ts-loader',
+        use: [
+          'ts-loader',
+          'inject-swapvar',
+        ],
         exclude: /node_modules/,
       },
       {
