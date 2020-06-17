@@ -43,15 +43,17 @@ Turbocharge your development by leveraging community-made components and contrib
 
 > It is recommended to use a bash terminal that supports Make. If this does not apply to your environment, please replace the following steps with suitable commands using the documentation.
 
-1. Create a project and sandbox:
+1. Create a new directory for your new project.
+
+2. Create a project and sandbox:
 
 ```bash
 npx @coveops/cli create:project MyProject --create-component --with-styles --with-sandbox
 ```
 
-2. Modify the source MyProject.ts and MyProject.scss files to build your component, add your Coveo credentials in the `.env` file
+3. Modify the source MyProject.ts and MyProject.scss files to build your component, add your Coveo credentials in the `.env` file
 
-3. Build and serve your project:
+4. Build and serve your project:
 
 ```bash
 make build serve

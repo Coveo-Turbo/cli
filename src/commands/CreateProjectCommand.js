@@ -20,7 +20,7 @@ export default class CreateProjectCommand extends Command {
     configure() {
         const {defaultType, path} = this.params;
         const {defaultType: stylesTemplate, path: stylesPath, defaultWithStyles} = this.stylesParams;
-        const {path: sandboxPath} = this.sandboxParams;
+        const {path: sandboxPath, name: sandboxName} = this.sandboxParams;
 
         this.args.add(new InputOption('name', InputOption.string).isRequired());
         this.options.add((new InputOption('template', InputOption.string, defaultType)));
@@ -32,6 +32,7 @@ export default class CreateProjectCommand extends Command {
         this.options.add(new InputOption('styles-template', InputOption.string, stylesTemplate));
         this.options.add((new InputOption('with-sandbox', InputOption.boolean)));
         this.options.add((new InputOption('sandbox-path', InputOption.string, sandboxPath)));
+        this.options.add((new InputOption('sandbox-name', InputOption.string, sandboxName)));
     }
 
     async action() {
@@ -98,9 +99,10 @@ export default class CreateProjectCommand extends Command {
 
         if (shouldCreateSandbox) {
             const path = this.getOption('sandbox-path');
+            const sandboxName = this.getOption('sandbox-path');
 
             try {
-                this.sandboxService.create(path);
+                this.sandboxService.create(path, sandboxName);
             } catch(e) {
                 if (Logger.DEBUG === verbosity) {
                     this.logger.log(verbosity, e.stack);
@@ -110,7 +112,7 @@ export default class CreateProjectCommand extends Command {
                 return;
             }
             
-            new SuccessMessage(`Sandbox created: ${path}/index.html`)
+            new SuccessMessage(`Sandbox created: ${path}/${sandboxName}.html`)
         }
     }
 }
