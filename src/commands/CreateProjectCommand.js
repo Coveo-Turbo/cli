@@ -116,7 +116,7 @@ export default class CreateProjectCommand extends Command {
 
         if (shouldCreateSandbox) {
             const path = this.getOption('sandbox-path');
-            const sandboxName = this.getOption('sandbox-path');
+            const sandboxName = this.getOption('sandbox-name');
 
             try {
                 this.sandboxService.create(path, sandboxName);
