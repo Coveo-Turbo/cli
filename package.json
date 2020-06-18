@@ -1,6 +1,6 @@
 {
   "name": "@coveops/cli",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "A CLI to facilitate common Coveo PS Tasks",
   "main": "coveops.js",
   "scripts": {
