@@ -88,8 +88,8 @@ test-vanilla: pack
 run-sandbox:
 	cd test && \
 	./node_modules/.bin/coveops serve \
-		--org-id $(ORG_ID) \
-		--token $(TOKEN) \
+		--org-id $(COVEO_ORG_ID) \
+		--token $(COVEO_TOKEN) \
 		--port $(SERVER_PORT)
 
 releasePatch: releaseBranch npmPatch mergeRelease tag deploy reconcileDevelop

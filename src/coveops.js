@@ -1,3 +1,4 @@
+import './env';
 import {DependencyResolver, dependencies} from 'tramway-core-dependency-injector';
 import * as parameters from './config/parameters';
 import services from './config/services';

@@ -15,8 +15,8 @@ build:
 
 serve:
 	./node_modules/.bin/coveops serve \
-		--org-id $(ORG_ID) \
-		--token $(TOKEN) \
+		--org-id $(COVEO_ORG_ID) \
+		--token $(COVEO_TOKEN) \
 		--port $(SERVER_PORT)
 
 pack: 

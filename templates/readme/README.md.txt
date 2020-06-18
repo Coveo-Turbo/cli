@@ -53,6 +53,6 @@ export class Extended__COMPONENT_NAME__ extends __COMPONENT_NAME__ {}
 ## Contribute
 
 1. Clone the project
-2. Build the code base: `npm run build`
-3. Update the test organization ID and API Token and configure your port on the `npm serve` script in the `package.json`: `--org-id <ORG_ID> --token <ORG_KEY> --port 8080`
+2. Copy `.env.dist` to `.env` and update the COVEO_ORG_ID and COVEO_TOKEN fields in the `.env` file to use your Coveo credentials and SERVER_PORT to configure the port of the sandbox - it will use 8080 by default.
+3. Build the code base: `npm run build`
 4. Serve the sandbox for live development `npm run serve`

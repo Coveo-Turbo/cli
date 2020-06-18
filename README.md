@@ -9,12 +9,14 @@ A CLI application that can house modular and reusable scripts for various Coveo 
 ## Documentation
 
 * Usage
+* Coveo Turbo Recipe
 * Build
 * Serve
 * Create a Project
 * Create a Component
 * Create a Stylesheet
 * Create a Sandbox
+* Create a Readme
 * Bundle Search Page
 
 ### Usage
@@ -31,7 +33,7 @@ Replace the COMMAND with the appropriate one from the table below with its corre
 
 Alternatively on Windows: `.\node_modules\.bin\coveops CountedTabs COMMAND`
 
-**Installed via npx:**
+**Executed via npx:**
 
 `npx @coveops/cli COMMAND`
 
@@ -48,7 +50,7 @@ Turbocharge your development by leveraging community-made components and contrib
 2. Create a project and sandbox:
 
 ```bash
-npx @coveops/cli create:project MyProject --create-component --with-styles --with-sandbox
+npx @coveops/cli create:project MyProject --create-component --with-styles --with-sandbox --description "Briefly describe what the component does"
 ```
 
 3. Modify the source MyProject.ts and MyProject.scss files to build your component, add your Coveo credentials in the `.env` file
@@ -78,6 +80,19 @@ make
 ```bash
 make build serve
 ```
+
+**Installing a component in a project**
+
+1. Install the component via its `npm` package
+
+2. Import the component into your environment by either:
+
+    * Bundling it: Export the component in the corresponding index file as outlined in the component's README. This will create one Javascript and one CSS file to host for the entire project.
+
+    * Load it via markup: The `serve` command provides a CDN-like experience to serve built and installed components independently but it will be necessary to host the component before adding it to your final project's HTML markup. It is recommended to host the component yourself but [`unpkg`](https://unpkg.com/) can be used for prototyping with an already-published component.
+
+3. Add the component to your markup as indicated in the component's README.
+
 
 ### Build
 
@@ -116,13 +131,30 @@ To specify an alternative directory containing a index.scss located at `src/styl
 ./node_modules/.bin/coveops build TestComponent --styles-path src/stylesheets
 ```
 
+#### SwapVar
+
+Coveo injects custom components into its root object by using a custom utility called `SwapVar`. With Coveo Turbo, it will be injected into the root index of the code during build time, so no additional effort or integration is necessary in a project.
+
+Thanks to the `SwapVar` utility, the exported component will be referenced in implementation JavaScript code as:
+
+```javascript
+Coveo.TestComponent
+```
+
+Without the `SwapVar` utility, achieved by using the `disable-swapvar` option in the build, the exported component library will be referenced in implementation JavaScript code as:
+
+```javascript
+CoveoTestComponent
+```
+
 ### Serve
 
 Will start a Node server designed to:
 
-- Treat the compiled dist the way a CDN would
-- Expose installed components under the @coveops namespace as hosted components
-- Serve a static HTML page of choice
+- Serve the compiled distributable as a static resource that can be loaded onto the page.
+- Serve installed components in the node_modules folder under the @coveops scope as static resources that can be loaded onto the page
+- Serve all html pages in the sandbox folder
+- Pass parameters from the environment or CLI arguments to the running instance to be used in the application via the `demoConfig` variable declared in `/config.js` when the server starts.
 
 | Argument | Command Type | Type | Default | Required | Comments |
 | --- | --- | --- | --- | --- | --- |
@@ -151,7 +183,7 @@ Some of the arguments have a corresponding environment variable that can also be
 
 | Argument | Environment Variable |
 | --- | --- |
-| port | PORT |
+| port | SERVER_PORT |
 | path | COVEO_SANDBOX_PATH |
 | org-id | COVEO_ORG_ID |
 | token | COVEO_TOKEN |
@@ -159,6 +191,47 @@ Some of the arguments have a corresponding environment variable that can also be
 | search-hub | COVEO_SEARCH_HUB |
 | search-url | COVEO_SEARCH_URL |
 | name | COVEO_SANDBOX_NAME |
+
+#### Compiled Component
+
+The compiled component will have its resources served at the following endpoints.
+
+> Note that in some cases only Javascript or CSS may be available.
+
+- `./component.js`
+- `./component.css`
+
+#### Installed Components
+
+The installed components woll have its resources served at the following endpoints.
+
+> Note that in some cases only Javascript or CSS may be available.
+
+- `components/<name>.js`
+- `components/<name>.css`
+
+The `<name>` represents the name of the component within `@coveops` scope. 
+
+Example: Importing a component installed from `@coveops/test-component` will have the following assets served:
+
+- `components/test-component.js`
+- `components/test-component.css`
+
+> Note: Alternatively, these installed components can be bundled into the library via the corresponding `index` file in the `src` before being built.
+
+#### Injected Parameters
+
+The serve command will generate a Javascript snippet that is injected into the sandbox page by importing the `/config.js` file that will provide some of the information that was passed through environment variables or CLI arguments in a global `demoConfig` variable. This allows a sandbox to remain decoupled from the test settings to allow portability between environments where component-level dependencies permit.
+
+The following information is passed in the `demoConfig` object and is available to use within the application runtime:
+
+| Property | Argument | Environment Variable | Default |
+| --- | --- | --- | --- |
+| orgId | org-id | COVEO_ORG_ID | `"null"` |
+| token | token | COVEO_TOKEN | `"null"` |
+| restUri | rest-uri | COVEO_REST_URI | `"https://platform.cloud.coveo.com/rest/search"` |
+| searchHub | search-hub | COVEO_SEARCH_HUB | `"null"` |
+| searchUrl | search-url | COVEO_SEARCH_URL | `localhost:8080/` |
 
 ### Create a Project
 
