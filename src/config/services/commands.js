@@ -6,6 +6,7 @@ import {
     ServerCommand,
     CreateSandboxCommand,
     CreateStylesheetCommand,
+    CreateReadmeCommand,
 } from '../../commands';
 
 export default {
@@ -42,6 +43,7 @@ export default {
             {"type": "service", "key": "service.component"},
             {"type": "service", "key": "service.stylesheet"},
             {"type": "service", "key": "service.sandbox"},
+            {"type": "service", "key": "service.readme"},
             {"type": "service", "key": "logger"},
             {"type": "parameter", "key": "component"},
             {"type": "parameter", "key": "stylesheet"},
@@ -71,6 +73,13 @@ export default {
             {"type": "service", "key": "service.stylesheet"},
             {"type": "service", "key": "logger"},
             {"type": "parameter", "key": "stylesheet"},
+        ],
+    },
+    "command.createreadme": {
+        "class": CreateReadmeCommand,
+        "constructor": [
+            {"type": "service", "key": "service.readme"},
+            {"type": "service", "key": "logger"},
         ],
     },
 }

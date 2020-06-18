@@ -31,6 +31,16 @@ export default {
             },
         ]
     },
+    "resolver.template:readme": {
+        "class": Resolver,
+        "constructor": [],
+        "functions": [
+            {
+                "function": "add",
+                "args": ['default', 'README.md.txt']
+            },
+        ]
+    },
     "resolver.extension:scripts": {
         "class": Resolver,
         "constructor": [],

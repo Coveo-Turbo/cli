@@ -6,11 +6,13 @@ import {
     TemplateLoader,
     PascalCaseNamingStrategy,
     CamelCaseNamingStrategy,
+    ParamCaseNamingStrategy,
     BuildService,
     ProjectService,
     InstallService,
     SandboxService,
     StylesheetService,
+    ReadmeService,
 } from '../../services';
 
 export default {
@@ -48,6 +50,14 @@ export default {
             '../../templates/components/scripts',
         ],
     },
+    "service.templateloader:readme": {
+        "class": TemplateLoader,
+        "constructor": [
+            {"type": "service", "key": "provider.file"},
+            {"type": "service", "key": "resolver.template:readme"},
+            '../../templates/readme',
+        ],
+    },
     "service.indexloader:scripts": {
         "class": TemplateLoader,
         "constructor": [
@@ -80,6 +90,10 @@ export default {
         "class": CamelCaseNamingStrategy,
         "constructor": [],
     },
+    "service.naming.paramcase": {
+        "class": ParamCaseNamingStrategy,
+        "constructor": [],
+    },
     "service.build": {
         "class": BuildService,
         "constructor": [
@@ -95,6 +109,7 @@ export default {
             {"type": "service", "key": "provider.file"},
             {"type": "service", "key": "resolver.libraries"},
             {"type": "service", "key": "service.install"},
+            {"type": "service", "key": "service.naming.paramcase"},
         ],
     },
     "service.install": {
@@ -114,6 +129,13 @@ export default {
             {"type": "service", "key": "factory.index:styles"},
             {"type": "service", "key": "provider.file"},
             {"type": "parameter", "key": "stylesheet"},
+        ],
+    },
+    "service.readme": {
+        "class": ReadmeService,
+        "constructor": [
+            {"type": "service", "key": "factory.readme"},
+            {"type": "service", "key": "provider.file"},
         ],
     },
 }

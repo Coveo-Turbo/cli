@@ -9,6 +9,7 @@ import ProjectService from './ProjectService';
 import InstallService from './InstallService';
 import SandboxService from './SandboxService';
 import StylesheetService from './StylesheetService';
+import ReadmeService from './ReadmeService';
 
 export * from './strategies';
 export {
@@ -23,4 +24,5 @@ export {
     InstallService,
     SandboxService,
     StylesheetService,
+    ReadmeService,
 }

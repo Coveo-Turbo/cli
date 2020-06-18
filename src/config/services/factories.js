@@ -3,6 +3,7 @@ import {
     IndexFactory,
     WebpackConfigurationFactory,
     StylesheetFactory,
+    ReadmeFactory,
 } from '../../factories';
 
 export default {
@@ -44,6 +45,12 @@ export default {
             {"type": "service", "key": "service.templateloader:styles"},
             {"type": "service", "key": "resolver.name:styles"},
             {"type": "service", "key": "resolver.extension:styles"},
+        ],
+    },
+    "factory.readme": {
+        "class": ReadmeFactory,
+        "constructor": [
+            {"type": "service", "key": "service.templateloader:readme"},
         ],
     },
 }

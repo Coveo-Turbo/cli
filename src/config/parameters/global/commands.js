@@ -10,4 +10,6 @@ export default {
     "sandbox:create": "command.sandbox",
     "create:stylesheet": "command.createstylesheet",
     "stylesheet:create": "command.createstylesheet",
+    "create:readme": "command.createreadme",
+    "readme:create": "command.createreadme",
 }

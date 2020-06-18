@@ -1,15 +1,16 @@
 import Path from 'path';
 
 export default class ProjectService {
-    constructor(filesResolver, fileProvider, librariesResolver, installService) {
+    constructor(filesResolver, fileProvider, librariesResolver, installService, projectNameFormatter) {
         this.filesResolver = filesResolver;
         this.fileProvider = fileProvider;
         this.librariesResolver = librariesResolver;
         this.installService = installService;
+        this.projectNameFormatter = projectNameFormatter;
     }
 
-    async create(name, type, {logger}) {
-        await this.updatePackageJson(name, type);
+    async create(name, type, {description, packageName, logger}) {
+        await this.updatePackageJson(name, type, packageName, description);
         this.addBaseFiles(type, {logger});
         await this.installBasePackages(type);
     }
@@ -41,14 +42,18 @@ export default class ProjectService {
         await this.installService.installDev(packageJson.name);
     }
 
-    async updatePackageJson(name, type) {
+    getPackageJsonContents() {
+        return this.fileProvider.read('./package.json');
+    }
+
+    async updatePackageJson(name, type, packageName, description) {
         let packageJson;
 
         try {
-            packageJson = this.fileProvider.read('./package.json');
+            packageJson = this.getPackageJsonContents();
         } catch (e) {
             await this.installService.init();
-            packageJson = this.fileProvider.read('./package.json');
+            packageJson = this.getPackageJsonContents();
         }
 
         packageJson = JSON.parse(packageJson);
@@ -63,6 +68,12 @@ export default class ProjectService {
         packageJson.files = [
             "dist"
         ];
+
+        packageJson.name = this.preparePackageName(name, packageName);
+
+        if (description && !packageJson.description) {
+            packageJson.description = description;
+        }
         
         packageJson.scripts = {
             "test": "echo \"Error: no test specified\" && exit 1",
@@ -74,5 +85,14 @@ export default class ProjectService {
         packageJson = JSON.stringify(packageJson, null, 4);
 
         this.fileProvider.write('./', 'package.json', packageJson);
+    }
+
+    preparePackageName(name, packageName) {
+        if (packageName) {
+            return this.projectNameFormatter.formatName(packageName);
+        }
+
+        name = this.projectNameFormatter.formatName(name);
+        return `@coveops/${name}`;
     }
 }

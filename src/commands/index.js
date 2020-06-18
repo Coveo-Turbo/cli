@@ -5,6 +5,7 @@ import CreateProjectCommand from './CreateProjectCommand';
 import ServerCommand from './ServerCommand';
 import CreateSandboxCommand from './CreateSandboxCommand';
 import CreateStylesheetCommand from './CreateStylesheetCommand';
+import CreateReadmeCommand from './CreateReadmeCommand';
 
 export {
     UpdateCoveoSearchPageCommand,
@@ -14,4 +15,5 @@ export {
     ServerCommand,
     CreateSandboxCommand,
     CreateStylesheetCommand,
+    CreateReadmeCommand,
 }
