@@ -17,6 +17,7 @@ A CLI application that can house modular and reusable scripts for various Coveo 
 * Create a Stylesheet
 * Create a Sandbox
 * Create a Readme
+* Create a Docker Environment
 * Bundle Search Page
 
 ### Usage
@@ -252,6 +253,7 @@ Will add the necessary files to kick-start a project to create a shareable compo
 | sandbox-path | option | string | `sandbox` | no | The path where the sandbox will be generated |
 | description | option | string | none | no | The description of the component. This will update the description on the README, as well as set the description field in the `package.json` file. |
 | package-name | option | string | none | no | The name of the package that will house the component. By default, the param-case version of the `name` will be added under the `@coveops` scope. Example, setting name as `TestComponent` will yield `@coveops/test-component`. This option is meant to override the default behavior. |
+| with-docker | option | boolean | none | no | Adds a `docker-compose.yml` file containing a NodeJS v12 environment. See more details in the `Create a Docker Environment` section. |
 | verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
 
 Example usage:
@@ -425,6 +427,34 @@ Example usage:
 ```bash
 ./node_modules/.bin/coveops create:readme TestComponent --description "This is a sample description"
 ```
+
+### Create a Docker Environment
+
+Will create or overwrite an existing docker-compose.yml file with a basic compose setup that includes a server that runs NodeJS v12 and will use the bundled Makefile to install, build, and serve the project with the configured environment variables.
+
+| Argument | Command Type | Type | Default | Required | Comments |
+| --- | --- | --- | --- | --- | --- |
+| verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
+
+Example usage:
+
+```bash
+./node_modules/.bin/coveops create:docker
+```
+
+To get started, run:
+
+```bash
+docker-compose up -d
+```
+
+To access a bash shell within the environment:
+
+```bash
+docker-compose exec server bash
+```
+
+> To only run the server during up and handle install and build manually, the `setup` and `build` directives can be removed from the `entrypoint` field in the `docker-compose.yml` file.
 
 ### Bundle a Coveo Search Page
 

@@ -10,6 +10,7 @@ import InstallService from './InstallService';
 import SandboxService from './SandboxService';
 import StylesheetService from './StylesheetService';
 import ReadmeService from './ReadmeService';
+import DockerService from './DockerService';
 
 export * from './strategies';
 export {
@@ -25,4 +26,5 @@ export {
     SandboxService,
     StylesheetService,
     ReadmeService,
+    DockerService,
 }

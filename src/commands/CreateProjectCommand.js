@@ -5,13 +5,25 @@ const {InputOption} = commands;
 const {SuccessMessage, ErrorMessage} = terminal;
 
 export default class CreateProjectCommand extends Command {
-    constructor(service, componentService, stylesheetService, sandboxService, readmeService, logger, params = {}, stylesParams = {}, sandboxParams = {}) {
+    constructor(
+        service, 
+        componentService, 
+        stylesheetService, 
+        sandboxService, 
+        readmeService, 
+        dockerService,
+        logger, 
+        params = {},
+        stylesParams = {}, 
+        sandboxParams = {}
+    ) {
         super();
         this.service = service;
         this.componentService = componentService;
         this.stylesheetService = stylesheetService;
         this.sandboxService = sandboxService;
         this.readmeService = readmeService;
+        this.dockerService = dockerService;
         this.logger = logger;
         this.params = params;
         this.stylesParams = stylesParams;
@@ -36,6 +48,7 @@ export default class CreateProjectCommand extends Command {
         this.options.add((new InputOption('sandbox-name', InputOption.string, sandboxName)));
         this.options.add((new InputOption('description', InputOption.string, '')));
         this.options.add((new InputOption('package-name', InputOption.string)));
+        this.options.add((new InputOption('with-docker', InputOption.boolean)));
     }
 
     async action() {
@@ -46,6 +59,7 @@ export default class CreateProjectCommand extends Command {
         const shouldCreateSandbox = this.getOption('with-sandbox');
         const description = this.getOption('description');
         const packageName = this.getOption('package-name');
+        const shouldCreateDocker = this.getOption('with-docker');
 
         const verbosity = this.getOption('verbosity');
         let logger;
@@ -130,6 +144,21 @@ export default class CreateProjectCommand extends Command {
             }
             
             new SuccessMessage(`Sandbox created: ${path}/${sandboxName}.html`)
+        }
+
+        if (shouldCreateDocker) {
+            try {
+                this.dockerService.create();
+            } catch(e) {
+                if (Logger.DEBUG === verbosity) {
+                    this.logger.log(verbosity, e.stack);
+                }
+    
+                new ErrorMessage(e.message);
+                return;
+            }
+            
+            new SuccessMessage(`docker-compose.yml file`)
         }
     }
 }

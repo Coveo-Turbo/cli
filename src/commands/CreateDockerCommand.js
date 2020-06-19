@@ -4,7 +4,7 @@ import Logger from 'tramway-core-logger';
 const {InputOption} = commands;
 const {SuccessMessage, ErrorMessage} = terminal;
 
-export default class CreateReadmeCommand extends Command {
+export default class CreateDockerCommand extends Command {
     constructor(service, logger) {
         super();
         this.service = service;
@@ -12,18 +12,14 @@ export default class CreateReadmeCommand extends Command {
     }
 
     configure() {
-        this.args.add(new InputOption('name', InputOption.string).isRequired());
-        this.options.add((new InputOption('description', InputOption.string, '')));
         this.options.add(new InputOption('verbosity', InputOption.string));
     }
 
     action() {
-        const name = this.getArgument('name');
-        const description = this.getOption('description');
         const verbosity = this.getOption('verbosity');
 
         try {
-            this.service.create(name, description);
+            this.service.create();
         } catch(e) {
             if (Logger.DEBUG === verbosity) {
                 this.logger.log(verbosity, e.stack);
@@ -33,6 +29,6 @@ export default class CreateReadmeCommand extends Command {
             return;
         }
         
-        new SuccessMessage(`README.md created`)
+        new SuccessMessage(`docker-compose.yml file created`)
     }
 }

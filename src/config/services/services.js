@@ -13,6 +13,7 @@ import {
     SandboxService,
     StylesheetService,
     ReadmeService,
+    DockerService,
 } from '../../services';
 
 export default {
@@ -135,6 +136,12 @@ export default {
         "class": ReadmeService,
         "constructor": [
             {"type": "service", "key": "factory.readme"},
+            {"type": "service", "key": "provider.file"},
+        ],
+    },
+    "service.docker": {
+        "class": DockerService,
+        "constructor": [
             {"type": "service", "key": "provider.file"},
         ],
     },

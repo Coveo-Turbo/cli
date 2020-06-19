@@ -12,4 +12,6 @@ export default {
     "stylesheet:create": "command.createstylesheet",
     "create:readme": "command.createreadme",
     "readme:create": "command.createreadme",
+    "create:docker": "command.createdocker",
+    "docker:create": "command.createdocker",
 }
