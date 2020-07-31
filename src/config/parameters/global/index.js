@@ -14,6 +14,7 @@ import baseFiles from './basefiles';
 import libraries from './libraries';
 import coveo from './coveo';
 import stylesheet from './stylesheet';
+import api from './api';
 
 export default {
     ...winston,
@@ -32,4 +33,5 @@ export default {
     ...libraries,
     coveo,
     stylesheet,
+    ...api,
 }

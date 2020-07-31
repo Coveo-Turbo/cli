@@ -67,9 +67,28 @@ test-npx-project: pack
 	make build && \
 	cd ../
 
+test-deploy: pack
+	rm -rf ./test && \
+	mkdir ./test && \
+	mv ./coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz ./test/coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	cd ./test && \
+	npm init -y && \
+	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	./node_modules/.bin/coveops create:project TestComponent --create-component --with-styles --with-sandbox && \
+	cat ../.env > .env && \
+	make build && \
+	./node_modules/.bin/coveops deploy index test3 --verbosity debug && \
+	cd ../
+
 build-test:
 	cd ./test && \
 	./node_modules/.bin/coveops build TestComponent
+
+update-test: pack
+	mv ./coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz ./test/coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	cd ./test && \
+	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	cd ../
 
 test-vanilla: pack
 	rm -rf ./test && \
@@ -134,4 +153,4 @@ reconcileDevelop:
 tag:
 	git tag $(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g') && git push origin --tags;
 
-.PHONY: default setup rebuild run dev enter clean pack releasePatch releaseMinor releaseMajor
+.PHONY: default setup rebuild run dev enter clean pack releasePatch releaseMinor releaseMajor test-deploy

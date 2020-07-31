@@ -12,4 +12,16 @@ export default class SandboxService {
     copy(path, name) {
         this.fileProvider.copy(Path.resolve(__dirname, `../../templates/sandbox/index.html`), `./${path}/${name}.html`);
     }
+
+    getPage(path, name) {
+        return this.fileProvider.read(`./${path}/${name}.html`);
+    }
+
+    getJavascript() {
+        return this.fileProvider.read(`./dist/index.min.js`);
+    }
+
+    getCss() {
+        return this.fileProvider.read(`./dist/css/index.min.css`);
+    }
 }

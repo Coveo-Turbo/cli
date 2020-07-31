@@ -7,6 +7,7 @@ import commands from './commands';
 import providers from './providers';
 import factories from './factories';
 import resolvers from './resolvers';
+import repositories from './repositories';
 
 export default {
     ...router,
@@ -18,4 +19,5 @@ export default {
     ...providers,
     ...factories,
     ...resolvers,
+    ...repositories,
 }

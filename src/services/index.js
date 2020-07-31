@@ -11,8 +11,12 @@ import SandboxService from './SandboxService';
 import StylesheetService from './StylesheetService';
 import ReadmeService from './ReadmeService';
 import DockerService from './DockerService';
+import PlatformPageService from './PlatformPageService';
+import DeployService from './DeployService';
+import SearchPageService from './SearchPageService';
+import HtmlParser from './HtmlParser';
+import PlatformPageStaticResourceService from './PlatformPageStaticResourceService';
 
-export * from './strategies';
 export {
     CoveoSearchPageCompiler,
     CoveoClientPageUpdater,
@@ -27,4 +31,11 @@ export {
     StylesheetService,
     ReadmeService,
     DockerService,
+    PlatformPageService,
+    DeployService,
+    SearchPageService,
+    HtmlParser,
+    PlatformPageStaticResourceService,
 }
+
+export * from './strategies';

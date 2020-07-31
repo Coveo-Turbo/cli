@@ -14,4 +14,7 @@ export default {
     "readme:create": "command.createreadme",
     "create:docker": "command.createdocker",
     "docker:create": "command.createdocker",
+    "sandbox:deploy": "command.deploy",
+    "deploy:sandbox": "command.deploy",
+    "deploy": "command.deploy",
 }

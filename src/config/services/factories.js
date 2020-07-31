@@ -4,6 +4,9 @@ import {
     WebpackConfigurationFactory,
     StylesheetFactory,
     ReadmeFactory,
+    PlatformPageFactory,
+    SearchPageFactory,
+    PlatformPageStaticResourceFactory,
 } from '../../factories';
 
 export default {
@@ -52,5 +55,20 @@ export default {
         "constructor": [
             {"type": "service", "key": "service.templateloader:readme"},
         ],
+    },
+    "factory.platformpage": {
+        "class": PlatformPageFactory,
+        "constructor": [],
+        "functions": []
+    },
+    "factory.searchpage": {
+        "class": SearchPageFactory,
+        "constructor": [],
+        "functions": []
+    },
+    "factory.platformpagestaticresource": {
+        "class": PlatformPageStaticResourceFactory,
+        "constructor": [],
+        "functions": []
     },
 }

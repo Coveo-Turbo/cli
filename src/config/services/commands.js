@@ -8,6 +8,7 @@ import {
     CreateStylesheetCommand,
     CreateReadmeCommand,
     CreateDockerCommand,
+    DeployCommand,
 } from '../../commands';
 
 export default {
@@ -89,6 +90,14 @@ export default {
         "constructor": [
             {"type": "service", "key": "service.docker"},
             {"type": "service", "key": "logger"},
+        ],
+    },
+    "command.deploy": {
+        "class": DeployCommand,
+        "constructor": [
+            {"type": "service", "key": "service.deploy"},
+            {"type": "service", "key": "logger"},
+            {"type": "parameter", "key": "coveo"},
         ],
     },
 }

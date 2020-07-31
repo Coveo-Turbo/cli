@@ -410,6 +410,44 @@ To use a different path
 ./node_modules/.bin/coveops create:sandbox --path test
 ```
 
+### Deploy a Sandbox to the Coveo Platform
+
+Will create a new page and deploy the specified sandbox and its minified Javascript and CSS there.
+
+> Note: The feature requires the project to be built and will only deploy compiled code.
+
+| Argument | Command Type | Type | Default | Required | Comments |
+| --- | --- | --- | --- | --- | --- |
+| name | argument | string | `index` | no | The name of the sandbox page that will be generated. The page will be available as the path of the local url |
+| page-name | argument | string | `index` | no | The name of the page that will be created on the Coveo Platform. The page will be available within the Search Pages section of the Coveo Platform |
+| path | option | string | `sandbox` | no | The path where the sandbox code will be generated |
+| org-id | option | string | none | yes | The id of the organization |
+| token | option | string | none | yes | The token used to authenticate to the organization |
+| verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
+
+Example usage:
+
+```bash
+./node_modules/.bin/coveops deploy
+```
+
+To deploy a specific sandbox to a specific Search page in Coveo:
+
+```bash
+./node_modules/.bin/coveops deploy index page
+```
+
+By default, creating a sandbox will create an html page called `index` and the page in the Coveo Platform can be named arbitrarily and differently from the sandbox.
+
+Some of the arguments have a corresponding environment variable that can also be used by the deploy command.
+
+| Argument | Environment Variable |
+| --- | --- |
+| path | COVEO_SANDBOX_PATH |
+| org-id | COVEO_ORG_ID |
+| token | COVEO_TOKEN |
+| name | COVEO_SANDBOX_NAME |
+
 ### Create a README file
 
 Will create or overwrite an existing README.md file with a standard template that uses contextual information provided to it.
@@ -457,6 +495,8 @@ docker-compose exec server bash
 > To only run the server during up and handle install and build manually, the `setup` and `build` directives can be removed from the `entrypoint` field in the `docker-compose.yml` file.
 
 ### Bundle a Coveo Search Page
+
+> Deprecated: It is recommended to use the deploy command specified in the _Deploy a Sandbox to the Coveo Platform_ section.
 
 The Coveo Search Page currently does not support static assets, nor versioning so a bridge is needed between development with Webpack and uploading the search page to the platform with `coveo-platform-client` version 2.11.0 or higher.
 

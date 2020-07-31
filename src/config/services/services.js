@@ -14,6 +14,11 @@ import {
     StylesheetService,
     ReadmeService,
     DockerService,
+    PlatformPageService,
+    DeployService,
+    SearchPageService,
+    HtmlParser,
+    PlatformPageStaticResourceService,
 } from '../../services';
 
 export default {
@@ -144,5 +149,41 @@ export default {
         "constructor": [
             {"type": "service", "key": "provider.file"},
         ],
+    },
+    "service.platformpage": {
+        "class": PlatformPageService,
+        "constructor": [
+            {"type": "service", "key": "repository.platformpage"}
+        ],
+        "functions": []
+    },
+    "service.searchpage": {
+        "class": SearchPageService,
+        "constructor": [
+            {"type": "service", "key": "repository.searchpage"}
+        ],
+        "functions": []
+    },
+    "service.deploy": {
+        "class": DeployService,
+        "constructor": [
+            {"type": "service", "key": "service.platformpage"},
+            {"type": "service", "key": "service.searchpage"},
+            {"type": "service", "key": "service.platformpagestaticresource"},
+            {"type": "service", "key": "service.sandbox"},
+            {"type": "service", "key": "service.htmlparser"},
+            {"type": "service", "key": "logger"},
+        ]
+    },
+    "service.htmlparser": {
+        "class": HtmlParser,
+        "constructor": []
+    },
+    "service.platformpagestaticresource": {
+        "class": PlatformPageStaticResourceService,
+        "constructor": [
+            {"type": "service", "key": "repository.platformpagestaticresource"}
+        ],
+        "functions": []
     },
 }

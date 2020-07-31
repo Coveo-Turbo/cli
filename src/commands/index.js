@@ -7,6 +7,7 @@ import CreateSandboxCommand from './CreateSandboxCommand';
 import CreateStylesheetCommand from './CreateStylesheetCommand';
 import CreateReadmeCommand from './CreateReadmeCommand';
 import CreateDockerCommand from './CreateDockerCommand';
+import DeployCommand from './DeployCommand';
 
 export {
     UpdateCoveoSearchPageCommand,
@@ -18,4 +19,5 @@ export {
     CreateStylesheetCommand,
     CreateReadmeCommand,
     CreateDockerCommand,
+    DeployCommand,
 }
