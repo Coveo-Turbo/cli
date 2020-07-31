@@ -32,7 +32,7 @@ export * from '__PACKAGE_NAME__'
 
 4. Include the component in your template as follows:
 
-Place the component after the last tab in the `coveo-tab-section`
+Place the component in your markup:
 
 ```html
 <div class="Coveo__COMPONENT_NAME__"></div>
