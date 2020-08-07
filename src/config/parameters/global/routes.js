@@ -7,6 +7,12 @@ const routeValues = [
     },
     {
         "controller": "controller.main",
+        "action": "init",
+        "path": "init.js",
+        "methods": ["get"],
+    },
+    {
+        "controller": "controller.main",
         "action": "index",
         "methods": ["get"],
         "arguments": ["name?"]

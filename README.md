@@ -157,12 +157,14 @@ Will start a Node server designed to:
 - Serve all html pages in the sandbox folder
 - Pass parameters from the environment or CLI arguments to the running instance to be used in the application via the `demoConfig` variable declared in `/config.js` when the server starts.
 
+> Note: If no org-id or token are used, then a sample organization will be used.
+
 | Argument | Command Type | Type | Default | Required | Comments |
 | --- | --- | --- | --- | --- | --- |
 | port | option | number | 8080 | no | The port number |
 | path | option | string | `sandbox` | no | The path to the dedicated sandbox folder for testing |
-| org-id | option | string | none | yes | The id of the organization |
-| token | option | string | none | yes | The token used to authenticate to the organization |
+| org-id | option | string | none | no | The id of the organization |
+| token | option | string | none | no | The token used to authenticate to the organization |
 | rest-uri | option | string | `https://platform.cloud.coveo.com/rest/search` | no | The uri used by JSUI to access the REST API |
 | search-hub | option | string | none | no | The search hub |
 | search-url | option | string | none | no | The url of a search page for a standalone searchbox |
