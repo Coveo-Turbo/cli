@@ -32,4 +32,29 @@ export default class MainController extends Controller {
 
         return res.header('content-type', 'text/javascript').send(code);
     }
+
+    async init(req, res, next) {
+        const orgId = this.sandboxPathResolver.get('org-id');
+        const token = this.sandboxPathResolver.get('token');
+        const restUri = this.sandboxPathResolver.get('rest-uri');
+
+        let code;
+
+        if (orgId && token) {
+            code = `
+                document.addEventListener('DOMContentLoaded', function () {
+                    Coveo.SearchEndpoint.configureCloudV2Endpoint(${orgId}, ${token}, ${restUri});
+                });
+            `
+        } else {
+            code = `
+                document.addEventListener('DOMContentLoaded', function () {
+                    console.warn("No orgId or token were found in your environment or in the startup of the sandbox. Falling back to demo configuration");
+                    Coveo.SearchEndpoint.configureSampleEndpointV2();
+                });
+            `
+        }
+
+        return res.header('content-type', 'text/javascript').send(code);
+    }
 }
