@@ -16,6 +16,10 @@ A CLI application that can house modular and reusable scripts for various Coveo 
 * Create a Component
 * Create a Stylesheet
 * Create a Sandbox
+* Deploy a Sandbox
+* Create Locales
+* Create a Translation
+* Update a Translation
 * Create a Readme
 * Create a Docker Environment
 * Bundle Search Page
