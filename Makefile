@@ -90,6 +90,75 @@ update-test: pack
 	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
 	cd ../
 
+test-localization: pack
+	rm -rf ./test && \
+	mkdir ./test && \
+	mv ./coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz ./test/coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	cd ./test && \
+	npm init -y && \
+	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	./node_modules/.bin/coveops create:project TestComponent --create-component --with-sandbox && \
+	cat ../.env > .env && \
+	./node_modules/.bin/coveops create:translation Stuff --en Stuff --fr Chose --es Chose && \
+	cd ../
+
+test-localization-json: pack
+	rm -rf ./test && \
+	mkdir ./test && \
+	mv ./coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz ./test/coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	cd ./test && \
+	npm init -y && \
+	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	./node_modules/.bin/coveops create:project TestComponent --create-component --with-sandbox && \
+	cat ../.env > .env && \
+	./node_modules/.bin/coveops create:locales fr es --default en && \
+	./node_modules/.bin/coveops create:translation Stuff --en Stuff --fr Chose --es Chose && \
+	./node_modules/.bin/coveops create:translation Things --en Things --fr Chose --es Chose && \
+	./node_modules/.bin/coveops create:translation Things --en Stuff --fr Chose --es Chose && \
+	./node_modules/.bin/coveops update:translation Stuff --en Things --fr Chose --es Chose && \
+	./node_modules/.bin/coveops create:translation Blank --fr Vide && \
+	./node_modules/.bin/coveops create:translation Stuff --target DynamicFacet --en Stuff --fr Chose --es Chose && \
+	./node_modules/.bin/coveops create:translation Stuff --target customId --en Things --fr Chose --es Chose && \
+	cd ../
+
+test-localization-yaml: pack
+	rm -rf ./test && \
+	mkdir ./test && \
+	mv ./coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz ./test/coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	cd ./test && \
+	npm init -y && \
+	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	./node_modules/.bin/coveops create:project TestComponent --create-component --with-sandbox && \
+	cat ../.env > .env && \
+	./node_modules/.bin/coveops create:locales fr es --default en --type yaml && \
+	./node_modules/.bin/coveops create:translation Stuff --en Stuff --fr Chose --es Chose --type yaml && \
+	./node_modules/.bin/coveops create:translation Things --en Things --fr Chose --es Chose --type yaml && \
+	./node_modules/.bin/coveops create:translation Things --en Stuff --fr Chose --es Chose --type yaml && \
+	./node_modules/.bin/coveops update:translation Stuff --en Things --fr Chose --es Chose --type yaml && \
+	./node_modules/.bin/coveops create:translation Blank --fr Vide --type yaml && \
+	./node_modules/.bin/coveops create:translation Stuff --target DynamicFacet --en Stuff --fr Chose --es Chose --type yaml && \
+	./node_modules/.bin/coveops create:translation Stuff --target customId --en Things --fr Chose --es Chose --type yaml && \
+	cd ../
+
+test-localization-js: pack
+	rm -rf ./test && \
+	mkdir ./test && \
+	mv ./coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz ./test/coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	cd ./test && \
+	npm init -y && \
+	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	./node_modules/.bin/coveops create:project TestComponent --create-component --with-sandbox && \
+	cat ../.env > .env && \
+	./node_modules/.bin/coveops create:locales fr es --default en --type js && \
+	./node_modules/.bin/coveops create:translation Stuff --en Stuff --fr Chose --es Chose --type js && \
+	./node_modules/.bin/coveops create:translation Things --en Things --fr Chose --es Chose --type js && \
+	./node_modules/.bin/coveops create:translation Things --en Stuff --fr Chose --es Chose --type js && \
+	./node_modules/.bin/coveops update:translation Stuff --en Things --fr Chose --es Chose --type js && \
+	./node_modules/.bin/coveops create:translation Blank --fr Vide --type js && \
+	./node_modules/.bin/coveops create:translation Stuff --target DynamicFacet --en Stuff --fr Chose --es Chose --type js && \
+	./node_modules/.bin/coveops create:translation Stuff --target customId --en Things --fr Chose --es Chose --type js && \
+	cd ../
+
 test-vanilla: pack
 	rm -rf ./test && \
 	mkdir ./test && \

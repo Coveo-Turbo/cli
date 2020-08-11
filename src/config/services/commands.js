@@ -9,6 +9,9 @@ import {
     CreateReadmeCommand,
     CreateDockerCommand,
     DeployCommand,
+    CreateLocalesCommand,
+    CreateTranslationCommand,
+    UpdateTranslationCommand,
 } from '../../commands';
 
 export default {
@@ -98,6 +101,30 @@ export default {
             {"type": "service", "key": "service.deploy"},
             {"type": "service", "key": "logger"},
             {"type": "parameter", "key": "coveo"},
+        ],
+    },
+    "command.createlocales": {
+        "class": CreateLocalesCommand,
+        "constructor": [
+            {"type": "service", "key": "service.locales"},
+            {"type": "service", "key": "logger"},
+            {"type": "parameter", "key": "locales"},
+        ],
+    },
+    "command.createtranslation": {
+        "class": CreateTranslationCommand,
+        "constructor": [
+            {"type": "service", "key": "service.translation"},
+            {"type": "service", "key": "logger"},
+            {"type": "parameter", "key": "locales"},
+        ],
+    },
+    "command.updatetranslation": {
+        "class": UpdateTranslationCommand,
+        "constructor": [
+            {"type": "service", "key": "service.translation"},
+            {"type": "service", "key": "logger"},
+            {"type": "parameter", "key": "locales"},
         ],
     },
 }

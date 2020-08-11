@@ -3,6 +3,9 @@ import InvalidInitializationStrategyError from './InvalidInitializationStrategyE
 import FileDoesNotExistError from './FileDoesNotExistError';
 import ProjectNotBuiltError from './ProjectNotBuiltError';
 import SandboxDoesNotExistError from './SandboxDoesNotExistError';
+import RequiresLocalesError from './RequiresLocalesError';
+import TranslationAlreadyExistsError from './TranslationAlreadyExistsError';
+import InvalidLocalizationFileTypeError from './InvalidLocalizationFileTypeError';
 
 export {
     InvalidComponentTypeError,
@@ -10,4 +13,7 @@ export {
     FileDoesNotExistError,
     ProjectNotBuiltError,
     SandboxDoesNotExistError,
+    RequiresLocalesError,
+    TranslationAlreadyExistsError,
+    InvalidLocalizationFileTypeError,
 }

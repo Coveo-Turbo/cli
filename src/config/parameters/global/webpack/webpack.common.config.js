@@ -1,13 +1,15 @@
 import path from 'path';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import BuildLocalization from './BuildLocalization';
 require('dotenv-defaults').config();
 
-const plugins = [
+const plugins = [ 
   new CleanWebpackPlugin(),
   new MiniCssExtractPlugin({
     filename: './css/[name].css'
-  })
+  }),
+  BuildLocalization(),
 ]
 
 module.exports = {

@@ -19,6 +19,9 @@ import {
     SearchPageService,
     HtmlParser,
     PlatformPageStaticResourceService,
+    LocalesService,
+    LocalesParser,
+    TranslationService,
 } from '../../services';
 
 export default {
@@ -185,5 +188,24 @@ export default {
             {"type": "service", "key": "repository.platformpagestaticresource"}
         ],
         "functions": []
+    },
+    "service.locales": {
+        "class": LocalesService,
+        "constructor": [
+            {"type": "service", "key": "provider.file"},
+            {"type": "service", "key": "service.localesparser"},
+            {"type": "parameter", "key": "locales"},
+        ],
+    },
+    "service.localesparser": {
+        "class": LocalesParser,
+        "constructor": [],
+    },
+    "service.translation": {
+        "class": TranslationService,
+        "constructor": [
+            {"type": "service", "key": "service.locales"},
+            {"type": "service", "key": "service.localesparser"},
+        ],
     },
 }

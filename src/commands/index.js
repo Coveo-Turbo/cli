@@ -8,6 +8,9 @@ import CreateStylesheetCommand from './CreateStylesheetCommand';
 import CreateReadmeCommand from './CreateReadmeCommand';
 import CreateDockerCommand from './CreateDockerCommand';
 import DeployCommand from './DeployCommand';
+import CreateLocalesCommand from './CreateLocalesCommand';
+import CreateTranslationCommand from './CreateTranslationCommand';
+import UpdateTranslationCommand from './UpdateTranslationCommand';
 
 export {
     UpdateCoveoSearchPageCommand,
@@ -20,4 +23,7 @@ export {
     CreateReadmeCommand,
     CreateDockerCommand,
     DeployCommand,
+    CreateLocalesCommand,
+    CreateTranslationCommand,
+    UpdateTranslationCommand,
 }

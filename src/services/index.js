@@ -16,6 +16,9 @@ import DeployService from './DeployService';
 import SearchPageService from './SearchPageService';
 import HtmlParser from './HtmlParser';
 import PlatformPageStaticResourceService from './PlatformPageStaticResourceService';
+import LocalesService from './LocalesService';
+import LocalesParser from './LocalesParser';
+import TranslationService from './TranslationService'
 
 export {
     CoveoSearchPageCompiler,
@@ -36,6 +39,9 @@ export {
     SearchPageService,
     HtmlParser,
     PlatformPageStaticResourceService,
+    LocalesService,
+    LocalesParser,
+    TranslationService,
 }
 
 export * from './strategies';

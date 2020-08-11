@@ -450,6 +450,124 @@ Some of the arguments have a corresponding environment variable that can also be
 | token | COVEO_TOKEN |
 | name | COVEO_SANDBOX_NAME |
 
+### Create Locales
+
+Will create and scaffold standardized locale dictionaries for the project.
+
+> Note: A build will be necessary after running this command for changes to take effect.
+
+| Argument | Command Type | Type | Default | Required | Comments |
+| --- | --- | --- | --- | --- | --- |
+| locales | argument | string[] | [] | no | The list of locales to create to use for translation dictionaries. |
+| type | option | string | `json` | no | The filetype to use when managing translations for the locale. The following formats are supported: `json|yaml|js` |
+| default | option | string | `en` | no | The default locale to use as the base for the dictionary. |
+
+Example usage:
+
+```bash
+./node_modules/.bin/coveops create:locales fr es
+```
+
+To use a different default locale as a base, you can specify it as follows:
+
+```bash
+./node_modules/.bin/coveops create:locales en es --default fr
+```
+
+To use a different filetype to manage the dictionary, you can specify it as follows:
+
+```bash
+./node_modules/.bin/coveops create:locales en fr --type yaml
+```
+
+### Create Translation
+
+Will create all the necessary translation entries or empty placeholders for a given word.
+
+This operation will not replace values that already exist, to update, please use the `update:translation` command.
+
+> Note: A build will be necessary after running this command for changes to take effect.
+
+| Argument | Command Type | Type | Default | Required | Comments |
+| --- | --- | --- | --- | --- | --- |
+| word | argument | string |  | yes | The word or key that will be replaced with the corresponding translation value. |
+| target | option | string |  | no | The component name (ex: DynamicFacet) or element id to target with the translation. |
+| type | option | string | `json` | no | The filetype to use when managing translations for the locale. It should correspond to the filetype that was used to create the locale. The following formats are supported: `json|yaml|js` |
+| <locale> | option | string | | no | An option will be generated for each locale created using the `create:locales` command, the value passed to the option will be the translation for the word for that given locale |
+
+Example usage:
+
+```bash
+./node_modules/.bin/coveops create:translation Word --en Word --fr Mot
+```
+
+> Note: In order to recognize english and french, the `create:locales` command was ran prior:
+>```bash 
+>./node_modules/.bin/coveops create:locales fr 
+>```
+> Since English is the default language by default, only fr needed to be specified.
+
+To target a specific component:
+
+```bash
+./node_modules/.bin/coveops create:translation Word --en Word --fr Mot --target DynamicFacet
+```
+
+If you used a different filetype than json when creating the locale, you can specify it as follows:
+
+```bash
+./node_modules/.bin/coveops create:translation Word --type yaml --en Word --fr Mot
+```
+
+> To use translations:
+> 1. Ensure `@coveops/localization-manager` is installed as a dependency and registered as per instructions on the component.
+> 2. Expose the translation file as per the chosen locale for the page. This file will add a variable `LOCALES` to the global namespace which can then be used throughout the process. The `LOCALES` variable will have the additional locales and is upkept with these CLI commands.
+>     ```html
+>     <script src="locales/fr.js"></script>
+>     ```
+> 3. Run the `LocalizationManager` before `Coveo` initializes.
+>     ```javascript
+>     CoveoLocalizationManager(LOCALES);
+>     ```
+
+### Update Translation
+
+Will update the translation entries for a given word. 
+
+This operation will only update translations for the locales specified in the options of the command.
+
+> Note: A build will be necessary after running this command for changes to take effect.
+
+| Argument | Command Type | Type | Default | Required | Comments |
+| --- | --- | --- | --- | --- | --- |
+| word | argument | string |  | yes | The word or key that will be replaced with the corresponding translation value. |
+| target | option | string |  | no | The component name (ex: DynamicFacet) or element id to target with the translation. |
+| <locale> | option | string | | no | An option will be generated for each locale created using the `create:locales` command, the value passed to the option will be the translation for the word for that given locale |
+
+Example usage:
+
+```bash
+./node_modules/.bin/coveops update:translation Word --fr Mot
+```
+
+> Note: In order to recognize english and french, the `create:locales` command was ran prior:
+>```bash 
+>./node_modules/.bin/coveops create:locales fr 
+>```
+> Since English is the default language by default, only fr needed to be specified.
+
+To update a translation on a targeted component:
+
+```bash
+./node_modules/.bin/coveops update:translation Word --en Word --fr Mot --target DynamicFacet
+```
+
+If you used a different filetype than json when creating the locale, you can specify it as follows:
+
+```bash
+./node_modules/.bin/coveops update:translation Word --type yaml --en Word --fr Mot
+```
+
 ### Create a README file
 
 Will create or overwrite an existing README.md file with a standard template that uses contextual information provided to it.

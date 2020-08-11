@@ -17,4 +17,10 @@ export default {
     "sandbox:deploy": "command.deploy",
     "deploy:sandbox": "command.deploy",
     "deploy": "command.deploy",
+    "create:locales": "command.createlocales",
+    "locales:create": "command.createlocales",
+    "create:translation": "command.createtranslation",
+    "translation:create": "command.createtranslation",
+    "update:translation": "command.updatetranslation",
+    "translation:update": "command.updatetranslation",
 }

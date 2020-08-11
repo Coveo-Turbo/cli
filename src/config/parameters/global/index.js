@@ -15,6 +15,7 @@ import libraries from './libraries';
 import coveo from './coveo';
 import stylesheet from './stylesheet';
 import api from './api';
+import locales from './locales';
 
 export default {
     ...winston,
@@ -34,4 +35,5 @@ export default {
     coveo,
     stylesheet,
     ...api,
+    locales,
 }

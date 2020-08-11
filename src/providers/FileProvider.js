@@ -13,6 +13,10 @@ export default class FileProvider {
         return buffer.toString();
     }
 
+    readDirectory(dir) {
+        return fs.readdirSync(dir);
+    }
+
     write(dir, fileName, content, ext, params = {}) {
         const {shouldAppend} = params;
         let options = {};
