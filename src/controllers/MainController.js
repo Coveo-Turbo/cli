@@ -43,7 +43,7 @@ export default class MainController extends Controller {
         if (orgId && token) {
             code = `
                 document.addEventListener('DOMContentLoaded', function () {
-                    Coveo.SearchEndpoint.configureCloudV2Endpoint(${orgId}, ${token}, ${restUri});
+                    Coveo.SearchEndpoint.configureCloudV2Endpoint('${orgId}', '${token}', '${restUri}');
                 });
             `
         } else {
