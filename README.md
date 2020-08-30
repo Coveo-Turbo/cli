@@ -117,11 +117,19 @@ You can also add the command to your `package.json` scripts to continue using fa
 | styles-destination | option | string | `dist/css` | no | The path where the distributable code will be generated |
 | dry | option | boolean | none | no | Will perform a dry run build and output generated webpack configuration to the console |
 | disable-swapvar | option | boolean | none | no | Will remove thr Webpack Loader that injects the `SwapVar` utility to the root `index` file before building. By default, the build command will inject `SwapVar` to add components to the root `Coveo` object at runtime |
+| watch | option | boolean | none | no | Will watch for changes and build after the `watch-timeout` |
+| watch-timeout | option | number | 1000 | no | Will watch for changes and build after the `watch-timeout`. Increase this value if you change multiple files at a time. Value in milliseconds |
 
 Example:
 
 ```bash
 ./node_modules/.bin/coveops build TestComponent
+```
+
+To watch:
+
+```bash
+./node_modules/.bin/coveops build TestComponent --watch
 ```
 
 To use vanilla Javascript

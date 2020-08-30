@@ -10,7 +10,7 @@ export default class BuildService {
 
     async build(name, path, type, options = {}) {
         const { types = [] } = this.options;
-        const { destination, stylesPath, stylesType, stylesDestination, dry, verbosity, disableSwapVar } = options;
+        const { destination, stylesPath, stylesType, stylesDestination, dry, verbosity, disableSwapVar, watch, watchOptions } = options;
 
         if (verbosity) {
             this.logger.debug({ ...options })
@@ -35,6 +35,22 @@ export default class BuildService {
 
         if (dry) {
             return;
+        }
+
+        if (watch) {
+            const {callback, ...opts} = watchOptions || {};
+
+            return await new Promise((resolve, reject) => {
+                return compiler.watch(opts, (err, res) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    callback();
+    
+                    return resolve(res);
+                })
+            })
         }
 
         return await new Promise((resolve, reject) => {

@@ -45,6 +45,17 @@ test: pack
 	./node_modules/.bin/coveops create:sandbox && \
 	cd ../
 
+test-watch: pack
+	rm -rf ./test && \
+	mkdir ./test && \
+	mv ./coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz ./test/coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	cd ./test && \
+	npm init -y && \
+	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	./node_modules/.bin/coveops create:project TestComponent --create-component --with-styles --with-sandbox && \
+	./node_modules/.bin/coveops build TestComponent --watch
+	cd ../
+
 test-npx: pack
 	rm -rf ./test && \
 	mkdir ./test && \
@@ -77,7 +88,7 @@ test-deploy: pack
 	./node_modules/.bin/coveops create:project TestComponent --create-component --with-styles --with-sandbox && \
 	cat ../.env > .env && \
 	make build && \
-	./node_modules/.bin/coveops deploy index test3 --verbosity debug && \
+	./node_modules/.bin/coveops deploy index test9 && \
 	cd ../
 
 build-test:
@@ -159,6 +170,19 @@ test-localization-js: pack
 	./node_modules/.bin/coveops create:translation Stuff --target customId --en Things --fr Chose --es Chose --type js && \
 	cd ../
 
+test-with-docker: pack
+	rm -rf ./test && \
+	mkdir ./test && \
+	mv ./coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz ./test/coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	cd ./test && \
+	npm init -y && \
+	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	./node_modules/.bin/coveops create:project TestComponent --create-component --with-styles --with-docker && \
+	cat ../.env > .env && \
+	./node_modules/.bin/coveops create:component TestComponent2 --init-strategy component --with-styles && \
+	./node_modules/.bin/coveops create:sandbox && \
+	cd ../
+
 test-vanilla: pack
 	rm -rf ./test && \
 	mkdir ./test && \
@@ -222,4 +246,4 @@ reconcileDevelop:
 tag:
 	git tag $(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g') && git push origin --tags;
 
-.PHONY: default setup rebuild run dev enter clean pack releasePatch releaseMinor releaseMajor test-deploy
+.PHONY: default setup rebuild run dev enter clean pack releasePatch releaseMinor releaseMajor test-deploy test-with-docker test-watch

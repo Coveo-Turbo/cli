@@ -39,6 +39,7 @@ export default {
             {"type": "service", "key": "logger"},
             {"type": "parameter", "key": "component"},
             {"type": "parameter", "key": "stylesheet"},
+            {"type": "parameter", "key": "watch"},
         ],
     },
     "command.createproject": {

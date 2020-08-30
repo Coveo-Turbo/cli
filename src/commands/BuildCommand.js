@@ -5,17 +5,19 @@ const {InputOption} = commands;
 const {SuccessMessage, ErrorMessage} = terminal;
 
 export default class BuildCommand extends Command {
-    constructor(service, logger, params = {}, stylesParams = {}) {
+    constructor(service, logger, params = {}, stylesParams = {}, watchOptions = {}) {
         super();
         this.service = service;
         this.logger = logger;
         this.params = params;
         this.stylesParams = stylesParams;
+        this.watchOptions = watchOptions;
     }
 
     configure() {
         const {defaultType, path, destination} = this.params;
         const {defaultType: defaultStylesType, path: stylesPath, destination: stylesDestination} = this.stylesParams;
+        const { watchTimeout } = this.watchOptions;
 
         this.args.add(new InputOption('name', InputOption.string).isRequired());
         this.options.add((new InputOption('template', InputOption.string, defaultType)));
@@ -27,6 +29,8 @@ export default class BuildCommand extends Command {
         this.options.add(new InputOption('styles-destination', InputOption.string, stylesDestination));
         this.options.add(new InputOption('dry', InputOption.boolean));
         this.options.add(new InputOption('disable-swapvar', InputOption.boolean));
+        this.options.add(new InputOption('watch', InputOption.boolean));
+        this.options.add(new InputOption('watch-timeout', InputOption.number, watchTimeout));
     }
 
     async action() {
@@ -41,13 +45,31 @@ export default class BuildCommand extends Command {
         const stylesDestination = this.getOption('styles-destination');
         const dry = this.getOption('dry');
         const disableSwapVar = this.getOption('disable-swapvar');
+        const watch = this.getOption('watch');
+        const watchTimeout = this.getOption('watch-timeout');
 
         if (dry) {
             verbosity = verbosity || Logger.DEBUG;
         }
 
+        const watchOptions = {
+            timeout: watchTimeout,
+            aggregateTimeout: watchTimeout,
+            callback: () => new SuccessMessage('Source code built and bundled! Please refresh to see the results.')
+        };
+
         try {
-            await this.service.build(name, path, template, {destination, stylesPath, stylesType, stylesDestination, dry, verbosity, disableSwapVar});
+            await this.service.build(name, path, template, {
+                destination, 
+                stylesPath, 
+                stylesType, 
+                stylesDestination, 
+                dry, 
+                verbosity, 
+                disableSwapVar, 
+                watch,
+                watchOptions,
+            });
         } catch(e) {
             if (Logger.DEBUG === verbosity) {
                 this.logger.log(verbosity, e.stack);
@@ -57,6 +79,6 @@ export default class BuildCommand extends Command {
             return;
         }
         
-        new SuccessMessage('Source code built and bundled!')
+        new SuccessMessage('Source code built and bundled! Please refresh to see the results.')
     }
 }

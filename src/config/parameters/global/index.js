@@ -16,6 +16,7 @@ import coveo from './coveo';
 import stylesheet from './stylesheet';
 import api from './api';
 import locales from './locales';
+import watch from './watch';
 
 export default {
     ...winston,
@@ -36,4 +37,5 @@ export default {
     stylesheet,
     ...api,
     locales,
+    watch,
 }
