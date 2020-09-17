@@ -30,7 +30,15 @@ const __COMPONENT_NAME__ = require('__PACKAGE_NAME__').__COMPONENT_NAME__;
 export * from '__PACKAGE_NAME__'
 ```
 
-4. Include the component in your template as follows:
+4. Or for quick testing, you can add the script from unpkg
+
+```html
+<script src="https://unpkg.com/__PACKAGE_NAME__@latest/dist/index.min.js"></script>
+```
+
+> Disclaimer: Unpkg should be used for testing but not for production.
+
+5. Include the component in your template as follows:
 
 Place the component in your markup:
 
