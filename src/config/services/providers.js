@@ -26,4 +26,16 @@ export default {
             {"type": "parameter", "key": "api.pageheader"},
         ]
     },
+    "provider.api:pipelines": {
+        "class": ApiProvider,
+        "constructor": [
+            {"type": "parameter", "key": "api.pipelines"},
+        ]
+    },
+    "provider.api:conditions": {
+        "class": ApiProvider,
+        "constructor": [
+            {"type": "parameter", "key": "api.conditions"},
+        ]
+    },
 }

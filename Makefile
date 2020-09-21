@@ -204,6 +204,18 @@ run-sandbox:
 		--token $(COVEO_TOKEN) \
 		--port $(SERVER_PORT)
 
+test-create-pipeline: pack
+	rm -rf ./test && \
+	mkdir ./test && \
+	mv ./coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz ./test/coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	cd ./test && \
+	npm init -y && \
+	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	./node_modules/.bin/coveops create:project TestComponent --create-component && \
+	cat ../.env > .env && \
+	./node_modules/.bin/coveops create:pipeline clitest1 && \
+	cd ../
+
 releasePatch: releaseBranch npmPatch mergeRelease tag deploy reconcileDevelop
 
 releaseMinor: releaseBranch npmMinor mergeRelease tag deploy reconcileDevelop
@@ -246,4 +258,4 @@ reconcileDevelop:
 tag:
 	git tag $(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g') && git push origin --tags;
 
-.PHONY: default setup rebuild run dev enter clean pack releasePatch releaseMinor releaseMajor test-deploy test-with-docker test-watch
+.PHONY: default setup rebuild run dev enter clean pack releasePatch releaseMinor releaseMajor test-deploy test-with-docker test-watch test-create-pipeline

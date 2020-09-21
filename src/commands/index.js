@@ -11,6 +11,7 @@ import DeployCommand from './DeployCommand';
 import CreateLocalesCommand from './CreateLocalesCommand';
 import CreateTranslationCommand from './CreateTranslationCommand';
 import UpdateTranslationCommand from './UpdateTranslationCommand';
+import CreatePipelineCommand from './CreatePipelineCommand';
 
 export {
     UpdateCoveoSearchPageCommand,
@@ -26,4 +27,5 @@ export {
     CreateLocalesCommand,
     CreateTranslationCommand,
     UpdateTranslationCommand,
+    CreatePipelineCommand,
 }

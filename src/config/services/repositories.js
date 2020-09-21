@@ -2,6 +2,8 @@ import {
     PlatformPageRepository,
     SearchPageRepository,
     PlatformPageStaticResourceRepository,
+    PipelineRepository,
+    ConditionRepository,
 } from '../../repositories';
 
 export default {
@@ -26,6 +28,22 @@ export default {
         "constructor": [
             {"type": "service", "key": "provider.api:pageheader"},
             {"type": "service", "key": "factory.platformpagestaticresource"}
+        ],
+        "functions": []
+    },
+    "repository.pipeline": {
+        "class": PipelineRepository,
+        "constructor": [
+            {"type": "service", "key": "provider.api:pipelines"},
+            {"type": "service", "key": "factory.pipeline"}
+        ],
+        "functions": []
+    },
+    "repository.condition": {
+        "class": ConditionRepository,
+        "constructor": [
+            {"type": "service", "key": "provider.api:conditions"},
+            {"type": "service", "key": "factory.condition"}
         ],
         "functions": []
     },

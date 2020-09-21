@@ -6,6 +6,8 @@ import ReadmeFactory from './ReadmeFactory';
 import PlatformPageFactory from './PlatformPageFactory';
 import SearchPageFactory from './SearchPageFactory';
 import PlatformPageStaticResourceFactory from './PlatformPageStaticResourceFactory';
+import PipelineFactory from './PipelineFactory';
+import ConditionFactory from './ConditionFactory';
 
 export {
     ComponentFactory,
@@ -16,4 +18,6 @@ export {
     PlatformPageFactory,
     SearchPageFactory,
     PlatformPageStaticResourceFactory,
+    PipelineFactory,
+    ConditionFactory,
 }

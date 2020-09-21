@@ -22,6 +22,8 @@ import {
     LocalesService,
     LocalesParser,
     TranslationService,
+    PipelineService,
+    ConditionService,
 } from '../../services';
 
 export default {
@@ -206,6 +208,19 @@ export default {
         "constructor": [
             {"type": "service", "key": "service.locales"},
             {"type": "service", "key": "service.localesparser"},
+        ],
+    },
+    "service.pipeline": {
+        "class": PipelineService,
+        "constructor": [
+            {"type": "service", "key": "repository.pipeline"},
+        ],
+    },
+    "service.condition": {
+        "class": ConditionService,
+        "constructor": [
+            {"type": "service", "key": "repository.condition"},
+            {"type": "service", "key": "factory.condition"},
         ],
     },
 }

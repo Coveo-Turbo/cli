@@ -7,6 +7,8 @@ import {
     PlatformPageFactory,
     SearchPageFactory,
     PlatformPageStaticResourceFactory,
+    PipelineFactory,
+    ConditionFactory,
 } from '../../factories';
 
 export default {
@@ -68,6 +70,16 @@ export default {
     },
     "factory.platformpagestaticresource": {
         "class": PlatformPageStaticResourceFactory,
+        "constructor": [],
+        "functions": []
+    },
+    "factory.pipeline": {
+        "class": PipelineFactory,
+        "constructor": [],
+        "functions": []
+    },
+    "factory.condition": {
+        "class": ConditionFactory,
         "constructor": [],
         "functions": []
     },

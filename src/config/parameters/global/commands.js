@@ -23,4 +23,6 @@ export default {
     "translation:create": "command.createtranslation",
     "update:translation": "command.updatetranslation",
     "translation:update": "command.updatetranslation",
+    "create:pipeline": "command.createpipeline",
+    "pipeline:create": "command.createpipeline",
 }

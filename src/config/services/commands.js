@@ -12,6 +12,7 @@ import {
     CreateLocalesCommand,
     CreateTranslationCommand,
     UpdateTranslationCommand,
+    CreatePipelineCommand,
 } from '../../commands';
 
 export default {
@@ -126,6 +127,15 @@ export default {
             {"type": "service", "key": "service.translation"},
             {"type": "service", "key": "logger"},
             {"type": "parameter", "key": "locales"},
+        ],
+    },
+    "command.createpipeline": {
+        "class": CreatePipelineCommand,
+        "constructor": [
+            {"type": "service", "key": "service.pipeline"},
+            {"type": "service", "key": "service.condition"},
+            {"type": "service", "key": "logger"},
+            {"type": "parameter", "key": "coveo"},
         ],
     },
 }

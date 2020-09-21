@@ -19,6 +19,8 @@ import PlatformPageStaticResourceService from './PlatformPageStaticResourceServi
 import LocalesService from './LocalesService';
 import LocalesParser from './LocalesParser';
 import TranslationService from './TranslationService'
+import PipelineService from './PipelineService';
+import ConditionService from './ConditionService';
 
 export {
     CoveoSearchPageCompiler,
@@ -42,6 +44,8 @@ export {
     LocalesService,
     LocalesParser,
     TranslationService,
+    PipelineService,
+    ConditionService,
 }
 
 export * from './strategies';

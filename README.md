@@ -22,6 +22,7 @@ A CLI application that can house modular and reusable scripts for various Coveo 
 * Update a Translation
 * Create a Readme
 * Create a Docker Environment
+* Create a Search Pipeline
 * Bundle Search Page
 
 ### Usage
@@ -625,6 +626,20 @@ docker-compose exec server bash
 ```
 
 > To only run the server during up and handle install and build manually, the `setup` and `build` directives can be removed from the `entrypoint` field in the `docker-compose.yml` file.
+
+### Create a Search Pipeline
+
+Will create a search pipeline on the organization with the searchhub condition set up.
+
+| Argument | Command Type | Type | Default | Required | Comments |
+| --- | --- | --- | --- | --- | --- |
+| name | argument | string | none | yes | The name of the pipeline to create in the org. |
+| search-hub | option | string | none | no | The searchhub to use when referring to the pipeline. By default the `search-hub` will use the value of `name`. |
+| description | option | string | none | no | Add a description to the pipeline for reference within the platform as the User Note. |
+| without-search-hub | option | boolean | none | no | Opt out of the automatic creation of the searchhub condition on this pipeline. |
+| org-id | option | string | none | yes | The id of the organization |
+| token | option | string | none | yes | The token used to authenticate to the organization |
+| verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time |
 
 ### Bundle a Coveo Search Page
 

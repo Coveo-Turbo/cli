@@ -5,6 +5,8 @@ import Readme from './Readme';
 import PlatformPage from './PlatformPage';
 import SearchPage from './SearchPage';
 import PlatformPageStaticResource from './PlatformPageStaticResource';
+import Pipeline from './Pipeline';
+import Condition from './Condition';
 
 export {
     CodeBlock,
@@ -14,4 +16,6 @@ export {
     PlatformPage,
     SearchPage,
     PlatformPageStaticResource,
+    Pipeline,
+    Condition,
 }

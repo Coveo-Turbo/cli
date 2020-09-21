@@ -23,7 +23,20 @@ export default class ApiProvider extends RestApiProvider {
     }
 
     setQueryParameter(param, value) {
+        if (!this.params.params) {
+            this.params.params = {};
+        }
+
         this.params.params[param] = value && value.trim();
+        return this;
+    }
+
+    setQueryString(param, value) {
+        if (!this.params.query) {
+            this.params.query = {};
+        }
+
+        this.params.query[param] = value && value.trim();
         return this;
     }
 
