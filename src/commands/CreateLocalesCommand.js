@@ -27,6 +27,7 @@ export default class CreateLocalesCommand extends Command {
         this.options.add((new InputOption('component-template', InputOption.string, defaultType)));
         this.options.add(new InputOption('component-path', InputOption.string, path));
         this.options.add((new InputOption('sandbox-path', InputOption.string, sandboxPath)));
+        this.options.add((new InputOption('page-path', InputOption.string, sandboxPath)));
         this.options.add(new InputOption('verbosity', InputOption.string));
     }
 
@@ -53,7 +54,7 @@ export default class CreateLocalesCommand extends Command {
         if (setup) {
             const template = this.getOption('component-template');
             const componentPath = this.getOption('component-path');
-            const sandboxPath = this.getOption('sandbox-path');
+            const sandboxPath = this.getOption('sandbox-path') || this.getOption('page-path');
 
             try {
                 await this.setupService.setup(template, componentPath, sandboxPath);

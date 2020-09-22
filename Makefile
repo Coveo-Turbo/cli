@@ -42,7 +42,7 @@ test: pack
 	./node_modules/.bin/coveops create:project TestComponent --create-component --with-styles && \
 	cat ../.env > .env && \
 	./node_modules/.bin/coveops create:component TestComponent2 --init-strategy component --with-styles && \
-	./node_modules/.bin/coveops create:sandbox && \
+	./node_modules/.bin/coveops create:page && \
 	cd ../
 
 test-watch: pack
@@ -52,7 +52,7 @@ test-watch: pack
 	cd ./test && \
 	npm init -y && \
 	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
-	./node_modules/.bin/coveops create:project TestComponent --create-component --with-styles --with-sandbox && \
+	./node_modules/.bin/coveops create:project TestComponent --create-component --with-styles --with-page && \
 	./node_modules/.bin/coveops build TestComponent --watch
 	cd ../
 
@@ -64,7 +64,7 @@ test-npx: pack
 	npx coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz create:project TestComponent --create-component --with-styles && \
 	cat ../.env > .env && \
 	npx coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz create:component TestComponent2 --init-strategy component --with-styles && \
-	npx coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz create:sandbox && \
+	npx coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz create:page && \
 	make build && \
 	cd ../
 
@@ -73,7 +73,7 @@ test-npx-project: pack
 	mkdir ./test && \
 	mv ./coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz ./test/coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
 	cd ./test && \
-	npx coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz create:project TestComponent --create-component --with-styles --with-sandbox && \
+	npx coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz create:project TestComponent --create-component --with-styles --with-page && \
 	cat ../.env > .env && \
 	make build && \
 	cd ../
@@ -85,7 +85,7 @@ test-deploy: pack
 	cd ./test && \
 	npm init -y && \
 	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
-	./node_modules/.bin/coveops create:project TestComponent --create-component --with-styles --with-sandbox && \
+	./node_modules/.bin/coveops create:project TestComponent --create-component --with-styles --with-page && \
 	cat ../.env > .env && \
 	make build && \
 	./node_modules/.bin/coveops deploy index test9 && \
@@ -108,7 +108,7 @@ test-localization: pack
 	cd ./test && \
 	npm init -y && \
 	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
-	./node_modules/.bin/coveops create:project TestComponent --create-component --with-sandbox && \
+	./node_modules/.bin/coveops create:project TestComponent --create-component --with-page && \
 	cat ../.env > .env && \
 	./node_modules/.bin/coveops create:translation Relevance --en Popular --fr Chose --es Chose && \
 	cd ../
@@ -120,7 +120,7 @@ test-localization-json: pack
 	cd ./test && \
 	npm init -y && \
 	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
-	./node_modules/.bin/coveops create:project TestComponent --create-component --with-sandbox && \
+	./node_modules/.bin/coveops create:project TestComponent --create-component --with-page && \
 	cat ../.env > .env && \
 	./node_modules/.bin/coveops create:locales fr es --default en && \
 	./node_modules/.bin/coveops create:translation Relevance --en Popular --fr Chose --es Chose && \
@@ -139,7 +139,7 @@ test-localization-yaml: pack
 	cd ./test && \
 	npm init -y && \
 	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
-	./node_modules/.bin/coveops create:project TestComponent --create-component --with-sandbox && \
+	./node_modules/.bin/coveops create:project TestComponent --create-component --with-page && \
 	cat ../.env > .env && \
 	./node_modules/.bin/coveops create:locales fr es --default en --type yaml && \
 	./node_modules/.bin/coveops create:translation Relevance --en Popular --fr Chose --es Chose --type yaml && \
@@ -158,7 +158,7 @@ test-localization-js: pack
 	cd ./test && \
 	npm init -y && \
 	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
-	./node_modules/.bin/coveops create:project TestComponent --create-component --with-sandbox && \
+	./node_modules/.bin/coveops create:project TestComponent --create-component --with-page && \
 	cat ../.env > .env && \
 	./node_modules/.bin/coveops create:locales fr es --default en --type js && \
 	./node_modules/.bin/coveops create:translation Relevance --en Popular --fr Chose --es Chose --type js && \
@@ -177,7 +177,7 @@ test-localization-setup: pack
 	cd ./test && \
 	npm init -y && \
 	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
-	./node_modules/.bin/coveops create:project TestComponent --create-component --with-sandbox && \
+	./node_modules/.bin/coveops create:project TestComponent --create-component --with-page && \
 	cat ../.env > .env && \
 	./node_modules/.bin/coveops create:locales fr es-es --setup && \
 	./node_modules/.bin/coveops create:translation Relevance --en Popular --fr Chose --es Chose && \
@@ -190,7 +190,7 @@ test-setup-locales: pack
 	cd ./test && \
 	npm init -y && \
 	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
-	./node_modules/.bin/coveops create:project TestComponent --create-component --with-sandbox --with-styles --setup-locales fr es-es && \
+	./node_modules/.bin/coveops create:project TestComponent --create-component --with-page --with-styles --setup-locales fr es-es && \
 	cat ../.env > .env && \
 	./node_modules/.bin/coveops create:translation Relevance --en Popular --fr Chose --es Chose && \
 	cd ../
@@ -205,7 +205,7 @@ test-with-docker: pack
 	./node_modules/.bin/coveops create:project TestComponent --create-component --with-styles --with-docker && \
 	cat ../.env > .env && \
 	./node_modules/.bin/coveops create:component TestComponent2 --init-strategy component --with-styles && \
-	./node_modules/.bin/coveops create:sandbox && \
+	./node_modules/.bin/coveops create:page && \
 	cd ../
 
 test-vanilla: pack
@@ -218,11 +218,11 @@ test-vanilla: pack
 	./node_modules/.bin/coveops create:project TestComponent --create-component --template vanilla && \
 	cat ../.env > .env && \
 	./node_modules/.bin/coveops create:component TestComponent2 --template vanilla && \
-	./node_modules/.bin/coveops create:sandbox TestComponent2 --template vanilla && \
-	./node_modules/.bin/coveops create:sandbox && \
+	./node_modules/.bin/coveops create:page TestComponent2 --template vanilla && \
+	./node_modules/.bin/coveops create:page && \
 	cd ../
 
-run-sandbox:
+run-page:
 	cd test && \
 	./node_modules/.bin/coveops serve \
 		--org-id $(COVEO_ORG_ID) \

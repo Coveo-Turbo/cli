@@ -53,6 +53,9 @@ export default class CreateProjectCommand extends Command {
         this.options.add((new InputOption('with-sandbox', InputOption.boolean)));
         this.options.add((new InputOption('sandbox-path', InputOption.string, sandboxPath)));
         this.options.add((new InputOption('sandbox-name', InputOption.string, sandboxName)));
+        this.options.add((new InputOption('with-page', InputOption.boolean)));
+        this.options.add((new InputOption('page-path', InputOption.string, sandboxPath)));
+        this.options.add((new InputOption('page-name', InputOption.string, sandboxName)));
         this.options.add((new InputOption('description', InputOption.string, '')));
         this.options.add((new InputOption('package-name', InputOption.string)));
         this.options.add((new InputOption('with-docker', InputOption.boolean)));
@@ -66,7 +69,7 @@ export default class CreateProjectCommand extends Command {
         const template = this.getOption('template');
         const shouldCreateComponent = this.getOption('create-component');
         const shouldCreateStylesheet = this.getOption('with-styles');
-        const shouldCreateSandbox = this.getOption('with-sandbox');
+        const shouldCreateSandbox = this.getOption('with-sandbox') || this.getOption('with-page');
         const description = this.getOption('description');
         const packageName = this.getOption('package-name');
         const shouldCreateDocker = this.getOption('with-docker');
@@ -140,8 +143,8 @@ export default class CreateProjectCommand extends Command {
         }
 
         if (shouldCreateSandbox) {
-            const path = this.getOption('sandbox-path');
-            const sandboxName = this.getOption('sandbox-name');
+            const path = this.getOption('sandbox-path') || this.getOption('page-path');
+            const sandboxName = this.getOption('sandbox-name') || this.getOption('page-name');
 
             try {
                 this.sandboxService.create(path, sandboxName);
@@ -176,7 +179,7 @@ export default class CreateProjectCommand extends Command {
             const defaultLocale = this.getOption('default-locale');
             const localeType = this.getOption('locale-type');
             const componentPath = this.getOption('component-path');
-            const sandboxPath = this.getOption('sandbox-path');
+            const sandboxPath = this.getOption('sandbox-path') || this.getOption('page-path');
 
             try {
                 this.localeService.create(defaultLocale, locales, localeType);

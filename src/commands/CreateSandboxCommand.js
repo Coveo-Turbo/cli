@@ -36,6 +36,6 @@ export default class CreateSandboxCommand extends Command {
             return;
         }
         
-        new SuccessMessage(`Sandbox created at ${path}/${name}.html`)
+        new SuccessMessage(`Page created at ${path}/${name}.html`)
     }
 }
