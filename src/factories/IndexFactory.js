@@ -6,18 +6,21 @@ export default class IndexFactory {
     }
 
     create(component, type) {
-        if (component.getAlias()) {
+        if (component instanceof Component && component.getAlias()) {
             type = `${type}-aliased`;
         }
 
         let template = this.templateLoader.load(type);
 
-        if (component.isInstalled()) {
+        if (component instanceof Component && component.isInstalled()) {
             template = template.replace('./__COMPONENT_NAME__', '__COMPONENT_NAME__');
         }
 
         template = template.replace(/__COMPONENT_NAME__/g, component.getName());
-        template = template.replace(/__COMPONENT_ALIAS__/g, component.getAlias());
+
+        if (component instanceof Component && component.getAlias()) {
+            template = template.replace(/__COMPONENT_ALIAS__/g, component.getAlias());
+        }
 
         return new Component()
             .setName('index')

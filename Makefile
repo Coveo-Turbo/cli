@@ -190,7 +190,7 @@ test-setup-locales: pack
 	cd ./test && \
 	npm init -y && \
 	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
-	./node_modules/.bin/coveops create:project TestComponent --create-component --with-sandbox --setup-locales fr es-es && \
+	./node_modules/.bin/coveops create:project TestComponent --create-component --with-sandbox --with-styles --setup-locales fr es-es && \
 	cat ../.env > .env && \
 	./node_modules/.bin/coveops create:translation Relevance --en Popular --fr Chose --es Chose && \
 	cd ../
