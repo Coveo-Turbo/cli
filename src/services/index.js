@@ -21,6 +21,8 @@ import LocalesParser from './LocalesParser';
 import TranslationService from './TranslationService'
 import PipelineService from './PipelineService';
 import ConditionService from './ConditionService';
+import IndexService from './IndexService';
+import ComponentInstallationService from './ComponentInstallationService';
 
 export {
     CoveoSearchPageCompiler,
@@ -46,6 +48,8 @@ export {
     TranslationService,
     PipelineService,
     ConditionService,
+    IndexService,
+    ComponentInstallationService,
 }
 
 export * from './strategies';

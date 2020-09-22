@@ -12,10 +12,13 @@ export default class CreateProjectCommand extends Command {
         sandboxService, 
         readmeService, 
         dockerService,
+        localeService,
+        localeSetupService,
         logger, 
         params = {},
         stylesParams = {}, 
-        sandboxParams = {}
+        sandboxParams = {},
+        localesParams = {},
     ) {
         super();
         this.service = service;
@@ -24,16 +27,20 @@ export default class CreateProjectCommand extends Command {
         this.sandboxService = sandboxService;
         this.readmeService = readmeService;
         this.dockerService = dockerService;
+        this.localeService = localeService;
+        this.localeSetupService = localeSetupService;
         this.logger = logger;
         this.params = params;
         this.stylesParams = stylesParams;
         this.sandboxParams = sandboxParams;
+        this.localesParams = localesParams;
     }
 
     configure() {
         const {defaultType, path} = this.params;
         const {defaultType: stylesTemplate, path: stylesPath, defaultWithStyles} = this.stylesParams;
         const {path: sandboxPath, name: sandboxName} = this.sandboxParams;
+        const { defaultLocale, type: localeType } = this.localesParams;
 
         this.args.add(new InputOption('name', InputOption.string).isRequired());
         this.options.add((new InputOption('template', InputOption.string, defaultType)));
@@ -49,6 +56,9 @@ export default class CreateProjectCommand extends Command {
         this.options.add((new InputOption('description', InputOption.string, '')));
         this.options.add((new InputOption('package-name', InputOption.string)));
         this.options.add((new InputOption('with-docker', InputOption.boolean)));
+        this.options.add(new InputOption('setup-locales', InputOption.array, []));
+        this.options.add(new InputOption('default-locale', InputOption.string, defaultLocale));
+        this.options.add(new InputOption('locale-type', InputOption.string, localeType));
     }
 
     async action() {
@@ -60,6 +70,7 @@ export default class CreateProjectCommand extends Command {
         const description = this.getOption('description');
         const packageName = this.getOption('package-name');
         const shouldCreateDocker = this.getOption('with-docker');
+        const locales = this.getOption('setup-locales');
 
         const verbosity = this.getOption('verbosity');
         let logger;
@@ -159,6 +170,39 @@ export default class CreateProjectCommand extends Command {
             }
             
             new SuccessMessage(`docker-compose.yml file`)
+        }
+
+        if (locales.length) {
+            const defaultLocale = this.getOption('default-locale');
+            const localeType = this.getOption('locale-type');
+            const componentPath = this.getOption('component-path');
+            const sandboxPath = this.getOption('sandbox-path');
+
+            try {
+                this.localeService.create(defaultLocale, locales, localeType);
+            } catch(e) {
+                if (Logger.DEBUG === verbosity) {
+                    this.logger.log(verbosity, e.stack);
+                }
+    
+                new ErrorMessage(e.message);
+                return;
+            }
+
+            new SuccessMessage(`The locales folder has been made with the following files: ${[defaultLocale, ...locales].map(l => `${l}.${localeType}`).join(', ')}`);
+
+            try {
+                await this.localeSetupService.setup(template, componentPath, sandboxPath);
+            } catch(e) {
+                if (Logger.DEBUG === verbosity) {
+                    this.logger.log(verbosity, e.stack);
+                }
+
+                new ErrorMessage(e.message);
+                return;
+            }
+
+            new SuccessMessage(`The localization module has been setup.`)
         }
     }
 }

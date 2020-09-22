@@ -52,10 +52,13 @@ export default {
             {"type": "service", "key": "service.sandbox"},
             {"type": "service", "key": "service.readme"},
             {"type": "service", "key": "service.docker"},
+            {"type": "service", "key": "service.locales"},
+            {"type": "service", "key": "service.componentinstallation"},
             {"type": "service", "key": "logger"},
             {"type": "parameter", "key": "component"},
             {"type": "parameter", "key": "stylesheet"},
             {"type": "parameter", "key": "coveo"},
+            {"type": "parameter", "key": "locales"},
         ],
     },
     "command.server": {
@@ -109,8 +112,11 @@ export default {
         "class": CreateLocalesCommand,
         "constructor": [
             {"type": "service", "key": "service.locales"},
+            {"type": "service", "key": "service.componentinstallation"},
             {"type": "service", "key": "logger"},
             {"type": "parameter", "key": "locales"},
+            {"type": "parameter", "key": "component"},
+            {"type": "parameter", "key": "coveo"},
         ],
     },
     "command.createtranslation": {

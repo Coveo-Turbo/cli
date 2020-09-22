@@ -13,8 +13,16 @@ export default class SandboxService {
         this.fileProvider.copy(Path.resolve(__dirname, `../../templates/sandbox/index.html`), `./${path}/${name}.html`);
     }
 
+    getPages(path) {
+        return this.fileProvider.readDirectory(`./${path}`).map(page => page.replace(/\.\w*$/, ''));
+    }
+
     getPage(path, name) {
         return this.fileProvider.read(`./${path}/${name}.html`);
+    }
+
+    savePage(path, name, contents) {
+        this.fileProvider.write(path, name, contents, 'html');
     }
 
     getJavascript() {

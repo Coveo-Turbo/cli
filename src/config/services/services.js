@@ -24,6 +24,8 @@ import {
     TranslationService,
     PipelineService,
     ConditionService,
+    IndexService,
+    ComponentInstallationService,
 } from '../../services';
 
 export default {
@@ -48,6 +50,14 @@ export default {
         "class": ComponentService,
         "constructor": [
             {"type": "service", "key": "factory.component"},
+            {"type": "service", "key": "factory.index:scripts"},
+            {"type": "service", "key": "provider.file"},
+            {"type": "parameter", "key": "component"},
+        ],
+    },
+    "service.index": {
+        "class": IndexService,
+        "constructor": [
             {"type": "service", "key": "factory.index:scripts"},
             {"type": "service", "key": "provider.file"},
             {"type": "parameter", "key": "component"},
@@ -91,6 +101,14 @@ export default {
             {"type": "service", "key": "provider.file"},
             {"type": "service", "key": "resolver.template:styles"},
             '../../templates/index/styles',
+        ],
+    },
+    "service.indexloader:component-snippets": {
+        "class": TemplateLoader,
+        "constructor": [
+            {"type": "service", "key": "provider.file"},
+            {"type": "service", "key": "resolver.component-snippets"},
+            '../../templates/component-snippets',
         ],
     },
     "service.naming.pascalcase": {
@@ -196,6 +214,18 @@ export default {
         "constructor": [
             {"type": "service", "key": "provider.file"},
             {"type": "service", "key": "service.localesparser"},
+            {"type": "parameter", "key": "locales"},
+        ],
+    },
+    "service.componentinstallation": {
+        "class": ComponentInstallationService,
+        "constructor": [
+            {"type": "service", "key": "service.install"},
+            {"type": "service", "key": "service.index"},
+            {"type": "service", "key": "resolver.extension:scripts"},
+            {"type": "service", "key": "service.htmlparser"},
+            {"type": "service", "key": "service.indexloader:component-snippets"},
+            {"type": "service", "key": "service.sandbox"},
             {"type": "parameter", "key": "locales"},
         ],
     },

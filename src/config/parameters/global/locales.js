@@ -3,6 +3,12 @@ const settings = {
     directory: 'locales',
     type: 'json',
     types: ['json', 'js', 'yaml'],
+    components: [
+        {
+            packageName: '@coveops/localization-manager', 
+            name: 'LocalizationManager',
+        },
+    ],
 };
 
 export default settings;

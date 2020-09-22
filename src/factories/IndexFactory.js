@@ -6,11 +6,22 @@ export default class IndexFactory {
     }
 
     create(component, type) {
-        const template = this.templateLoader.load(type);
+        if (component.getAlias()) {
+            type = `${type}-aliased`;
+        }
+
+        let template = this.templateLoader.load(type);
+
+        if (component.isInstalled()) {
+            template = template.replace('./__COMPONENT_NAME__', '__COMPONENT_NAME__');
+        }
+
+        template = template.replace(/__COMPONENT_NAME__/g, component.getName());
+        template = template.replace(/__COMPONENT_ALIAS__/g, component.getAlias());
 
         return new Component()
             .setName('index')
-            .setCode(template.replace(/__COMPONENT_NAME__/g, component.getName()))
+            .setCode(template)
             .setExtension(component.getExtension())
         ;
     }

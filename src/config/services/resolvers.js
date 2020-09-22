@@ -13,7 +13,15 @@ export default {
             },
             {
                 "function": "add",
+                "args": ['vanilla-aliased', 'vanilla-aliased.txt']
+            },
+            {
+                "function": "add",
                 "args": ['typescript', 'typescript.txt']
+            },
+            {
+                "function": "add",
+                "args": ['typescript-aliased', 'typescript-aliased.txt']
             },
         ]
     },
@@ -170,5 +178,15 @@ export default {
                 "args": ['lazy-dependent', 'lazyDependentComponent']
             },
         ]
-    }
+    },
+    "resolver.component-snippets": {
+        "class": Resolver,
+        "constructor": [],
+        "functions": [
+            {
+                "function": "add",
+                "args": ['@coveops/localization-manager', 'localization-manager.html']
+            },
+        ]
+    },
 }
