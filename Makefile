@@ -78,6 +78,16 @@ test-npx-project: pack
 	make build && \
 	cd ../
 
+test-npx-project-locales: pack
+	rm -rf ./test && \
+	mkdir ./test && \
+	mv ./coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz ./test/coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	cd ./test && \
+	npx coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz create:project TestComponent --create-component --with-styles --with-page --setup-locales fr es-es && \
+	cat ../.env > .env && \
+	make build && \
+	cd ../
+
 test-deploy: pack
 	rm -rf ./test && \
 	mkdir ./test && \

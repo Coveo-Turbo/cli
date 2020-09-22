@@ -9,10 +9,10 @@ export default class ProjectService {
         this.projectNameFormatter = projectNameFormatter;
     }
 
-    async create(name, type, {description, packageName, logger}) {
+    async create(name, type, {description, packageName, logger, additionalPackages}) {
         await this.updatePackageJson(name, type, packageName, description);
         this.addBaseFiles(type, {logger});
-        await this.installBasePackages(type);
+        await this.installBasePackages(type, additionalPackages);
     }
     
     addBaseFiles(type, {logger}) {
@@ -30,9 +30,9 @@ export default class ProjectService {
         }
     }
 
-    async installBasePackages(type) {
+    async installBasePackages(type, additionalPackages = []) {
         const packages = this.librariesResolver.get(type);
-        await this.installService.install(...packages);
+        await this.installService.install(...packages, ...additionalPackages);
         await this.installSelf();
     }
 

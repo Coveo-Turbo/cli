@@ -11,27 +11,29 @@ export default class ComponentInstallationService {
         this.options = options;        
     }
 
-    async setup(type, componentPath, sandboxPath) {    
+    async setup(type, componentPath, sandboxPath, shouldInstallDependency = true) {    
         const { components = [] } = this.options;
 
         try {
-            await this.installComponents(components, type, componentPath, sandboxPath);
+            await this.installComponents(components, type, componentPath, sandboxPath, shouldInstallDependency);
         } catch(e) {
             return;
         }
     }
 
-    async installComponents(components, type, componentPath, sandboxPath) {
+    async installComponents(components, type, componentPath, sandboxPath, shouldInstallDependency = true) {
         const extension = this.extensionResolver.get(type);
 
         if (!components || !components.length) {
             return;
         }
 
-        try {
-            await this.installService.install(...components.map(({packageName}) => packageName));
-        } catch(e) {
-            return;
+        if (shouldInstallDependency) {
+            try {
+                await this.installService.install(...components.map(({packageName}) => packageName));
+            } catch(e) {
+                return;
+            }
         }
 
         components.forEach(({name, packageName}) => {

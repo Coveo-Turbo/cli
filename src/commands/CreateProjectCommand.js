@@ -82,8 +82,15 @@ export default class CreateProjectCommand extends Command {
             logger = this.logger;
         }
 
+        let additionalPackages = [];
+
+        if (locales) {
+            const { components } = this.localesParams;
+            additionalPackages = components.map(({packageName}) => packageName);
+        }
+
         try {
-            await this.service.create(name, template, {description, packageName, logger});
+            await this.service.create(name, template, {description, packageName, logger, additionalPackages});
         } catch(e) {
             if (Logger.DEBUG === verbosity) {
                 this.logger.log(verbosity, e.stack);
@@ -195,7 +202,7 @@ export default class CreateProjectCommand extends Command {
             new SuccessMessage(`The locales folder has been made with the following files: ${[defaultLocale, ...locales].map(l => `${l}.${localeType}`).join(', ')}`);
 
             try {
-                await this.localeSetupService.setup(template, componentPath, sandboxPath);
+                await this.localeSetupService.setup(template, componentPath, sandboxPath, false);
             } catch(e) {
                 if (Logger.DEBUG === verbosity) {
                     this.logger.log(verbosity, e.stack);
