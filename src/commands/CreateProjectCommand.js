@@ -164,7 +164,7 @@ export default class CreateProjectCommand extends Command {
                 return;
             }
             
-            new SuccessMessage(`Sandbox created: ${path}/${sandboxName}.html`)
+            new SuccessMessage(`Page created: ${path}/${sandboxName}.html`)
         }
 
         if (shouldCreateDocker) {
