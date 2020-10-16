@@ -6,6 +6,7 @@ const coveo = {
     token: process.env.COVEO_TOKEN,
     searchHub: process.env.COVEO_SEARCH_HUB,
     searchUrl: process.env.COVEO_SEARCH_URL,
+    defaultPageLayout: process.env.COVEO_DEFAULT_PAGE_LAYOUT || 'basic-search',
 }
 
 export default coveo;

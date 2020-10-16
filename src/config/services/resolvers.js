@@ -189,4 +189,22 @@ export default {
             },
         ]
     },
+    "resolver.pagelayout": {
+        "class": Resolver,
+        "constructor": [],
+        "functions": [
+            {
+                "function": "add",
+                "args": ['default', 'default']
+            },
+            {
+                "function": "add",
+                "args": ['salesforce-community-search', 'salesforce-community-search']
+            },
+            {
+                "function": "add",
+                "args": ['servicenow-agent-panel', 'servicenow-agent-panel']
+            },
+        ]
+    },
 }
