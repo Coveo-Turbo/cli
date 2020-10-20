@@ -205,6 +205,14 @@ export default {
                 "function": "add",
                 "args": ['servicenow-agent-panel', 'servicenow-agent-panel']
             },
+            {
+                "function": "add",
+                "args": ['salesforce-agent-panel', 'salesforce-agent-panel']
+            },
+            {
+                "function": "add",
+                "args": ['salesforce-attached-results', 'salesforce-attached-results']
+            },
         ]
     },
 }

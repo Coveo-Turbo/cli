@@ -474,6 +474,8 @@ This command creates a folder with a generated search page to be used for basic 
 | basic-search | Any | This is the default page layout when no `--layout` is specified. It creates a basic search page with the generic layout including tabs, facets and result templates. |
 | servicenow-agent-panel | ServiceNow | Generates a search template tailored for ServiceNow's Agent Panel experience. |
 | salesforce-community-search | Salesforce | Generates a variant of the basic-search that's intended to be copied into a VisualForce component in a Salesforce organization. |
+| salesforce-agent-panel | Salesforce | Generates a template specific for the Salesforce Agent Panel in Lightning. |
+| salesforce-attached-results | Salesforce | Generates a template specific for the Attached Results panel in Lightning. |
 
 ### Deploy a Page to the Coveo Platform
 
