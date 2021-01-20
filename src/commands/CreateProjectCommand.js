@@ -39,7 +39,7 @@ export default class CreateProjectCommand extends Command {
     configure() {
         const {defaultType, path} = this.params;
         const {defaultType: stylesTemplate, path: stylesPath, defaultWithStyles} = this.stylesParams;
-        const {path: sandboxPath, name: sandboxName} = this.sandboxParams;
+        const {path: sandboxPath, name: sandboxName, defaultPageLayout} = this.sandboxParams;
         const { defaultLocale, type: localeType } = this.localesParams;
 
         this.args.add(new InputOption('name', InputOption.string).isRequired());
@@ -56,6 +56,7 @@ export default class CreateProjectCommand extends Command {
         this.options.add((new InputOption('with-page', InputOption.boolean)));
         this.options.add((new InputOption('page-path', InputOption.string, sandboxPath)));
         this.options.add((new InputOption('page-name', InputOption.string, sandboxName)));
+        this.options.add((new InputOption('page-layout', InputOption.string, defaultPageLayout)));
         this.options.add((new InputOption('description', InputOption.string, '')));
         this.options.add((new InputOption('package-name', InputOption.string)));
         this.options.add((new InputOption('with-docker', InputOption.boolean)));
@@ -152,9 +153,10 @@ export default class CreateProjectCommand extends Command {
         if (shouldCreateSandbox) {
             const path = this.getOption('sandbox-path') || this.getOption('page-path');
             const sandboxName = this.getOption('sandbox-name') || this.getOption('page-name');
+            const layout = this.getOption('page-layout');
 
             try {
-                this.sandboxService.create(path, sandboxName);
+                this.sandboxService.create(path, sandboxName, { layout });
             } catch(e) {
                 if (Logger.DEBUG === verbosity) {
                     this.logger.log(verbosity, e.stack);
@@ -164,7 +166,7 @@ export default class CreateProjectCommand extends Command {
                 return;
             }
             
-            new SuccessMessage(`Page created: ${path}/${sandboxName}.html`)
+            new SuccessMessage(`Page with ${layout} layout was created at: ${path}/${sandboxName}.html`)
         }
 
         if (shouldCreateDocker) {

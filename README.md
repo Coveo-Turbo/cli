@@ -4,12 +4,14 @@ A CLI application that can house modular and reusable scripts for various Coveo 
 
 ## Table of contents:
 * [Installation](#installation)
+* [Prerequisites](#prerequisites)
 * [Usage](#usage)
     - [Build](#build)
     - [Serve](#serve)
     - [Create a Project](#create-a-project)
     - [Create a Component](#create-a-component)
     - [Create a Stylesheet](#create-a-stylesheet)
+    - [Adding images](#adding-images)
     - [Create a Page](#create-a-page)
     - [Deploy a Page](#deploy-a-page-to-the-coveo-platform)
     - [Create Locales](#create-locales)
@@ -19,6 +21,9 @@ A CLI application that can house modular and reusable scripts for various Coveo 
     - [Create a Docker Environment](#create-a-docker-environment)
     - [Create a Query Pipeline](#create-a-query-pipeline)
 
+## Prerequisites
+
+NodeJS version 12 or later is required to install and use Coveo Turbo
 ## Installation
 
 To install the CLI, use the following command:
@@ -282,6 +287,7 @@ This command adds the necessary files to kick-start a project to create a sharea
 | styles-template | option | string | `sass` | no | The template of component to generate. The available options are: [`sass`, `vanilla`] |
 | with-page | option | boolean | `false` | no | Whether to create a page in which to test your component. |
 | page-path | option | string | `pages` | no | The path where the page is generated. |
+| page-layout | option | string | `basic-search` | no | The layout to use when creating the page. Consult the `create:page` reference `layout` option for advanced usage. |
 | description | option | string | none | no | The description of the component. This updates the description on the README, as well as set the description field in the `package.json` file. |
 | package-name | option | string | none | no | The name of the package that houses the component. By default, the param-case version of the `name` will be added under the `@coveops` scope. For example, setting the name as `TestComponent` yields `@coveops/test-component`. This option is meant to override the default behavior. |
 | with-docker | option | boolean | none | no | Adds a `docker-compose.yml` file containing a NodeJS v12 environment. For more details, see [`Create a Docker Environment`](#create-a-docker-environment) section. |
@@ -422,6 +428,20 @@ The `@coveops/turbo-core` library contains useful decorators that make it simple
 ./node_modules/.bin/coveops create:component TestComponent --init-strategy component
 ```
 
+### Adding images
+
+Some implementations require custom icons or images to be displayed as part of their templates.
+
+1. Add your images to the `images` folder in `src` (create the folder if it doesn't exist).
+2. Build (not necessary if you're running the watcher) the project with `make build`. The images will be copied to the `dist` folder.
+3. Refresh the page (or use `make serve` if your page isn't already running). Images will be exposed at `/images`
+
+You can use the images in css or in the markup.
+
+In css, use the relative path to the `images` folder in `src`.
+In html markup, use the relative url path starting with `/images`.
+
+The folder path will be respected one-to-one with the source. If an image is in `src/images/subfolder/image.png`, the output will be `dist/images/subfolder/image.png`. It's use in css will be `../images/subfolder/image.png` and in html will be `http://localhost:<PORT>/images/subfolder/image.png`.
 
 ### Create a Page
 
@@ -430,6 +450,7 @@ This command creates a folder with a generated search page to be used for basic 
 | Argument | Command Type | Type | Default | Required | Comments |
 | --- | --- | --- | --- | --- | --- |
 | name | argument | string | `index` | no | The name of the page page to be generated. The page is available at the path of the local url. |
+| layout | argument | string | `basic-search` | no | The name of the page layout to use when making the page. |
 | path | option | string | `pages` | no | The path where the page code is generated. |
 | verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time. |
 
@@ -456,8 +477,24 @@ This command creates a folder with a generated search page to be used for basic 
 > ```bash
 > ./node_modules/.bin/coveops create:page --path test
 > ```
+>
+> To use a specific page layout
+>
+> Note: changing the path of the page requires using the same path when serving it.
+>
+> ```bash
+> ./node_modules/.bin/coveops create:page --layout servicenow-agent-panel
+> ```
 
+#### Available Page Layouts
 
+| Name | Platform | Description |
+| --- | --- | --- |
+| basic-search | Any | This is the default page layout when no `--layout` is specified. It creates a basic search page with the generic layout including tabs, facets and result templates. |
+| servicenow-agent-panel | ServiceNow | Generates a search template tailored for ServiceNow's Agent Panel experience. |
+| salesforce-community-search | Salesforce | Generates a variant of the basic-search that's intended to be copied into a VisualForce component in a Salesforce organization. |
+| salesforce-agent-panel | Salesforce | Generates a template specific for the Salesforce Agent Panel in Lightning. |
+| salesforce-attached-results | Salesforce | Generates a template specific for the Attached Results panel in Lightning. |
 
 ### Deploy a Page to the Coveo Platform
 

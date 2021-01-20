@@ -1,16 +1,18 @@
 import Path from 'path';
 
 export default class SandboxService {
-    constructor(fileProvider) {
+    constructor(pageLayoutResolver, fileProvider) {
+        this.pageLayoutResolver = pageLayoutResolver;
         this.fileProvider = fileProvider;
     }
 
-    create(path, name) {
-        this.copy(path, name);
+    create(path, name, { layout }) {
+        const fileName = this.pageLayoutResolver.get(layout);
+        this.copy(fileName, path, name);
     }
 
-    copy(path, name) {
-        this.fileProvider.copy(Path.resolve(__dirname, `../../templates/sandbox/index.html`), `./${path}/${name}.html`);
+    copy(fileName, path, name) {
+        this.fileProvider.copy(Path.resolve(__dirname, `../../templates/sandbox/${fileName}.html`), `./${path}/${name}.html`);
     }
 
     getPages(path) {

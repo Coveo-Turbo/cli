@@ -189,4 +189,30 @@ export default {
             },
         ]
     },
+    "resolver.pagelayout": {
+        "class": Resolver,
+        "constructor": [],
+        "functions": [
+            {
+                "function": "add",
+                "args": ['default', 'default']
+            },
+            {
+                "function": "add",
+                "args": ['salesforce-community-search', 'salesforce-community-search']
+            },
+            {
+                "function": "add",
+                "args": ['servicenow-agent-panel', 'servicenow-agent-panel']
+            },
+            {
+                "function": "add",
+                "args": ['salesforce-agent-panel', 'salesforce-agent-panel']
+            },
+            {
+                "function": "add",
+                "args": ['salesforce-attached-results', 'salesforce-attached-results']
+            },
+        ]
+    },
 }

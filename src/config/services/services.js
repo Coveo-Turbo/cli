@@ -148,6 +148,7 @@ export default {
     "service.sandbox": {
         "class": SandboxService,
         "constructor": [
+            {"type": "service", "key": "resolver.pagelayout"},
             {"type": "service", "key": "provider.file"},
         ],
     },
