@@ -4,12 +4,14 @@ A CLI application that can house modular and reusable scripts for various Coveo 
 
 ## Table of contents:
 * [Installation](#installation)
+* [Prerequisites](#prerequisites)
 * [Usage](#usage)
     - [Build](#build)
     - [Serve](#serve)
     - [Create a Project](#create-a-project)
     - [Create a Component](#create-a-component)
     - [Create a Stylesheet](#create-a-stylesheet)
+    - [Adding images](#adding-images)
     - [Create a Page](#create-a-page)
     - [Deploy a Page](#deploy-a-page-to-the-coveo-platform)
     - [Create Locales](#create-locales)
@@ -19,6 +21,9 @@ A CLI application that can house modular and reusable scripts for various Coveo 
     - [Create a Docker Environment](#create-a-docker-environment)
     - [Create a Query Pipeline](#create-a-query-pipeline)
 
+## Prerequisites
+
+NodeJS version 12 or later is required to install and use Coveo Turbo
 ## Installation
 
 To install the CLI, use the following command:
@@ -423,6 +428,20 @@ The `@coveops/turbo-core` library contains useful decorators that make it simple
 ./node_modules/.bin/coveops create:component TestComponent --init-strategy component
 ```
 
+### Adding images
+
+Some implementations require custom icons or images to be displayed as part of their templates.
+
+1. Add your images to the `images` folder in `src` (create the folder if it doesn't exist).
+2. Build (not necessary if you're running the watcher) the project with `make build`. The images will be copied to the `dist` folder.
+3. Refresh the page (or use `make serve` if your page isn't already running). Images will be exposed at `/images`
+
+You can use the images in css or in the markup.
+
+In css, use the relative path to the `images` folder in `src`.
+In html markup, use the relative url path starting with `/images`.
+
+The folder path will be respected one-to-one with the source. If an image is in `src/images/subfolder/image.png`, the output will be `dist/images/subfolder/image.png`. It's use in css will be `../images/subfolder/image.png` and in html will be `http://localhost:<PORT>/images/subfolder/image.png`.
 
 ### Create a Page
 
