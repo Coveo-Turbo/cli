@@ -195,7 +195,11 @@ export default {
         "functions": [
             {
                 "function": "add",
-                "args": ['default', 'default']
+                "args": ['default', 'basic-search']
+            },
+            {
+                "function": "add",
+                "args": ['basic-search', 'basic-search']
             },
             {
                 "function": "add",

@@ -251,6 +251,18 @@ test-create-pipeline: pack
 	./node_modules/.bin/coveops create:pipeline clitest1 && \
 	cd ../
 
+test-page: pack
+	rm -rf ./test && \
+	mkdir ./test && \
+	mv ./coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz ./test/coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	cd ./test && \
+	npm init -y && \
+	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	./node_modules/.bin/coveops create:project TestComponent --create-component --with-styles && \
+	cat ../.env > .env && \
+	./node_modules/.bin/coveops create:page && \
+	cd ../
+
 test-page-layout: pack
 	rm -rf ./test && \
 	mkdir ./test && \
