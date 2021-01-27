@@ -6,7 +6,7 @@ export default class SandboxService {
         this.fileProvider = fileProvider;
     }
 
-    create(path, name, { layout }) {
+    create(path, name, { layout = 'default' }) {
         const fileName = this.pageLayoutResolver.get(layout);
         this.copy(fileName, path, name);
     }
