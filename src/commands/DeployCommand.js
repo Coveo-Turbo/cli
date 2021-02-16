@@ -21,6 +21,7 @@ export default class DeployCommand extends Command {
         this.options.add(new InputOption('org-id', InputOption.string, orgId));
         this.options.add(new InputOption('token', InputOption.string, token));
         this.options.add(new InputOption('verbosity', InputOption.string));
+        this.options.add(new InputOption('bundle', InputOption.boolean));
     }
 
     async action() {
@@ -30,9 +31,10 @@ export default class DeployCommand extends Command {
         const orgId = this.getOption('org-id');
         const token = this.getOption('token');
         const verbosity = this.getOption('verbosity');
+        const shouldBundle = this.getOption('bundle');
         
         try {
-            await this.service.deploy(name, pageName, {path, orgId, token, verbosity});
+            await this.service.deploy(name, pageName, {path, orgId, token, verbosity, shouldBundle});
         } catch(e) {
             console.error(e)
             if (Logger.DEBUG === verbosity) {

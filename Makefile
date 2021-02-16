@@ -101,6 +101,19 @@ test-deploy: pack
 	./node_modules/.bin/coveops deploy index test9 && \
 	cd ../
 
+test-deploy-bundle: pack
+	rm -rf ./test && \
+	mkdir ./test && \
+	mv ./coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz ./test/coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	cd ./test && \
+	npm init -y && \
+	npm i -D coveops-cli-$(shell git tag --sort=-v:refname | head -n 1 | sed 's/v//g').tgz && \
+	./node_modules/.bin/coveops create:project TestComponent --create-component --with-styles --with-page && \
+	cat ../.env > .env && \
+	make build && \
+	./node_modules/.bin/coveops deploy index test9 --bundle && \
+	cd ../
+
 build-test:
 	cd ./test && \
 	./node_modules/.bin/coveops build TestComponent
