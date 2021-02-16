@@ -510,6 +510,7 @@ This command creates a new page and deploys the specified page and its minified 
 | org-id | option | string | none | yes | The ID of the Coveo Cloud organization. |
 | token | option | string | none | yes | The token used to authenticate to the organization. |
 | verbosity | option | string | none | no | Adjusts the verbosity of error logging during the run-time. |
+| bundle | option | boolean | false | no | Determines whether Javascript and CSS should be bundled into the page contents instead of uploaded as static resources. |
 
 > Example usage:
 >

@@ -11,7 +11,7 @@ export default class DeployService {
         this.logger = logger;
     }
 
-    async deploy(sandboxName, pageName, {path, orgId, token, verbosity}) {
+    async deploy(sandboxName, pageName, {path, orgId, token, verbosity, shouldBundle}) {
         let page, contents, resource, scripts, styles;
 
         this.manageParameters(orgId, token)
@@ -66,6 +66,13 @@ export default class DeployService {
 
         this.setPageId(page);
 
+        if (shouldBundle) {
+            contents += `
+                <script>${scripts}</script>
+                <style>${styles}</style>
+            `;
+        }
+
         try {
             page = await this.updateHtml(page, contents);
         } catch(e) {
@@ -76,17 +83,19 @@ export default class DeployService {
             this.logger.info({...page});
         }
 
-        try {
-            await this.upsertOrRemoveStaticResource('javascript', sandboxName, scripts, { verbosity });
-        } catch (e) {
-            throw e;
-        }
+        if (!shouldBundle) {
+            try {
+                await this.upsertOrRemoveStaticResource('javascript', sandboxName, scripts, { verbosity });
+            } catch (e) {
+                throw e;
+            }
 
-        try {
-            await this.upsertOrRemoveStaticResource('css', sandboxName, styles, { verbosity });
-        } catch (e) {
-            throw e;
-        }
+            try {
+                await this.upsertOrRemoveStaticResource('css', sandboxName, styles, { verbosity });
+            } catch (e) {
+                throw e;
+            }
+        }        
     }
 
     manageParameters(orgId, token) {
