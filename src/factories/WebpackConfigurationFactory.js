@@ -11,7 +11,7 @@ export default class WebpackConfigurationFactory {
         this.config = config;
     }
 
-    create(name, path, type, {destination = 'dist', stylesPath, stylesType, verbosity, disableSwapVar}) {
+    create(name, path, type, {destination = 'dist', stylesPath, stylesType, verbosity, disableSwapVar, performanceThreshold}) {
         const extension = this.scriptExtensionResolver.get(type);
         const stylesExtension = this.stylesExtensionResolver.get(stylesType);
         const namingStrategy = this.nameResolver.get(type);
@@ -45,6 +45,10 @@ export default class WebpackConfigurationFactory {
 
         if (disableSwapVar) {
             config = this.removeSwapvarLoader(config);
+        }
+
+        if (performanceThreshold) {
+            config = this.injectPerformanceThresholdOverride(config, performanceThreshold);
         }
 
         if (verbosity) {
@@ -87,6 +91,16 @@ export default class WebpackConfigurationFactory {
         }
 
         delete config.resolveLoader.alias[INJECT_SWAPVAR];
+
+        return config;
+    }
+
+    injectPerformanceThresholdOverride(config, performanceThreshold) {
+        config.performance = {
+            hints: false,
+            maxEntrypointSize: performanceThreshold,
+            maxAssetSize: performanceThreshold,
+        }
 
         return config;
     }
