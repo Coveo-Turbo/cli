@@ -10,7 +10,7 @@ export default class BuildService {
 
     async build(name, path, type, options = {}) {
         const { types = [] } = this.options;
-        const { destination, stylesPath, stylesType, stylesDestination, dry, verbosity, disableSwapVar, watch, watchOptions } = options;
+        const { destination, stylesPath, stylesType, stylesDestination, dry, verbosity, disableSwapVar, watch, watchOptions, performanceThreshold } = options;
 
         if (verbosity) {
             this.logger.debug({ ...options })
@@ -20,7 +20,7 @@ export default class BuildService {
             throw new InvalidComponentTypeError(type, types);
         }
 
-        const config = this.webpackConfigFactory.create(name, path, type, { verbosity, destination, stylesPath, stylesType, stylesDestination, disableSwapVar });
+        const config = this.webpackConfigFactory.create(name, path, type, { verbosity, destination, stylesPath, stylesType, stylesDestination, disableSwapVar, performanceThreshold });
         let compiler;
 
         try {

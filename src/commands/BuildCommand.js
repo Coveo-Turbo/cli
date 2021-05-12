@@ -31,6 +31,7 @@ export default class BuildCommand extends Command {
         this.options.add(new InputOption('disable-swapvar', InputOption.boolean));
         this.options.add(new InputOption('watch', InputOption.boolean));
         this.options.add(new InputOption('watch-timeout', InputOption.number, watchTimeout));
+        this.options.add(new InputOption('performance-threshold', InputOption.number));
     }
 
     async action() {
@@ -47,6 +48,7 @@ export default class BuildCommand extends Command {
         const disableSwapVar = this.getOption('disable-swapvar');
         const watch = this.getOption('watch');
         const watchTimeout = this.getOption('watch-timeout');
+        const performanceThreshold = this.getOption('performance-threshold');
 
         if (dry) {
             verbosity = verbosity || Logger.DEBUG;
@@ -69,6 +71,7 @@ export default class BuildCommand extends Command {
                 disableSwapVar, 
                 watch,
                 watchOptions,
+                performanceThreshold,
             });
         } catch(e) {
             if (Logger.DEBUG === verbosity) {
